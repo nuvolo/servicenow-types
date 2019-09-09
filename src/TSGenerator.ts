@@ -1,8 +1,9 @@
 import ts from "typescript";
 import path from "path";
 import { promises as fs, default as fss } from "fs";
-import { SNApiHierarchy, SNClass, SNMethodMap, SNMethodParam, TSG } from "./common";
+import { SNC, TSG } from "./common";
 const NO_NAMESPACE = "No namespace qualifier";
+const OUTPUT_DIR = "types";
 const _ = undefined;
 const printer = ts.createPrinter();
 
@@ -17,22 +18,20 @@ export function generateFiles(opts: TSG.Base) {
 }
 
 async function generateIndexFile(opts: TSG.GenIndexOpts) {
-  const { release, api, type } = opts;
   let fileName = "index.d.ts";
   let sourceFile = ts.createSourceFile(fileName, "", ts.ScriptTarget.Latest, false, ts.ScriptKind.TS);
   let importDecs = await createImportsForIndex(opts);
   let exportDecs = await createExportsForIndex(opts);
   sourceFile.statements = ts.createNodeArray(importDecs.concat(exportDecs));
-  let filePath = path.join(__dirname, "output", release, api, type, fileName);
+  let filePath = path.join(getBasePath(opts), fileName);
   let parentDir = path.dirname(filePath);
   if (!fss.existsSync(parentDir)) {
     fss.mkdirSync(parentDir, { recursive: true });
   }
-  console.log(`Creating index file in ${filePath}...`);
   await fs.writeFile(filePath, printer.printFile(sourceFile));
 }
 
-function getModuleMap(hierarchy: SNApiHierarchy) {
+function getModuleMap(hierarchy: SNC.SNApiHierarchy) {
   let moduleMap = new Map<string, string>();
   for (let namespaceName in hierarchy) {
     let namespace = hierarchy[namespaceName];
@@ -55,12 +54,12 @@ async function processNamespace(opts: TSG.ProcessNSOpts) {
 }
 
 async function generateNamespaceFile(opts: TSG.ProcessNSOpts) {
-  let { namespaceName, release, api, type } = opts;
+  let { namespaceName } = opts;
   let sourceFile = ts.createSourceFile(`${namespaceName}.d.ts`, "", ts.ScriptTarget.Latest, false, ts.ScriptKind.TS);
   let exportDecs = generateExportsForNamespace(opts);
   sourceFile.statements = ts.createNodeArray(exportDecs);
   let fileName = `${namespaceName}.d.ts`;
-  let filePath = path.join(__dirname, "output", release, api, type, fileName);
+  let filePath = path.join(getBasePath(opts), fileName);
   let parentDir = path.dirname(filePath);
   if (!fss.existsSync(parentDir)) {
     fss.mkdirSync(parentDir, { recursive: true });
@@ -84,7 +83,6 @@ async function generateAPIClass(opts: TSG.ProcessClassOpts) {
   let exportDec = generateExport(prefixedClassName);
   let statements = [...importDecs, classDec, exportDec];
   sourceFile.statements = ts.createNodeArray(statements);
-
   let filePath = generateTypeFilePath({ ...opts, fileName });
   let parentDir = path.dirname(filePath);
   ensurePathExists(parentDir);
@@ -115,12 +113,17 @@ async function generateExtendedClass(opts: TSG.ProcessClassOpts) {
   }
 }
 
+function getBasePath(opts: TSG.Base) {
+  const { api, type } = opts;
+  return path.join(__dirname, OUTPUT_DIR, api, type);
+}
+
 function generateTypeFilePath(opts: TSG.GenFilePathArgs) {
-  const { release, api, type, fileName, namespaceName } = opts;
+  const { fileName, namespaceName } = opts;
   if (namespaceName !== NO_NAMESPACE) {
-    return path.join(__dirname, "output", release, api, type, namespaceName, fileName);
+    return path.join(getBasePath(opts), namespaceName, fileName);
   }
-  return path.join(__dirname, "output", release, api, type, fileName);
+  return path.join(getBasePath(opts), fileName);
 }
 
 function ensurePathExists(ensurePath: string) {
@@ -245,10 +248,11 @@ function getAPIClassName(className: string) {
 function generateClassMembers(opts: TSG.ProcessClassOpts): ts.ClassElement[] {
   let { _class } = opts;
   let methods = generateMethods(_class.methods, _class);
-  return methods;
+  let properties = generateProperties(_class.properties) as ts.ClassElement[];
+  return properties.concat(methods);
 }
 
-function generateMethods(methods: SNMethodMap, _class: SNClass) {
+function generateMethods(methods: SNC.SNMethodMap, _class: SNC.SNClass) {
   let tsMethods: ts.ClassElement[] = [];
   for (let methodName in methods) {
     let method = methods[methodName];
@@ -270,13 +274,19 @@ function generateMethods(methods: SNMethodMap, _class: SNClass) {
   return tsMethods;
 }
 
-function generateParameters(params: SNMethodParam[], _class: SNClass) {
+function generateProperties(properties: SNC.Property[]) {
+  return properties.map(prop => {
+    return ts.createProperty(_, _, prop.name, _, generateType(prop.type), _);
+  });
+}
+
+function generateParameters(params: SNC.SNMethodParam[], _class: SNC.SNClass) {
   return params.map(param => {
     return ts.createParameter(_, _, _, param.name, _, generateType(param.type, _class), _);
   });
 }
 
-function generateType(typeName: string, _class: SNClass): ts.TypeNode {
+function generateType(typeName: string, _class?: SNC.SNClass): ts.TypeNode {
   let types = ts.SyntaxKind;
   let basicTypes = new Map<string, ts.TypeNode>();
   basicTypes

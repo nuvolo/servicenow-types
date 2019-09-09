@@ -1,23 +1,6 @@
-import dotenv from "dotenv";
 import axios, { AxiosResponse } from "axios";
 import striptags from "striptags";
-import {
-  SNResponse,
-  DocsObj,
-  SNApiHierarchy,
-  NavbarItem,
-  SNClass,
-  ClassData,
-  SNClassMethod,
-  ClassMethod,
-  SNMethodInstance,
-  SNMethodParam,
-  SNClassDependency,
-  SNApiNamespace,
-  SNMethodMap,
-  SNC
-} from "./common";
-dotenv.config();
+import { SNC } from "./common";
 let cookie = process.env.COOKIE;
 let userToken = process.env.USER_TOKEN;
 let client = axios.create({
@@ -34,7 +17,7 @@ const BEWTEEN_REQUESTS_MS = 300;
 async function getRootConfig(opts: SNC.HierarchyOpts) {
   const { release, api } = opts;
   try {
-    let res: AxiosResponse<SNResponse<SNC.DocsBase>> = await client.get("/devportal.do", {
+    let res: AxiosResponse<SNC.SNResponse<SNC.DocsBase>> = await client.get("/devportal.do", {
       params: {
         sysparm_data: JSON.stringify({
           action: "api.docs",
@@ -54,7 +37,7 @@ async function getRootConfig(opts: SNC.HierarchyOpts) {
 
 async function getClassInfo(classArgs: { release: string; id: string }) {
   let { release, id } = classArgs;
-  let res: AxiosResponse<SNResponse<DocsObj>> = await client.get("/devportal.do", {
+  let res: AxiosResponse<SNC.SNResponse<SNC.DocsObj>> = await client.get("/devportal.do", {
     params: {
       sysparm_data: JSON.stringify({
         action: "api.docs",
@@ -75,11 +58,11 @@ function wait() {
 }
 
 export async function getAPIHierarchy(opts: SNC.HierarchyOpts) {
-  let hierarchy: SNApiHierarchy = {};
+  let hierarchy: SNC.SNApiHierarchy = {};
   let root = await getRootConfig(opts);
   let { navbar } = root;
-  let namespacePromises: { [namespace: string]: Promise<{ classes: SNClass[] }> } = {};
-  let navbarItems: NavbarItem[] = [];
+  let namespacePromises: { [namespace: string]: Promise<{ classes: SNC.SNClass[] }> } = {};
+  let navbarItems: SNC.NavbarItem[] = [];
   if (isClient(opts)) {
     navbarItems = (root as SNC.ClientDocs).navbar.client;
   } else {
@@ -105,38 +88,41 @@ function isClient(opts: SNC.HierarchyOpts) {
   return opts.api === CLIENT_API;
 }
 
-function getNamespaceName(namespace: NavbarItem) {
+function getNamespaceName(namespace: SNC.NavbarItem) {
   return namespace.name.split("-")[0].trim();
 }
 
-async function processNamespace(opts: SNC.NSOpts): Promise<SNApiNamespace> {
+async function processNamespace(opts: SNC.NSOpts): Promise<SNC.SNApiNamespace> {
   const { namespace, release } = opts;
-  let classes: SNClass[] = [];
+  let classes: SNC.SNClass[] = [];
   let classPromises = [];
   for (let item of namespace.items) {
     classPromises.push(getClassInfo({ release, id: item.dc_identifier || "" }));
   }
   let classResults = await Promise.all(classPromises);
-  for (let classRes of classResults) {
-    let methods = getMethods(classRes);
-    let dependencies = getDependencies(methods, classRes);
-    let classObj: SNClass = {
-      name: classRes.name.split(" ")[0],
+  for (let _class of classResults) {
+    let methods = getMethods(_class);
+    let properties = getProperties(_class);
+    let dependencies = getDependencies({ ...opts, methods, _class, properties });
+    let classObj: SNC.SNClass = {
+      name: _class.name.split(" ")[0],
       methods,
-      dependencies
+      dependencies,
+      properties
     };
     classes.push(classObj);
   }
   return { classes };
 }
 
-function getMethods(c: ClassData) {
-  let methods: { [name: string]: SNClassMethod } = {};
+function getMethods(c: SNC.ClassData) {
+  let methods: { [name: string]: SNC.SNClassMethod } = {};
   if (c.children) {
-    for (let m of c.children) {
+    let methodList = c.children.filter(child => child.type === "Method");
+    for (let m of methodList) {
       let methodName = getMethodName(m);
       if (!methods.hasOwnProperty(methodName)) {
-        let method: SNClassMethod = {
+        let method: SNC.SNClassMethod = {
           description: m.text || "",
           instances: []
         };
@@ -148,15 +134,36 @@ function getMethods(c: ClassData) {
   return methods;
 }
 
-function getMethodName(method: ClassMethod) {
+function getProperties(c: SNC.ClassData): SNC.Property[] {
+  if (c.children) {
+    return c.children
+      .filter(child => child.type === "Property")
+      .map(prop => {
+        return {
+          name: prop.name,
+          type: determinePropertyType(prop)
+        };
+      });
+  }
+  return [];
+}
+
+function determinePropertyType(prop: SNC.ClassChild) {
+  if (prop.children) {
+    return parseType(prop.children.filter(child => child.type === "Parameter")[0].text);
+  }
+  return "";
+}
+
+function getMethodName(method: SNC.ClassChild) {
   if (method.type === "Constructor") {
     return "constructor";
   }
   return method.name.split("(")[0];
 }
 
-function processMethod(m: ClassMethod): SNMethodInstance {
-  let params: SNMethodParam[] = [];
+function processMethod(m: SNC.ClassChild): SNC.SNMethodInstance {
+  let params: SNC.SNMethodParam[] = [];
   let returns = undefined;
   if (m.children) {
     for (let child of m.children) {
@@ -178,7 +185,8 @@ function processMethod(m: ClassMethod): SNMethodInstance {
   };
 }
 
-function getDependencies(methods: SNMethodMap, _class: ClassData) {
+function getDependencies(opts: SNC.GetDependenciesOpts) {
+  let { methods, _class, properties } = opts;
   //non-dependency-types
   let ndt = new Set<string>();
   ndt
@@ -190,7 +198,7 @@ function getDependencies(methods: SNMethodMap, _class: ClassData) {
     .add("void");
 
   let depSet = new Set<string>();
-  let dependencies: SNClassDependency[] = [];
+  let dependencies: SNC.SNClassDependency[] = [];
   for (let methodName in methods) {
     let method = methods[methodName];
     for (let instance of method.instances) {
@@ -204,6 +212,11 @@ function getDependencies(methods: SNMethodMap, _class: ClassData) {
           depSet.add(instance.returns);
         }
       }
+    }
+  }
+  for (let prop of properties) {
+    if (validDep(prop.type)) {
+      depSet.add(prop.type);
     }
   }
   depSet.forEach(cur => {
