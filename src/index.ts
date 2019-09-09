@@ -1,3 +1,7 @@
+import dotenv from "dotenv";
+dotenv.config({
+  path: "../.env"
+});
 import { getAPIHierarchy } from "./SNClient";
 import { generateFiles } from "./TSGenerator";
 
