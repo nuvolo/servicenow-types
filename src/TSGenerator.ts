@@ -2,7 +2,7 @@ import ts from "typescript";
 import path from "path";
 import { promises as fs, default as fss } from "fs";
 import { SNC, TSG } from "./common";
-const NO_NAMESPACE = "No namespace qualifier";
+export const NO_NAMESPACE = "No namespace qualifier";
 const OUTPUT_DIR = "types";
 const _ = undefined;
 const printer = ts.createPrinter();
@@ -115,7 +115,7 @@ async function generateExtendedClass(opts: TSG.ProcessClassOpts) {
 
 function getBasePath(opts: TSG.Base) {
   const { api, type } = opts;
-  return path.join(__dirname, OUTPUT_DIR, api, type);
+  return path.join(__dirname, OUTPUT_DIR, api);
 }
 
 function generateTypeFilePath(opts: TSG.GenFilePathArgs) {

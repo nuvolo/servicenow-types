@@ -19,10 +19,22 @@ export module SNC {
     type: string;
   }
 
+  interface LegacyNavBarOpts extends HierarchyOpts {
+    navbar: LegacyNavBar;
+  }
+
+  type LegacyNavBar = ClassData[];
+
+  interface ClientNavBarOpts extends HierarchyOpts {
+    navbar: ClientNavBar;
+  }
+
+  interface ClientNavBar {
+    [key: string]: string | ClassData[];
+  }
+
   interface ClientDocs extends DocsBase {
-    navbar: {
-      client: NavbarItem[];
-    };
+    navbar: ClientNavBar;
   }
 
   interface ServerDocs extends DocsBase {
@@ -46,19 +58,19 @@ export module SNC {
     _class: ClassData;
     properties: Property[];
   }
-  export interface SNClass {
+  interface SNClass {
     name: string;
     dependencies: SNClassDependency[];
     methods: SNMethodMap;
     properties: Property[];
   }
-  export interface SNResponse<T> {
+  interface SNResponse<T> {
     result: {
       data: T;
     };
   }
 
-  export interface DocsObj {
+  interface DocsObj {
     blurb: string;
     class_data: ClassData;
     is_namespace_supported: boolean;
@@ -83,7 +95,7 @@ export module SNC {
     variable?: string;
   }
 
-  export interface ClassData extends DocNode {
+  interface ClassData extends DocNode {
     is_current: boolean;
     is_highlighted: true;
     level?: string;
@@ -126,6 +138,10 @@ export module SNC {
     name: string;
     type: string;
     description: string;
+  }
+
+  interface ProcessClassOpts extends NSOpts {
+    _class: ClassData;
   }
 }
 export module TSG {

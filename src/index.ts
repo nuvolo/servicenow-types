@@ -4,12 +4,19 @@ dotenv.config({
 });
 import { getAPIHierarchy } from "./SNClient";
 import { generateFiles } from "./TSGenerator";
-
-const RELEASE = "madrid";
-const API = "server";
-const TYPE = "scoped";
+import { SNC } from "./common";
+const release = "madrid";
+const configurations: SNC.HierarchyOpts[] = [
+  { release, api: "server", type: "scoped" },
+  { release, api: "client", type: "all" }
+  // { release, api: "server_legacy", type: "global" }
+];
 main();
 async function main() {
-  let hierarchy = await getAPIHierarchy({ release: RELEASE, api: API, type: TYPE });
-  generateFiles({ hierarchy, release: RELEASE, api: API, type: TYPE });
+  for (let conf of configurations) {
+    console.log(`Loading ${conf.api}...`);
+    let hierarchy = await getAPIHierarchy(conf);
+    console.log(`Generating files for ${conf.api}...`);
+    await generateFiles({ ...conf, hierarchy });
+  }
 }

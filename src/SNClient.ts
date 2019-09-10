@@ -1,6 +1,7 @@
 import axios, { AxiosResponse } from "axios";
 import striptags from "striptags";
 import { SNC } from "./common";
+import { NO_NAMESPACE } from "./TSGenerator";
 let cookie = process.env.COOKIE;
 let userToken = process.env.USER_TOKEN;
 let client = axios.create({
@@ -12,7 +13,8 @@ let client = axios.create({
 });
 
 const CLIENT_API = "client";
-const BEWTEEN_REQUESTS_MS = 300;
+const LEGACY_API = "server_legacy";
+const MS_BETWEEN_REQUESTS = 500;
 
 async function getRootConfig(opts: SNC.HierarchyOpts) {
   const { release, api } = opts;
@@ -30,30 +32,33 @@ async function getRootConfig(opts: SNC.HierarchyOpts) {
     });
     return res.data.result.data;
   } catch (e) {
-    console.error(e);
     throw e;
   }
 }
 
 async function getClassInfo(classArgs: { release: string; id: string }) {
   let { release, id } = classArgs;
-  let res: AxiosResponse<SNC.SNResponse<SNC.DocsObj>> = await client.get("/devportal.do", {
-    params: {
-      sysparm_data: JSON.stringify({
-        action: "api.docs",
-        data: {
-          id,
-          release
-        }
-      })
-    }
-  });
-  return res.data.result.data.class_data;
+  try {
+    let res: AxiosResponse<SNC.SNResponse<SNC.DocsObj>> = await client.get("/devportal.do", {
+      params: {
+        sysparm_data: JSON.stringify({
+          action: "api.docs",
+          data: {
+            id,
+            release
+          }
+        })
+      }
+    });
+    return res.data.result.data.class_data;
+  } catch (e) {
+    throw e;
+  }
 }
 
 function wait() {
   return new Promise((resolve, reject) => {
-    setTimeout(resolve, BEWTEEN_REQUESTS_MS);
+    setTimeout(resolve, MS_BETWEEN_REQUESTS);
   });
 }
 
@@ -63,19 +68,22 @@ export async function getAPIHierarchy(opts: SNC.HierarchyOpts) {
   let { navbar } = root;
   let namespacePromises: { [namespace: string]: Promise<{ classes: SNC.SNClass[] }> } = {};
   let navbarItems: SNC.NavbarItem[] = [];
-  if (isClient(opts)) {
-    navbarItems = (root as SNC.ClientDocs).navbar.client;
-  } else {
-    navbarItems = navbar;
-  }
   try {
-    for (let namespace of navbarItems) {
-      namespacePromises[getNamespaceName(namespace)] = processNamespace({ ...opts, namespace });
-      await wait();
-    }
-    await Promise.all(Object.values(namespacePromises));
-    for (let nameSpaceName in namespacePromises) {
-      hierarchy[nameSpaceName] = await namespacePromises[nameSpaceName];
+    if (isClient(opts)) {
+      let clientNavbar = navbar as SNC.ClientNavBar;
+      hierarchy = await processClientNavBar({ ...opts, navbar: clientNavbar });
+    } else if (isLegacy(opts)) {
+      let legacyNavbar = navbar as SNC.LegacyNavBar;
+      hierarchy[NO_NAMESPACE] = await processLegacyNavbar({ ...opts, navbar: legacyNavbar });
+    } else {
+      for (let namespace of navbar as SNC.NavbarItem[]) {
+        namespacePromises[getNamespaceName(namespace)] = processNamespace({ ...opts, namespace });
+        await wait();
+      }
+      await Promise.all(Object.values(namespacePromises));
+      for (let nameSpaceName in namespacePromises) {
+        hierarchy[nameSpaceName] = await namespacePromises[nameSpaceName];
+      }
     }
     return hierarchy;
   } catch (e) {
@@ -86,6 +94,52 @@ export async function getAPIHierarchy(opts: SNC.HierarchyOpts) {
 
 function isClient(opts: SNC.HierarchyOpts) {
   return opts.api === CLIENT_API;
+}
+
+function isLegacy(opts: SNC.HierarchyOpts) {
+  return opts.api === LEGACY_API;
+}
+
+async function processLegacyNavbar(opts: SNC.LegacyNavBarOpts) {
+  let { navbar, release } = opts;
+  let classPromises: Promise<SNC.ClassData>[] = [];
+  for (let _class of navbar) {
+    classPromises.push(getClassInfo({ release, id: _class.dc_identifier || "" }));
+    await wait();
+  }
+  let classResults = await Promise.all(classPromises);
+  let classes = classResults.map(_class => {
+    return processClass({
+      ...opts,
+      _class,
+      namespace: { dc_identifier: "", items: [], name: NO_NAMESPACE, type: "Namespace" }
+    });
+  });
+  return { classes };
+}
+
+async function processClientNavBar(opts: SNC.ClientNavBarOpts) {
+  let hierarchy: SNC.SNApiHierarchy = {};
+  let { navbar, release } = opts;
+  let clientSpace = navbar.client as SNC.ClassData[];
+  let classPromises: Promise<SNC.ClassData>[] = [];
+  for (let _class of clientSpace) {
+    classPromises.push(getClassInfo({ release, id: _class.dc_identifier || "" }));
+    await wait();
+  }
+  let classResults = await Promise.all(classPromises);
+  let classes = classResults.map(_class => {
+    return processClass({
+      ...opts,
+      _class,
+      namespace: { dc_identifier: "", items: [], name: NO_NAMESPACE, type: "Namespace" }
+    });
+  });
+  hierarchy[NO_NAMESPACE] = {
+    classes
+  };
+
+  return hierarchy;
 }
 
 function getNamespaceName(namespace: SNC.NavbarItem) {
@@ -100,19 +154,36 @@ async function processNamespace(opts: SNC.NSOpts): Promise<SNC.SNApiNamespace> {
     classPromises.push(getClassInfo({ release, id: item.dc_identifier || "" }));
   }
   let classResults = await Promise.all(classPromises);
-  for (let _class of classResults) {
-    let methods = getMethods(_class);
-    let properties = getProperties(_class);
-    let dependencies = getDependencies({ ...opts, methods, _class, properties });
-    let classObj: SNC.SNClass = {
-      name: _class.name.split(" ")[0],
-      methods,
-      dependencies,
-      properties
-    };
-    classes.push(classObj);
-  }
+  classes = classResults.map(_class => {
+    return processClass({ ...opts, _class });
+  });
+  // for (let _class of classResults) {
+  //   let methods = getMethods(_class);
+  //   let properties = getProperties(_class);
+  //   let dependencies = getDependencies({ ...opts, methods, _class, properties });
+  //   let classObj: SNC.SNClass = {
+  //     name: _class.name.split(" ")[0],
+  //     methods,
+  //     dependencies,
+  //     properties
+  //   };
+  //   classes.push(classObj);
+  // }
   return { classes };
+}
+
+function processClass(opts: SNC.ProcessClassOpts) {
+  let { _class } = opts;
+  let methods = getMethods(_class);
+  let properties = getProperties(_class);
+  let dependencies = getDependencies({ ...opts, methods, _class, properties });
+  let classObj: SNC.SNClass = {
+    name: _class.name.split(" ")[0],
+    methods,
+    dependencies,
+    properties
+  };
+  return classObj;
 }
 
 function getMethods(c: SNC.ClassData) {
@@ -121,6 +192,9 @@ function getMethods(c: SNC.ClassData) {
     let methodList = c.children.filter(child => child.type === "Method");
     for (let m of methodList) {
       let methodName = getMethodName(m);
+      if (methodName.indexOf(".") > -1) {
+        continue;
+      }
       if (!methods.hasOwnProperty(methodName)) {
         let method: SNC.SNClassMethod = {
           description: m.text || "",
@@ -159,7 +233,7 @@ function getMethodName(method: SNC.ClassChild) {
   if (method.type === "Constructor") {
     return "constructor";
   }
-  return method.name.split("(")[0];
+  return sanitizeMethodName(method.name);
 }
 
 function processMethod(m: SNC.ClassChild): SNC.SNMethodInstance {
@@ -195,8 +269,11 @@ function getDependencies(opts: SNC.GetDependenciesOpts) {
     .add("boolean")
     .add("any")
     .add("any[]")
-    .add("void");
-
+    .add("void")
+    .add("htmlelement")
+    .add("htmlformelement")
+    .add("this")
+    .add("promise<any>");
   let depSet = new Set<string>();
   let dependencies: SNC.SNClassDependency[] = [];
   for (let methodName in methods) {
@@ -239,7 +316,8 @@ function parseType(inputType: string) {
   let stripped = striptags(inputType);
   //take first word because sometimes there's more words. Not the best solution I know...
   let firstWord = stripped.split(" ")[0];
-  let normalized = getNormalizedType(firstWord);
+  let noSymbols = firstWord.replace(/,/, "");
+  let normalized = getNormalizedType(noSymbols);
   return normalized;
 }
 
@@ -249,10 +327,17 @@ function getNormalizedType(type: string) {
   incorrectTypesMap.set("SysListControl", "GlideSysListControl");
   incorrectTypesMap.set("RESTResponse", "RESTResponseV2");
   incorrectTypesMap.set("Strings", "string");
+  incorrectTypesMap.set("groupBy", "string");
+  incorrectTypesMap.set("Promise", "Promise<any>");
+  incorrectTypesMap.set("node", "HTMLElement");
+  incorrectTypesMap.set("???", "any");
+  incorrectTypesMap.set("name/value", "any");
+  incorrectTypesMap.set("Void", "void");
+
   let typeConversionMap: { [type: string]: RegExp } = {
     string: /^string$/i,
     boolean: /^boolean$/i,
-    any: /^object|map|mapstring|standardcredential|list|notifyaction|json$/i,
+    any: /^object|map|mapstring|standardcredential|list|notifyaction|json|function|window|glidemenuitem|glidemodal|\s$/i,
     number: /^number|integer|int$/i,
     "any[]": /^array|arraylist$/i
   };
@@ -274,9 +359,15 @@ function getNormalizedType(type: string) {
 function sanitizeParamName(name: string) {
   let disallowed = new Set<string>();
   disallowed.add("function");
+  disallowed.add("default");
+  disallowed.add("class");
   if (disallowed.has(name)) {
     name = `_${name as string}`;
   }
-  name = name.replace(/[\s\.]/g, "_");
-  return name;
+  let splitName = name.split("(")[0];
+  return splitName.replace(/[\s\.]/g, "_");
+}
+
+function sanitizeMethodName(name: string) {
+  return name.split("(")[0];
 }
