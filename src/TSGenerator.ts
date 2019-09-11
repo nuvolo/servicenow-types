@@ -1,9 +1,10 @@
 import ts from "typescript";
 import path from "path";
 import { promises as fs, default as fss } from "fs";
-import { SNC, TSG } from "./common";
+import { comment } from "./CommentGenerator";
+import { SNC, TSG, Mod } from "./common";
 export const NO_NAMESPACE = "No namespace qualifier";
-const OUTPUT_DIR = "types";
+const OUTPUT_DIR = "../";
 const _ = undefined;
 const printer = ts.createPrinter();
 
@@ -21,8 +22,9 @@ async function generateIndexFile(opts: TSG.GenIndexOpts) {
   let fileName = "index.d.ts";
   let sourceFile = ts.createSourceFile(fileName, "", ts.ScriptTarget.Latest, false, ts.ScriptKind.TS);
   let importDecs = await createImportsForIndex(opts);
+  let addonStatements = await processAddonsForIndex(opts);
   let exportDecs = await createExportsForIndex(opts);
-  sourceFile.statements = ts.createNodeArray(importDecs.concat(exportDecs));
+  sourceFile.statements = ts.createNodeArray(importDecs.concat(addonStatements, exportDecs));
   let filePath = path.join(getBasePath(opts), fileName);
   let parentDir = path.dirname(filePath);
   if (!fss.existsSync(parentDir)) {
@@ -115,7 +117,7 @@ async function generateExtendedClass(opts: TSG.ProcessClassOpts) {
 
 function getBasePath(opts: TSG.Base) {
   const { api, type } = opts;
-  return path.join(__dirname, OUTPUT_DIR, api);
+  return path.resolve(__dirname, OUTPUT_DIR, api);
 }
 
 function generateTypeFilePath(opts: TSG.GenFilePathArgs) {
@@ -225,6 +227,31 @@ async function createImportsForIndex(opts: TSG.GenIndexOpts) {
     }) as ts.Statement[];
 }
 
+async function processAddonsForIndex(opts: TSG.GenIndexOpts) {
+  let statements: ts.Statement[] = [];
+  let { api } = opts;
+  let addonPath = path.join(__dirname, `${api}_addons.js`);
+  let hasAddons = fss.existsSync(addonPath);
+  if (hasAddons) {
+    let addonsMod = await import(addonPath);
+    let addons = addonsMod.default as Mod.AddOns;
+    const { dependencies, variables } = addons;
+    for (let dep of dependencies) {
+      statements.push(generateNamedImport(dep.name, dep.path));
+    }
+    for (let v of variables) {
+      let dec = ts.createVariableDeclaration(v.name, generateType(v.type));
+      let decList = ts.createVariableDeclarationList([dec]);
+      let declareKW = ts.createModifier(ts.SyntaxKind.DeclareKeyword);
+      let varStatement = ts.createVariableStatement([declareKW], decList);
+      statements.push(varStatement);
+      let varExport = generateExport(v.name);
+      statements.push(varExport);
+    }
+  }
+  return statements;
+}
+
 async function createExportsForIndex(opts: TSG.GenIndexOpts) {
   const { hierarchy } = opts;
   let exportDecs: ts.Statement[] = [];
@@ -264,6 +291,12 @@ function generateMethods(methods: SNC.SNMethodMap, _class: SNC.SNClass) {
           ? generateType(inst.returns, _class)
           : ts.createKeywordTypeNode(ts.SyntaxKind.VoidKeyword);
         let genMethod = ts.createMethod(_, _, _, methodId, _, _, parameters, returnType, _);
+        ts.addSyntheticLeadingComment(
+          genMethod,
+          ts.SyntaxKind.MultiLineCommentTrivia,
+          generateMethodComment(method, inst),
+          true
+        );
         tsMethods.push(genMethod);
       } else {
         let _constructor = ts.createConstructor(_, _, parameters, _);
@@ -272,6 +305,15 @@ function generateMethods(methods: SNC.SNMethodMap, _class: SNC.SNClass) {
     }
   }
   return tsMethods;
+}
+
+function generateMethodComment(method: SNC.SNClassMethod, instance: SNC.SNMethodInstance) {
+  let c = comment();
+  c.description(method.description);
+  for (let p of instance.params) {
+    c.param(p.name, p.description);
+  }
+  return c.render();
 }
 
 function generateProperties(properties: SNC.Property[]) {

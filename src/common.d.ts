@@ -179,3 +179,27 @@ export module TSG {
     fileName: string;
   }
 }
+
+export module CG {
+  interface Param {
+    name: string;
+    description: string;
+  }
+}
+
+export module Mod {
+  interface AddOns {
+    dependencies: Dependency[];
+    variables: Variable[];
+  }
+
+  interface Variable {
+    name: string;
+    type: string;
+  }
+
+  interface Dependency {
+    name: string;
+    path: string;
+  }
+}

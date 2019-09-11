@@ -157,18 +157,6 @@ async function processNamespace(opts: SNC.NSOpts): Promise<SNC.SNApiNamespace> {
   classes = classResults.map(_class => {
     return processClass({ ...opts, _class });
   });
-  // for (let _class of classResults) {
-  //   let methods = getMethods(_class);
-  //   let properties = getProperties(_class);
-  //   let dependencies = getDependencies({ ...opts, methods, _class, properties });
-  //   let classObj: SNC.SNClass = {
-  //     name: _class.name.split(" ")[0],
-  //     methods,
-  //     dependencies,
-  //     properties
-  //   };
-  //   classes.push(classObj);
-  // }
   return { classes };
 }
 
@@ -189,7 +177,7 @@ function processClass(opts: SNC.ProcessClassOpts) {
 function getMethods(c: SNC.ClassData) {
   let methods: { [name: string]: SNC.SNClassMethod } = {};
   if (c.children) {
-    let methodList = c.children.filter(child => child.type === "Method");
+    let methodList = c.children.filter(child => child.type === "Method" || child.type === "Constructor");
     for (let m of methodList) {
       let methodName = getMethodName(m);
       if (methodName.indexOf(".") > -1) {
