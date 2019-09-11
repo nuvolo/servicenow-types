@@ -20,7 +20,7 @@ declare class SNAPIGlideModalFormV3 {
     /**
      * Sets the function to be called after the form has been loaded.
      * @param callbackFunction The function to be called after the form has been loaded. The callback function
-     * has the form <samp class="ph codeph">callBackFunction(GlideModalForm obj)</samp>
+     * has the form callBackFunction(GlideModalForm obj)
     */
     setOnloadCallback(callbackFunction: any): void;
     /**

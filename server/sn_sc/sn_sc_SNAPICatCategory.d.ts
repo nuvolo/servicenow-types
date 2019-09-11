@@ -2,10 +2,10 @@ declare class sn_sc_SNAPICatCategory {
     /**
      * Adds the Available For user criteria to a catalog
      * category.
-     * @param action Specify <kbd class="ph userinput">add</kbd> to add the user criteria to the
-     * <span class="ph uicontrol">Available For</span> list. <p class="p">Specify
-     * <kbd class="ph userinput">delete</kbd> to delete the user criteria from the
-     * <span class="ph uicontrol">Available For</span> list.</p>
+     * @param action Specify add to add the user criteria to the
+     * Available For list. Specify
+     * delete to delete the user criteria from the
+     * Available For list.
      * @param criteriaIDs Array of the user criteria sys_ids.
     */
     availableForUserCriteria(action: string, criteriaIDs: any[]): void;
@@ -13,12 +13,12 @@ declare class sn_sc_SNAPICatCategory {
      * Determines whether a specified user can view a specified category on a mobile device or
      * desktop.
      * @param isMobile Flag that indicates whether to verify the user for access on a mobile device or
-     * desktop.<ul class="ul" id="CCS-canView_B_S__ul_zpd_3nk_chb">
-     * <li class="li">true: validate for mobile.</li>
+     * desktop.
+     * true: validate for mobile.
      *
-     * <li class="li">false: validate for desktop.</li>
+     * false: validate for desktop.
      *
-     * </ul>
+     *
      * @param userSysId Unique identifier of the user to validate.
     */
     canView(isMobile: boolean, userSysId: string): boolean;
@@ -40,10 +40,10 @@ declare class sn_sc_SNAPICatCategory {
     /**
      * Adds the Not Available For user criteria to a catalog
      * category.
-     * @param action Specify <kbd class="ph userinput">add</kbd> to add the user criteria to the
-     * <span class="ph uicontrol">Not Available For</span> list. <p class="p">Specify
-     * <kbd class="ph userinput">delete</kbd> to delete the user criteria from the
-     * <span class="ph uicontrol">Not Available For</span> list.</p>
+     * @param action Specify add to add the user criteria to the
+     * Not Available For list. Specify
+     * delete to delete the user criteria from the
+     * Not Available For list.
     */
     notAvailableForUserCriteria(action: string): void;
     /**

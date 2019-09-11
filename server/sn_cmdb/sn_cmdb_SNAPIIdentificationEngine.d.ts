@@ -8,31 +8,31 @@ declare class sn_cmdb_SNAPIIdentificationEngine {
      * @param input A JSON formatted string of configuration items to be added or updated. Each
      * input string is in the format  'items: [{}], relations:[{}], related[{}]', where
      * each item within the items,  relations, and related lists contains name-value pairs.
-     * <div class="p">The possible name-value pairs within the items list are:<ul class="ul" id="IESS-createorUpdateCI_S_S__d622e94">
-     * <li class="li">className - the sys_class_name of the CI to be created or updated.</li>
+     * The possible name-value pairs within the items list are:
+     * className - the sys_class_name of the CI to be created or updated.
      *
-     * <li class="li">values:{} - the field information for the CI as name-value pairs, where the
+     * values:{} - the field information for the CI as name-value pairs, where the
      * name is the field name. When updating reference fields, the value must be the
-     * referenced sys_id.</li>
+     * referenced sys_id.
      *
-     * <li class="li">lookup:[{}] - a list of records with each item having name-value pairs like
-     * the items list. </li>
+     * lookup:[{}] - a list of records with each item having name-value pairs like
+     * the items list.
      *
-     * <li class="li">related: [{}] - a list of records with each item having name-value pairs
-     * like the items list.</li>
+     * related: [{}] - a list of records with each item having name-value pairs
+     * like the items list.
      *
-     * </ul>
-     * </div>
-     * <div class="p">The possible name-value pairs within the relations list are:<ul class="ul" id="IESS-createorUpdateCI_S_S__d622e110">
-     * <li class="li">parent - index of the parent item in the dependency relation</li>
      *
-     * <li class="li">child - index of the child item in the dependency relation</li>
      *
-     * <li class="li">type - the relationship type. This is one of the name field values from the
-     * cmdb_rel_type table.</li>
+     * The possible name-value pairs within the relations list are:
+     * parent - index of the parent item in the dependency relation
      *
-     * </ul>
-     * </div>
+     * child - index of the child item in the dependency relation
+     *
+     * type - the relationship type. This is one of the name field values from the
+     * cmdb_rel_type table.
+     *
+     *
+     *
     */
     createOrUpdateCI(source: string, input: string): string;
     /**
@@ -40,28 +40,28 @@ declare class sn_cmdb_SNAPIIdentificationEngine {
      * payload without committing the operation in the database.
      * @param jsonString A JSON formatted string of configuration items to be added or updated. Each
      * input string is in the format  'items: [{}], relations:[{}]', where each item within
-     * the items and relations lists contains name-value pairs. <div class="p">The possible name-value
-     * pairs within the items list are:<ul class="ul" id="IESS-identifyCI_S__d663e89">
-     * <li class="li">className - the sys_class_name of the CI to be created or updated.</li>
+     * the items and relations lists contains name-value pairs. The possible name-value
+     * pairs within the items list are:
+     * className - the sys_class_name of the CI to be created or updated.
      *
-     * <li class="li">values:{} - the field information for the CI as name-value pairs, where the
-     * name is the field name.</li>
+     * values:{} - the field information for the CI as name-value pairs, where the
+     * name is the field name.
      *
-     * <li class="li">lookup:[{}] - a list of records with each item having name-value pairs like
-     * the items list. </li>
+     * lookup:[{}] - a list of records with each item having name-value pairs like
+     * the items list.
      *
-     * </ul>
-     * </div>
-     * <div class="p">The possible name-value pairs within the relations list are:<ul class="ul" id="IESS-identifyCI_S__d663e102">
-     * <li class="li">parent - index of the parent item in the dependency relation</li>
      *
-     * <li class="li">child - index of the child item in the dependency relation</li>
      *
-     * <li class="li">type - the relationship type. This is one of the name field values from the
-     * cmdb_rel_type table.</li>
+     * The possible name-value pairs within the relations list are:
+     * parent - index of the parent item in the dependency relation
      *
-     * </ul>
-     * </div>
+     * child - index of the child item in the dependency relation
+     *
+     * type - the relationship type. This is one of the name field values from the
+     * cmdb_rel_type table.
+     *
+     *
+     *
     */
     identifyCI(jsonString: string): string;
     /**

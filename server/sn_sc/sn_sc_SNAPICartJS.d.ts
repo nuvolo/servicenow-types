@@ -5,26 +5,26 @@ declare class sn_sc_SNAPICartJS {
     /**
      * Adds the request for a catalog item to the current cart.
      * @param request A JSON object that contains the details of the catalog item to be added to the
-     * cart.<p class="p">The structure of the request object
-     * is:</p>
-     * <pre class="pre codeblock">{
+     * cart.The structure of the request object
+     * is:
+     * {
      * 'sysparm_id': item_id,
      * 'sysparm_quantity': item_quantity,
      * 'variables':{
      * 'var_name': 'var_value',
      * ...
      * }
-     * }</pre>
-     * <ul class="ul" id="r_CJSS-addToCart_O__ul_tdn_1ly_5z">
-     * <li class="li">item_id: sys_id of the item to be added to the cart</li>
+     * }
      *
-     * <li class="li">item_quantity: Number of items to be added. Default value is 1.</li>
+     * item_id: sys_id of the item to be added to the cart
      *
-     * <li class="li">var_name: Name of the question.</li>
+     * item_quantity: Number of items to be added. Default value is 1.
      *
-     * <li class="li">var_value: Value of the answer (Not the display value).</li>
+     * var_name: Name of the question.
      *
-     * </ul>
+     * var_value: Value of the answer (Not the display value).
+     *
+     *
     */
     addToCart(request: any): any;
     /**
@@ -79,12 +79,12 @@ declare class sn_sc_SNAPICartJS {
      * method completes the purchase of the specified item and returns the sys_id of the generated
      * request.
      * @param request JSON object that contains details of the catalog item to order.
-     * @param request_delivery_address Address to which to deliver the items.<p class="p">Default: Address of user</p>
+     * @param request_delivery_address Address to which to deliver the items.Default: Address of user
      * @param request_sysparm_id Required. The sys_id of the item to purchase.
      * @param request_special_instructions Instructions to follow when processing the order.
-     * @param request_sysparm_quantity Quantity of the specified item to purchase.<p class="p">Default: 1</p>
-     * @param request_sysparm_requested_for The sys_id of the user for whom the item is requested.<p class="p">Default: Session
-     * user</p>
+     * @param request_sysparm_quantity Quantity of the specified item to purchase.Default: 1
+     * @param request_sysparm_requested_for The sys_id of the user for whom the item is requested.Default: Session
+     * user
      * @param request_variables Questions and customer answers associated with the item.
      * @param request_variables_var_name Name of the question.
      * @param request_variables_var_value Customer's response to the associated question.
@@ -112,45 +112,45 @@ declare class sn_sc_SNAPICartJS {
      * request parameter and performs the cart checkout. Use this API to modify
      * the mentioned parameters of the cart and perform the cart checkout simultaneously. Missing
      * parameters in the request object will have their default value.
-     * @param request A JSON object that contains details of the cart to be submitted.<p class="p">The
+     * @param request A JSON object that contains details of the cart to be submitted.The
      * structure of the request object
-     * is:</p>
-     * <pre class="pre codeblock">{
+     * is:
+     * {
      * 'special_instructions' : 'instructions',
      * 'sysparm_requested_for' : requested_for,
      * 'delivery_address' : 'address'
-     * }</pre>
-     * <ul class="ul" id="r_CJSS-submitOrder-O__ul_iky_vrd_zz">
-     * <li class="li">instructions: Special instructions for the request.</li>
+     * }
      *
-     * <li class="li">requested_for : sys_id of the requested_for user.</li>
+     * instructions: Special instructions for the request.
      *
-     * <li class="li">address: Delivery address for the request.</li>
+     * requested_for : sys_id of the requested_for user.
      *
-     * </ul>
+     * address: Delivery address for the request.
+     *
+     *
     */
     submitOrder(request: any): any;
     /**
      * Updates an item in the cart.
-     * @param request A JSON object that contains details of the catalog item to be updated.<p class="p">The
+     * @param request A JSON object that contains details of the catalog item to be updated.The
      * structure of the request object
-     * is:</p>
-     * <pre class="pre codeblock">{
+     * is:
+     * {
      * 'sysparm_quantity' : item_quantity,
      * 'sysparm_requested_for' : requested_for,
      * 'variables' : {
      * 'var_name' : 'var_value',
      * ...
      * }
-     * }</pre>
-     * <ul class="ul" id="r_CJSS-updateItem_M_S__ul_agy_ypd_zz">
-     * <li class="li">item_quantity: Number of items to be added. Default value is 1.</li>
+     * }
      *
-     * <li class="li">var_name: Name of the question.</li>
+     * item_quantity: Number of items to be added. Default value is 1.
      *
-     * <li class="li">var_value: Value of the answer (Not the display value).</li>
+     * var_name: Name of the question.
      *
-     * </ul>
+     * var_value: Value of the answer (Not the display value).
+     *
+     *
      * @param cart_item_id sys_id of the cart item to be modified.
     */
     updateItem(request: any, cart_item_id: string): any;

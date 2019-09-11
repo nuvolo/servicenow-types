@@ -90,7 +90,7 @@ declare class SNAPIGlideSystem {
      * @param param4 (Optional) Fourth variable argument.
      * @param param5 (Optional) Fifth variable argument.
     */
-    debug(message: string, param1: any, param2: any, param3: any, param4: any, param5: any): void;
+    debug(message: string, param1?: any, param2?: any, param3?: any, param4?: any, param5?: any): void;
     /**
      * Returns the date and time for the end of last month in GMT.
     */
@@ -140,7 +140,7 @@ declare class SNAPIGlideSystem {
      * @param param4 (Optional) Fourth variable argument.
      * @param param5 (Optional) Fifth variable argument.
     */
-    error(message: string, param1: any, param2: any, param3: any, param4: any, param5: any): void;
+    error(message: string, param1?: any, param2?: any, param3?: any, param4?: any, param5?: any): void;
     /**
      * Queues an event for the event manager.
      * @param name Name of the event being queued.
@@ -149,7 +149,7 @@ declare class SNAPIGlideSystem {
      * @param parm2 (Optional) Saved with the instance if specified.
      * @param queue Name of the queue.
     */
-    eventQueue(name: string, instance: any, parm1: string, parm2: string, queue: string): void;
+    eventQueue(name: string, instance: any, parm1?: string, parm2?: string, queue: string): void;
     /**
      * Queues an event for the event manager at a specified date and time.
      * @param name Name of the event being queued.
@@ -158,7 +158,7 @@ declare class SNAPIGlideSystem {
      * @param parm2 (Optional) Saved with the instance if specified.
      * @param expiration Date and time to process this event..
     */
-    eventQueueScheduled(name: string, instance: any, parm1: string, parm2: string, expiration: any): void;
+    eventQueueScheduled(name: string, instance: any, parm1?: string, parm2?: string, expiration: any): void;
     /**
      * Executes a job for a scoped application.
      * @param job The job to be run.
@@ -197,7 +197,7 @@ declare class SNAPIGlideSystem {
      * @param args Optional. List of strings or other values defined by java.text.MessageFormat,
      * which allows you to produce language-neutral messages for display to users.
     */
-    getEscapedMessage(id: string, args: any[]): string;
+    getEscapedMessage(id: string, args?: any[]): string;
     /**
      * Retrieves a message from UI messages.
      * @param id The ID of the message.
@@ -205,14 +205,14 @@ declare class SNAPIGlideSystem {
      * java.text.MessageFormat,
      * which allows you to produce language-neutral messages for display to users.
     */
-    getMessage(id: string, args: any[]): string;
+    getMessage(id: string, args?: any[]): string;
     /**
      * Gets the value of a Glide property. If the property is not found, returns an alternate
      * value.
      * @param key The key for the property whose value should be returned.
      * @param alt (Optional) Alternate object to return if the property is not found.
     */
-    getProperty(key: string, alt: any): string;
+    getProperty(key: string, alt?: any): string;
     /**
      * Gets a reference to the current Glide session.
     */
@@ -287,7 +287,7 @@ declare class SNAPIGlideSystem {
      * @param param4 (Optional) Fourth variable argument.
      * @param param5 (Optional) Fifth variable argument.
     */
-    info(message: string, param1: any, param2: any, param3: any, param4: any, param5: any): void;
+    info(message: string, param1?: any, param2?: any, param3?: any, param4?: any, param5?: any): void;
     /**
      * Determines if debugging is active for a specific scope.
     */
@@ -386,7 +386,7 @@ declare class SNAPIGlideSystem {
      * @param param4 (Optional) Fourth variable argument.
      * @param param5 (Optional) Fifth variable argument.
     */
-    warn(message: string, param1: any, param2: any, param3: any, param4: any, param5: any): void;
+    warn(message: string, param1?: any, param2?: any, param3?: any, param4?: any, param5?: any): void;
     /**
      * Takes an XML string and returns a JSON object.
      * @param xmlString The XML string to be converted.

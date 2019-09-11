@@ -10,42 +10,42 @@ declare class SNAPIGlideRecord {
      * operator, value).
      * @param name Name of the field to check.
      * @param operator Query operator. The available values are dependent on the data type of the
-     * <var class="keyword varname">value</var> parameter.<div class="p">Numbers:<ul class="ul" id="r_GRCS-addQuery_S_O_O__ul_qyb_rbt_3y">
-     * <li class="li">=</li>
+     * value parameter.Numbers:
+     * =
      *
-     * <li class="li">!=</li>
+     * !=
      *
-     * <li class="li">&gt;</li>
+     * &gt;
      *
-     * <li class="li">&gt;=</li>
+     * &gt;=
      *
-     * <li class="li">&lt;</li>
+     * &lt;
      *
-     * <li class="li">&lt;=</li>
+     * &lt;=
      *
-     * </ul>
-     * </div>
-     * <div class="p">Strings (must be in upper case):<ul class="ul" id="r_GRCS-addQuery_S_O_O__ul_egz_vbt_3y">
-     * <li class="li">=</li>
      *
-     * <li class="li">!=</li>
      *
-     * <li class="li">IN</li>
+     * Strings (must be in upper case):
+     * =
      *
-     * <li class="li">NOT IN</li>
+     * !=
      *
-     * <li class="li">STARTSWITH</li>
+     * IN
      *
-     * <li class="li">ENDSWITH</li>
+     * NOT IN
      *
-     * <li class="li">CONTAINS</li>
+     * STARTSWITH
      *
-     * <li class="li">DOES NOT CONTAIN</li>
+     * ENDSWITH
      *
-     * <li class="li">INSTANCEOF</li>
+     * CONTAINS
      *
-     * </ul>
-     * </div>
+     * DOES NOT CONTAIN
+     *
+     * INSTANCEOF
+     *
+     *
+     *
      * @param value Value on which to query (not case-sensitive).
     */
     addQuery(name: string, operator: any, value: any): void;

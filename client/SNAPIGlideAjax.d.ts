@@ -4,8 +4,8 @@ declare class SNAPIGlideAjax {
      * Specifies a parameter name and value to be passed to the server-side function associated
      * with this GlideAjax object.
      * @param parm_name The name of the parameter to pass. (The name must begin with the
-     * <samp class="ph codeph">sysparm_</samp> .)
-     * @param parm_value The value to assign to <span class="keyword parmname">parm_name</span>.
+     * sysparm_ .)
+     * @param parm_value The value to assign to parm_name.
     */
     addParam(parm_name: string, parm_value: string): void;
     /**

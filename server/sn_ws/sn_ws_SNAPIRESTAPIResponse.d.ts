@@ -7,10 +7,10 @@ declare class sn_ws_SNAPIRESTAPIResponse {
     getStreamWriter(): RESTAPIResponseStream;
     /**
      * Sets the body content to send in the web service response.
-     * @param body <p class="p">The response body, as a JavaScript object.</p>
+     * @param body The response body, as a JavaScript object.
      *
-     * <p class="p">The body content is automatically serialized to JSON or XML depending on the
-     * value of the <span class="keyword parmname">Accept</span> header passed in the request.</p>
+     * The body content is automatically serialized to JSON or XML depending on the
+     * value of the Accept header passed in the request.
     */
     setBody(body: any): void;
     /**

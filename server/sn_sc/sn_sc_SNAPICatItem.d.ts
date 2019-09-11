@@ -2,10 +2,10 @@ declare class sn_sc_SNAPICatItem {
     /**
      * Adds the Available For user criteria to a catalog
      * item.
-     * @param action Specify <kbd class="ph userinput">add</kbd> to add the user criteria to the
-     * <span class="ph uicontrol">Available For</span> list. <p class="p">Specify
-     * <kbd class="ph userinput">delete</kbd> to delete the user criteria from the
-     * <span class="ph uicontrol">Available For</span> list.</p>
+     * @param action Specify add to add the user criteria to the
+     * Available For list. Specify
+     * delete to delete the user criteria from the
+     * Available For list.
      * @param criteriaIDs Array of the user criteria sys_ids.
     */
     availableForUserCriteria(action: string, criteriaIDs: any[]): void;
@@ -40,10 +40,10 @@ declare class sn_sc_SNAPICatItem {
     /**
      * Adds the Not Available For user criteria to a catalog
      * item.
-     * @param action Specify <kbd class="ph userinput">add</kbd> to add the user criteria to the
-     * <span class="ph uicontrol">Not Available For</span> list. <p class="p">Specify
-     * <kbd class="ph userinput">delete</kbd> to delete the user criteria from the
-     * <span class="ph uicontrol">Not Available For</span> list.</p>
+     * @param action Specify add to add the user criteria to the
+     * Not Available For list. Specify
+     * delete to delete the user criteria from the
+     * Not Available For list.
     */
     notAvailableForUserCriteria(action: string): void;
     /**

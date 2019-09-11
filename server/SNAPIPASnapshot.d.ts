@@ -5,18 +5,18 @@ declare class SNAPIPASnapshot {
      * @param sys_id The indicator sys_id.
      * @param date1 The date of the first snapshot, in the format yyyymmdd.
      * @param date2 The date of the second snapshot, in the format yyyymmdd.
-     * @param type Specifies what data to retrieve. Valid values are:<ul class="ul" id="PASn-getCompareIDs_S_n_n_S__ul_pdr_xnr_nw">
-     * <li class="li">all1: all records in the first snapshot</li>
+     * @param type Specifies what data to retrieve. Valid values are:
+     * all1: all records in the first snapshot
      *
-     * <li class="li">all2: all records in the second snapshot</li>
+     * all2: all records in the second snapshot
      *
-     * <li class="li">shared: records that are in both snapshots</li>
+     * shared: records that are in both snapshots
      *
-     * <li class="li">movedin: records that are in the second snapshot, but not the first</li>
+     * movedin: records that are in the second snapshot, but not the first
      *
-     * <li class="li">movedout: records that are in the first snapshot, but not the second</li>
+     * movedout: records that are in the first snapshot, but not the second
      *
-     * </ul>
+     *
     */
     getCompareIDs(sys_id: string, date1: number, date2: number, type: string): string;
     /**
@@ -25,18 +25,18 @@ declare class SNAPIPASnapshot {
      * @param sys_id The indicator sys_id.
      * @param date1 The date of the first snapshot, in the format yyyymmdd.
      * @param date2 The date of the second snapshot, in the format yyyymmdd.
-     * @param type Specifies what data to retrieve. Valid values are:<ul class="ul" id="PASn-getCompareQuery_S_n_n_S__ul_pdr_xnr_nw">
-     * <li class="li">all1: all records in the first snapshot</li>
+     * @param type Specifies what data to retrieve. Valid values are:
+     * all1: all records in the first snapshot
      *
-     * <li class="li">all2: all records in the second snapshot</li>
+     * all2: all records in the second snapshot
      *
-     * <li class="li">shared: records that are in both snapshots</li>
+     * shared: records that are in both snapshots
      *
-     * <li class="li">movedin: records that are in the second snapshot, but not the first</li>
+     * movedin: records that are in the second snapshot, but not the first
      *
-     * <li class="li">movedout: records that are in the first snapshot, but not the second</li>
+     * movedout: records that are in the first snapshot, but not the second
      *
-     * </ul>
+     *
     */
     getCompareQuery(sys_id: string, date1: number, date2: number, type: string): string;
     /**

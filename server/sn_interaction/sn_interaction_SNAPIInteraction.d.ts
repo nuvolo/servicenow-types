@@ -7,9 +7,9 @@ declare class sn_interaction_SNAPIInteraction {
     /**
      * Create an interaction.
      * @param options Field values for an interaction record. The channel field with the channel
-     * sys_id and channel metadata are required. <p class="p">If a queue is not included in the
-     * parameter, the system returns <samp class="ph codeph">Interaction b2c0a3af202a1300964f959e0488de75
-     * has no queue specified... running queue matching rules.</samp></p>
+     * sys_id and channel metadata are required. If a queue is not included in the
+     * parameter, the system returns Interaction b2c0a3af202a1300964f959e0488de75
+     * has no queue specified... running queue matching rules.
     */
     create(options: any): any;
     /**

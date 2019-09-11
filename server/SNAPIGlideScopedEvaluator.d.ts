@@ -8,7 +8,7 @@ declare class SNAPIGlideScopedEvaluator {
      * @param variables (Optional) A map of variables with name-value pairs. These variables are
      * available to the script during execution of this method.
     */
-    evaluateScript(grObj: GlideRecord, scriptField: string, variables: any): any;
+    evaluateScript(grObj: GlideRecord, scriptField?: string, variables?: any): any;
     /**
      * Returns a variable from a GlideScopedEvaluator object.
      * @param name The name of the variable.

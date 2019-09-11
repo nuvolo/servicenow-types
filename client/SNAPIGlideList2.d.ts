@@ -8,13 +8,13 @@ declare class SNAPIGlideList2 {
      * Returns the GlideList2 object for the list that contains the specified
      * item.
      * @param DOMelement The DOM element ID for the list for which you want the
-     * <span class="keyword apiname">GlideList2</span> object.
+     * GlideList2 object.
     */
     get(DOMelement: any): any;
     /**
      * Returns the GlideList2 object for the list that contains the specified
      * item.
-     * @param ListID The list ID for which you want the <span class="keyword apiname">GlideList2</span>
+     * @param ListID The list ID for which you want the GlideList2
      * object.
     */
     get(ListID: string): any;
@@ -44,16 +44,16 @@ declare class SNAPIGlideList2 {
     getParentTable(): string;
     /**
      * Returns the encoded query string for the list.
-     * @param orderBy (Optional) If <span class="ph uicontrol">true</span>, includes the orderBy in the encoded
+     * @param orderBy (Optional) If true, includes the orderBy in the encoded
      * query string.
-     * @param groupBy (Optional) If <span class="ph uicontrol">true</span>, includes the groupBy in the encoded
+     * @param groupBy (Optional) If true, includes the groupBy in the encoded
      * query string.
-     * @param fixed (Optional) If <span class="ph uicontrol">true</span>, includes fixed query in the encoded
+     * @param fixed (Optional) If true, includes fixed query in the encoded
      * query string.
-     * @param all (Optional) If <span class="ph uicontrol">true</span>, includes orderBy, groupBy, and fixed
+     * @param all (Optional) If true, includes orderBy, groupBy, and fixed
      * query.
     */
-    getQuery(orderBy: boolean, groupBy: boolean, fixed: boolean, all: boolean): string;
+    getQuery(orderBy?: boolean, groupBy?: boolean, fixed?: boolean, all?: boolean): string;
     /**
      * Returns the related list field that associates the related list to the parent form.
     */
@@ -83,14 +83,14 @@ declare class SNAPIGlideList2 {
      * @param additionalParms (Optional) name-value pairs that are submitted with the list refresh
      * request.
     */
-    refresh(firstRow: number, additionalParms: string): void;
+    refresh(firstRow?: number, additionalParms?: string): void;
     /**
      * Refreshes the list. The orderBy part of the list filter is included
      * if it is specified for the list.
      * @param firstRow (Optional) The first row to appear in the list.
      * @param description (Optional)  name=value pairs that are submitted with the list refresh request.
     */
-    refreshWithOrderBy(firstRow: number, description: string): void;
+    refreshWithOrderBy(firstRow?: number, description?: string): void;
     /**
      * Sets the encoded query string for the list, ignoring the orderBy and
      * groupBy parts of the query string.
@@ -112,7 +112,7 @@ declare class SNAPIGlideList2 {
     /**
      * Sets the groupBy criteria for the list, for a single field or
      * multiple fields.
-     * @param groupBy The <span class="keyword parmname">groupBy</span> criteria for the list.
+     * @param groupBy The groupBy criteria for the list.
     */
     setGroupBy(groupBy: string): void;
     /**
@@ -128,12 +128,12 @@ declare class SNAPIGlideList2 {
     /**
      * Shows or hides all the groups within the list and saves the current collapsed/expanded
      * state of the groups as a user preference.
-     * @param showFlag If <span class="ph uicontrol">true</span>, shows the groups within the list.
+     * @param showFlag If true, shows the groups within the list.
     */
     showHideGroups(showFlag: boolean): void;
     /**
      * Displays or hides the list and saves the current collapsed/expanded state of the list as a user preference.
-     * @param showFlag If <span class="ph uicontrol">true</span>, displays the list.
+     * @param showFlag If true, displays the list.
     */
     showHideList(showFlag: boolean): void;
     /**

@@ -5,17 +5,17 @@ declare class SNAPIGlideFilter {
      * @param gr GlideRecord to evaluate.
      * @param filter Encoded query string (case-sensitive).
      * @param match Optional. Flag that indicates whether all conditions must be met if
-     * the<span class="keyword parmname"> filter</span> parameter contains multiple conditions. <p class="p">Valid
-     * values:</p>
-     * <ul class="ul" id="r_ScopedGlideFilterCheckRecord_GlideRecord_String_Object__ul_uwb_pd3_bhb">
-     * <li class="li">true: all conditions must be met for the method to return true</li>
+     * the filter parameter contains multiple conditions. Valid
+     * values:
      *
-     * <li class="li">false: only one of the conditions must be met for the method to return
-     * true</li>
+     * true: all conditions must be met for the method to return true
      *
-     * </ul>
-     * <p class="p">Default: true</p>
+     * false: only one of the conditions must be met for the method to return
+     * true
+     *
+     *
+     * Default: true
     */
-    checkRecord(gr: GlideRecord, filter: string, match: boolean): boolean;
+    checkRecord(gr: GlideRecord, filter: string, match?: boolean): boolean;
 }
 export { SNAPIGlideFilter };

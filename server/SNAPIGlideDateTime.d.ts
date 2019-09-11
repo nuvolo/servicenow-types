@@ -272,14 +272,14 @@ declare class SNAPIGlideDateTime {
      * parameter must be formatted using the current user's preferred display format, such
      * as MM-dd-yyyy HH:mm:ss. To assign the current date and time to a variable in a
      * workflow script, use
-     * <var class="keyword varname">variable</var><samp class="ph codeph">.setDisplayValue(gs.nowDateTime);</samp>.
+     * variable.setDisplayValue(gs.nowDateTime);.
     */
     setDisplayValue(asDisplayed: string): void;
     /**
      * Sets a date and time value using the current user's display format and time
      * zone.
      * @param value The date and time in the current user's time zone.
-     * @param format The date and time format to use to parse the <span class="keyword parmname">value</span>
+     * @param format The date and time format to use to parse the value
      * parameter.
     */
     setDisplayValue(value: string, format: string): void;
@@ -310,8 +310,8 @@ declare class SNAPIGlideDateTime {
     setMonthUTC(month: number): void;
     /**
      * Sets the date and time of the GlideDateTime object.
-     * @param o The date and time to use. This parameter may be one of several types: <ul class="ul" id="r_ScopedGlideDateTimeHasDateMethod__ul_jp2_mhc_fr">
-     * <li class="li">A string in the UTC time zone and the internal format of yyyy-MM-dd HH:mm:ss.
+     * @param o The date and time to use. This parameter may be one of several types:
+     * A string in the UTC time zone and the internal format of yyyy-MM-dd HH:mm:ss.
      * Sets the value of the object to the specified date and time. Using the method
      * this way is equivalent to instantiating a new GlideDateTime object using the
      * GlideDateTime(String value) constructor. If the date and time
@@ -319,17 +319,17 @@ declare class SNAPIGlideDateTime {
      * date and time using other available formats. Resolving the date and time this
      * way can lead to inaccurate data due to ambiguity in the day and month values.
      * When using a non-standard date and time format, use
-     * etValueUTC(String dt, String format) instead.</li>
+     * etValueUTC(String dt, String format) instead.
      *
-     * <li class="li">A GlideDateTime object. Sets the value of the object to the date and time
+     * A GlideDateTime object. Sets the value of the object to the date and time
      * stored by the GlideDateTime passed in the parameter. Using the method this way
      * is equivalent to instantiating a new GlideDateTime object using the
-     * GlideDateTime(GlideDateTime g) constructor.</li>
+     * GlideDateTime(GlideDateTime g) constructor.
      *
-     * <li class="li">A JavaScript Number. Sets the value of the object using the Number value as
-     * milliseconds past January 1, 1970 00:00:00 GMT.</li>
+     * A JavaScript Number. Sets the value of the object using the Number value as
+     * milliseconds past January 1, 1970 00:00:00 GMT.
      *
-     * </ul>
+     *
     */
     setValue(o: string): void;
     /**

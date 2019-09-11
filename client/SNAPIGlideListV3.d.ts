@@ -46,16 +46,16 @@ declare class SNAPIGlideListV3 {
     getParentTable(): string;
     /**
      * Returns the encoded query string for the list.
-     * @param options The options can be one or more of the following.<ul class="ul" id="r_GLV3-getQuery_O__ul_b1q_zmy_pv">
-     * <li class="li">orderby - include ORDERBY in the query</li>
+     * @param options The options can be one or more of the following.
+     * orderby - include ORDERBY in the query
      *
-     * <li class="li">groupby - include GROUPBY in the query</li>
+     * groupby - include GROUPBY in the query
      *
-     * <li class="li">fixed - include sysparm_fixed_query in the query</li>
+     * fixed - include sysparm_fixed_query in the query
      *
-     * <li class="li">all - include all the options in the query</li>
+     * all - include all the options in the query
      *
-     * </ul>
+     *
     */
     getQuery(options: any): string;
     /**
@@ -107,7 +107,7 @@ declare class SNAPIGlideListV3 {
      * @param additionalParams (Optional) Name- value pairs that are submitted with the list refresh
      * request.
     */
-    refresh(firstRow: number, additionalParams: any): void;
+    refresh(firstRow?: number, additionalParams?: any): void;
     /**
      * Refreshes the list using the orderBy fields.
      * @param firstRow (Optional) The first row to display in the list. If not specified, the list's
@@ -115,7 +115,7 @@ declare class SNAPIGlideListV3 {
      * @param additionalParams (Optional) Name- value pairs that are submitted with the list refresh
      * request.
     */
-    refreshWithOrderBy(firstRow: number, additionalParams: any): void;
+    refreshWithOrderBy(firstRow?: number, additionalParams?: any): void;
     /**
      * Sets the encoded query string for the list ignoring the orderBy and groupBy parts of
      * the query string.

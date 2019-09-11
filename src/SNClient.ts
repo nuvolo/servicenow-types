@@ -224,20 +224,33 @@ function getMethodName(method: SNC.ClassChild) {
   return sanitizeMethodName(method.name);
 }
 
+function containsOptional(texts: string[]) {
+  for (let text of texts) {
+    if (text.toLowerCase().includes("optional")) {
+      return true;
+    }
+  }
+  return false;
+}
+
 function processMethod(m: SNC.ClassChild): SNC.SNMethodInstance {
   let params: SNC.SNMethodParam[] = [];
   let returns = undefined;
   if (m.children) {
     for (let child of m.children) {
       if (child.type === "Parameter") {
+        let strippedText2 = striptags(child.text2 || "");
+        let optional = containsOptional([child.name, strippedText2]);
         params.push({
           name: sanitizeParamName(child.name),
           type: parseType(child.text),
-          description: child.text2 || ""
+          description: strippedText2,
+          optional
         });
       }
       if (child.type === "Return") {
-        returns = parseType(child.name);
+        let stripped = striptags(child.name, ["<String>", "<GlideHTTPHeader>"]);
+        returns = parseType(stripped);
       }
     }
   }

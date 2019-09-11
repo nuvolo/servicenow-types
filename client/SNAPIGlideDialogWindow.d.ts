@@ -1,5 +1,5 @@
 declare class SNAPIGlideDialogWindow {
-    constructor(id: string, readOnly: boolean, width: number, height: number);
+    constructor(id: string, readOnly?: boolean, width?: number, height?: number);
     /**
      * Adjusts the body height of a dialog window to be the window height minus the header
      * height.

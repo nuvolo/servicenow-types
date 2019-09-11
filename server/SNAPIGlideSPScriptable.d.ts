@@ -20,21 +20,21 @@ declare class SNAPIGlideSPScriptable {
     /**
      * Returns a model and view model for a sc_cat_item or
      * sc_cat_item_guide.
-     * @param sysId The sys_id of the catalog item (<samp class="ph codeph">sc_cat_item</samp>) or order guide
-     * (<samp class="ph codeph">sc_cat_item_guide</samp>).
+     * @param sysId The sys_id of the catalog item (sc_cat_item) or order guide
+     * (sc_cat_item_guide).
     */
     getCatalogItem(sysId: string): any;
     /**
      * Returns a model and view model for a sc_cat_item or
      * sc_cat_item_guide.
-     * @param sysId The sys_id of the catalog item (<samp class="ph codeph">sc_cat_item</samp>) or order guide
-     * (<samp class="ph codeph">sc_cat_item_guide</samp>).
+     * @param sysId The sys_id of the catalog item (sc_cat_item) or order guide
+     * (sc_cat_item_guide).
      * @param isOrdering When true, uses create roles security check. When false, uses write roles
-     * security check.<p class="p">When users are ordering an item or have it in their cart,  check
-     * using the create roles.</p>
-     * <p class="p">If users are not ordering, for example, somebody is
+     * security check.When users are ordering an item or have it in their cart,  check
+     * using the create roles.
+     * If users are not ordering, for example, somebody is
      * looking at a requested item to see the variables associated with that item, then
-     * check using the write roles.</p>
+     * check using the write roles.
     */
     getCatalogItem(sysId: string, isOrdering: boolean): any;
     /**
@@ -82,7 +82,7 @@ declare class SNAPIGlideSPScriptable {
      * @param sys_id Sys_id of the KB article category.
      * @param limit Maximum number of KB articles returned.
      * @param maxChars Maximum number of characters to return from the article text. For full article
-     * text, set the value to <samp class="ph codeph">-1</samp>.
+     * text, set the value to -1.
     */
     getKBCategoryArticleSummaries(sys_id: string, limit: number, maxChars: number): any[];
     /**
@@ -123,7 +123,7 @@ declare class SNAPIGlideSPScriptable {
      * @param sys_id Optional. The Sys ID of the record to return. If no parameters are included,
      * returns the record identified by the current URL.
     */
-    getRecord(table: string, sys_id: string): GlideRecord;
+    getRecord(table?: string, sys_id?: string): GlideRecord;
     /**
      * Copies display values for the specified fields into the data parameter.
      * @param data The display values for the specified fields are copied to this object.
@@ -151,23 +151,23 @@ declare class SNAPIGlideSPScriptable {
     /**
      * Returns Service Catalog
      * variables associated with a record in String format.
-     * @param gr The record to retrieve <span class="ph">Service Catalog</span> variables
-     * for. Must be a record with <span class="ph">Service Catalog</span> variables
+     * @param gr The record to retrieve Service Catalog variables
+     * for. Must be a record with Service Catalog variables
      * defined, such as a requested item [sc_req_item] record or an incident submitted
      * through a record producer.
      * @param includeNilResponses Optional. If true, the API includes variables with no user-defined value.
     */
-    getRecordVariables(gr: GlideRecord, includeNilResponses: boolean): string;
+    getRecordVariables(gr: GlideRecord, includeNilResponses?: boolean): string;
     /**
      * Returns an array of Service Catalog variables associated
      * with a record.
-     * @param gr The record to retrieve <span class="ph">Service Catalog</span> variables
-     * for. Must be a record with <span class="ph">Service Catalog</span> variables
+     * @param gr The record to retrieve Service Catalog variables
+     * for. Must be a record with Service Catalog variables
      * defined, such as a requested item [sc_req_item] record or an incident submitted
      * through a record producer.
      * @param includeNilResponses Optional. If true, the API includes variables with no user-defined value.
     */
-    getRecordVariablesArray(gr: GlideRecord, includeNilResponses: boolean): any;
+    getRecordVariablesArray(gr: GlideRecord, includeNilResponses?: boolean): any;
     /**
      * Gets the activity stream for the specified record. This method works on tables that
      * extend the task table.
@@ -195,17 +195,17 @@ declare class SNAPIGlideSPScriptable {
      * with the record in the URL.
      * @param includeNilResponses Optional. If true, the API includes variables with no user-defined value.
     */
-    getVariablesArray(includeNilResponses: boolean): any;
+    getVariablesArray(includeNilResponses?: boolean): any;
     /**
      * Gets a widget by id or sys_id, executes that widget's server script using the provided
      * options, then returns the widget model.
      * @param sysID The widget sys_id or widget_id
      * @param options An object to pass to the widget's server script. Refer to this object as
-     * <samp class="ph codeph">options</samp> in your server script.<div class="note note"><span class="notetitle">Note:</span> Any options passed into this
+     * options in your server script.Note: Any options passed into this
      * function will only be available in the embedded widget's server script on the
-     * <span class="ph uicontrol">first execution</span> of that script. Any subsequent calls into
+     * first execution of that script. Any subsequent calls into
      * the server script from the embedded widget will not contain the object properties
-     * passed in.</div>
+     * passed in.
     */
     getWidget(sysID: string, options: any): any;
     /**

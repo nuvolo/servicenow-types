@@ -8,8 +8,8 @@ declare class SNAPIGlideRecord {
     addActiveQuery(): GlideQueryCondition;
     /**
      * Adds an encoded query to other queries that may have been set.
-     * @param query An <a class="extRef" href="https://docs.servicenow.com/bundle/madrid-platform-user-interface/page/use/using-lists/concept/c_EncodedQueryStrings.html" target="_blank">encoded query
-     * string</a>.
+     * @param query An encoded query
+     * string.
     */
     addEncodedQuery(query: string): void;
     /**
@@ -24,7 +24,7 @@ declare class SNAPIGlideRecord {
      * @param primaryField (Optional) If other than sys_id, the primary field
      * @param joinTableField (Optional) If other than sys_id, the field that joins the tables.
     */
-    addJoinQuery(joinTable: string, primaryField: any, joinTableField: any): GlideQueryCondition;
+    addJoinQuery(joinTable: string, primaryField?: any, joinTableField?: any): GlideQueryCondition;
     /**
      * A filter that specifies records where the value of the field passed in the parameter is
      * not null.
@@ -49,42 +49,42 @@ declare class SNAPIGlideRecord {
      * specified table, that match the request.
      * @param name Table field name.
      * @param operator Query operator. The available values are dependent on the data type of the
-     * <var class="keyword varname">value</var> parameter.<div class="p">Numbers:<ul class="ul" id="r_ScopedGlideRecordAddQuery_String_String_Object__ul_qyb_rbt_3y">
-     * <li class="li">=</li>
+     * value parameter.Numbers:
+     * =
      *
-     * <li class="li">!=</li>
+     * !=
      *
-     * <li class="li">&gt;</li>
+     * &gt;
      *
-     * <li class="li">&gt;=</li>
+     * &gt;=
      *
-     * <li class="li">&lt;</li>
+     * &lt;
      *
-     * <li class="li">&lt;=</li>
+     * &lt;=
      *
-     * </ul>
-     * </div>
-     * <div class="p">Strings (must be in upper case):<ul class="ul" id="r_ScopedGlideRecordAddQuery_String_String_Object__ul_egz_vbt_3y">
-     * <li class="li">=</li>
      *
-     * <li class="li">!=</li>
      *
-     * <li class="li">IN</li>
+     * Strings (must be in upper case):
+     * =
      *
-     * <li class="li">NOT IN</li>
+     * !=
      *
-     * <li class="li">STARTSWITH</li>
+     * IN
      *
-     * <li class="li">ENDSWITH</li>
+     * NOT IN
      *
-     * <li class="li">CONTAINS</li>
+     * STARTSWITH
      *
-     * <li class="li">DOES NOT CONTAIN</li>
+     * ENDSWITH
      *
-     * <li class="li">INSTANCEOF</li>
+     * CONTAINS
      *
-     * </ul>
-     * </div>
+     * DOES NOT CONTAIN
+     *
+     * INSTANCEOF
+     *
+     *
+     *
      * @param value Value on which to query (not case-sensitive).
     */
     addQuery(name: string, operator: string, value: any): GlideQueryCondition;
@@ -132,11 +132,11 @@ declare class SNAPIGlideRecord {
     /**
      * Returns the specified record in an instantiated GlideRecord object.
      * @param name Optional. Name of the instantiated GlideRecord column to search for the
-     * specified <span class="keyword parmname">value</span> parameter. If only a single parameter is
+     * specified value parameter. If only a single parameter is
      * passed in, the method assumes that this parameter is sys_id.
      * @param value Value to match.
     */
-    get(name: any, value: any): boolean;
+    get(name?: any, value: any): boolean;
     /**
      * Returns the dictionary attributes for the specified field.
      * @param fieldName Field name for which to return the dictionary attributes
@@ -304,7 +304,7 @@ declare class SNAPIGlideRecord {
      * @param reason Optional. Reason for the update. The reason appears in the audit
      * record.
     */
-    update(reason: string): string;
+    update(reason?: string): string;
     /**
      * Updates each GlideRecord in a stated query with a specified set of changes.
     */

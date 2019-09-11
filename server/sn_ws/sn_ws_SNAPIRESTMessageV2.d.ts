@@ -109,7 +109,7 @@ declare class sn_ws_SNAPIRESTMessageV2 {
     setMIDServer(midServer: string): void;
     /**
      * Set the mutual authentication protocol profile for the REST message.
-     * @param profileName The <span class="ph uicontrol">Name</span> of the protocol profile to use for mutual
+     * @param profileName The Name of the protocol profile to use for mutual
      * authentication.
     */
     setMutualAuth(profileName: string): void;

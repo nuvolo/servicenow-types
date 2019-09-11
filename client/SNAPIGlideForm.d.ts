@@ -82,18 +82,18 @@ declare class SNAPIGlideForm {
      * Used to draw attention to a particular field. Flashes the specified color for a
      * specified duration of time in the specified field.
      * @param fieldName Specifies the field to highlight in the following format:
-     * <samp class="ph codeph">"&lt;table-name&gt;.&lt;field-name&gt;"</samp>.
+     * "&lt;table-name&gt;.&lt;field-name&gt;".
      * @param color RGB color or acceptable CSS color.
-     * @param count Specifies how long the label will flash. Options include:<ul class="ul" id="r_GlideFormFlash_String_String_Number__ul_qcc_4fw_ts">
-     * <li class="li">2: Flashes for 1 second</li>
+     * @param count Specifies how long the label will flash. Options include:
+     * 2: Flashes for 1 second
      *
-     * <li class="li">0: Flashes for 2 seconds</li>
+     * 0: Flashes for 2 seconds
      *
-     * <li class="li">-2: Flashes for 3 seconds</li>
+     * -2: Flashes for 3 seconds
      *
-     * <li class="li">-4: Flashes for 4 seconds</li>
+     * -4: Flashes for 4 seconds
      *
-     * </ul>
+     *
     */
     flash(fieldName: string, color: string, count: number): void;
     /**
@@ -280,7 +280,7 @@ declare class SNAPIGlideForm {
      * @param mandatory When true makes the field mandatory. When false makes the field
      * optional.
     */
-    setMandatory(fieldName: string, mandatory: boolean): void;
+    setMandatory(fieldName: string, mandatory?: boolean): void;
     /**
      * Makes the specified field read only or editable.
      * @param fieldName Name of the field.
@@ -294,7 +294,7 @@ declare class SNAPIGlideForm {
      * the name, and with the remaining spaces being removed, for example "Section Four is
      * Here" becomes "section_fourishere". Other non-alphanumeric characters, such as
      * ampersand (&), are removed. Section names can be found by using the
-     * <span class="keyword apiname">getSectionNames()</span> method.
+     * getSectionNames() method.
      * @param display When true shows the section. When false hides the section.
     */
     setSectionDisplay(sectionName: string, display: boolean): boolean;

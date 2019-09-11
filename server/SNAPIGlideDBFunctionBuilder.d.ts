@@ -16,22 +16,22 @@ declare class SNAPIGlideDBFunctionBuilder {
      * Defines a constant value to use in the function. If used with the
      * dayofweek() method, the string defines whether to use Sunday or Monday as
      * the first day of the week.
-     * @param constant A constant value used in a function. <p class="p">When used with the
-     * <span class="keyword apiname">dayofweek()</span> method, the value defines whether the week starts
-     * on a Sunday or Monday. </p>
-     * <div class="p">
-     * <ul class="ul" id="GlideDBFBScoped-constant_S__ul_wz5_5bk_kbb">
-     * <li class="li"><span class="ph uicontrol">1</span>: Week begins on Sunday. </li>
+     * @param constant A constant value used in a function. When used with the
+     * dayofweek() method, the value defines whether the week starts
+     * on a Sunday or Monday.
      *
-     * <li class="li"><span class="ph uicontrol">2</span>: Week begins on Monday. </li>
      *
-     * </ul>
+     * 1: Week begins on Sunday.
      *
-     * </div>
-     * <p class="p">This definition enables the <span class="keyword apiname">dayofweek()</span> method to return
+     * 2: Week begins on Monday.
+     *
+     *
+     *
+     *
+     * This definition enables the dayofweek() method to return
      * the correct day of the week from a given date. If a value other than 1 or 2 is
-     * provided, the <span class="keyword apiname">dayofweek()</span> method uses Sunday as the first day
-     * of the week.</p>
+     * provided, the dayofweek() method uses Sunday as the first day
+     * of the week.
     */
     constant(constant: string): void;
     /**

@@ -19,14 +19,14 @@ declare class sn_uc_SNAPIUserCriteria {
     read(columns: string): any;
     /**
      * Specifies if the user criteria is active.
-     * @param active If true, the user criteria is active. <p class="p">If false, the user criteria is
-     * inactive.</p>
+     * @param active If true, the user criteria is active. If false, the user criteria is
+     * inactive.
     */
     setActive(active: boolean): void;
     /**
      * Specifies if the user criteria has an advanced script.
-     * @param advanced If true, the user criteria has an advanced script.<p class="p">If false, the user
-     * criteria does not have an advanced script.</p>
+     * @param advanced If true, the user criteria has an advanced script.If false, the user
+     * criteria does not have an advanced script.
     */
     setAdvanced(advanced: boolean): void;
     /**

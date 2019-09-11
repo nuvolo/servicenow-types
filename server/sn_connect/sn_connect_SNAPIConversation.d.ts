@@ -9,20 +9,20 @@ declare class sn_connect_SNAPIConversation {
      * conversation.
      * @param name Create a conversation with a specific name.
      * @param type Include a specific conversation type. The type is determined by the type choice
-     * list. The base system includes the following type options: <ul class="ul" id="conversation-create_String_String__ul_ut2_4df_wbb">
-     * <li class="li">connect</li>
+     * list. The base system includes the following type options:
+     * connect
      *
-     * <li class="li">support</li>
+     * support
      *
-     * <li class="li">group</li>
+     * group
      *
-     * <li class="li">peer</li>
+     * peer
      *
-     * <li class="li">qanda</li>
+     * qanda
      *
-     * <li class="li">team</li>
+     * team
      *
-     * </ul>
+     *
     */
     create(name: string, type: string): any;
     /**

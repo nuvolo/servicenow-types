@@ -324,7 +324,11 @@ function generateProperties(properties: SNC.Property[]) {
 
 function generateParameters(params: SNC.SNMethodParam[], _class: SNC.SNClass) {
   return params.map(param => {
-    return ts.createParameter(_, _, _, param.name, _, generateType(param.type, _class), _);
+    let questionMark = undefined;
+    if (param.optional) {
+      questionMark = ts.createToken(ts.SyntaxKind.QuestionToken);
+    }
+    return ts.createParameter(_, _, _, param.name, questionMark, generateType(param.type, _class), _);
   });
 }
 

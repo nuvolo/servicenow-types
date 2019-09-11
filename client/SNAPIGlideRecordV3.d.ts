@@ -66,6 +66,6 @@ declare class SNAPIGlideRecordV3 {
      * @param name A field name. (optional)
      * @param value The field value to check for. (optional)
     */
-    query(responseFunction: any, name: string, value: string): void;
+    query(responseFunction?: any, name?: string, value?: string): void;
 }
 export { SNAPIGlideRecordV3 };

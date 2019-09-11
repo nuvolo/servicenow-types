@@ -11,7 +11,7 @@ declare class sn_notification_SNAPIMessaging {
      * inbound payload.
      * @param messagingContent Message content to send from the Messaging Contents [messaging_content] table.
      * @param target Record used to define dynamic field values in the message. Table must match the
-     * <span class="ph uicontrol">Target table</span> field in the Messaging Contents record. If the
+     * Target table field in the Messaging Contents record. If the
      * Messaging Contents record does not use a target table, set the value to null.
     */
     send(messagingApplication: GlideRecord, recipient: string, messagingContent: GlideRecord, target: GlideRecord): void;

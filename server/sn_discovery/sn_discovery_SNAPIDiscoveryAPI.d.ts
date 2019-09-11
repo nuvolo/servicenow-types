@@ -9,7 +9,7 @@ declare class sn_discovery_SNAPIDiscoveryAPI {
      * source, you must have an application value. If no application is defined, use a
      * place holder of NULL in the expression.
     */
-    discoverIpAddress(IP_address: string, application: string, source: string): string;
+    discoverIpAddress(IP_address: string, application: string, source?: string): string;
     /**
      * Used to return a summary of a configuration item's Discovery status given the specific
      * status sys_id and IPv4 address.

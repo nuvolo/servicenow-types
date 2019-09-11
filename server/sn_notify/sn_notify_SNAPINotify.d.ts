@@ -5,28 +5,28 @@ declare class sn_notify_SNAPINotify {
      * Calls the specified E.164-compliant telephone number.
      * @param notifyPhoneNumber Notify phone number from which to make the call. When you initiate a call, the
      * outgoing call workflow for the number group associated with this number runs. Ensure
-     * this workflow includes a <span class="ph uicontrol">join conference call</span> activity to
+     * this workflow includes a join conference call activity to
      * connect the user to the conference call.
      * @param toPhoneNumber Phone number to call. Called numbers are added to the conference call.
      * @param conferenceCall Optional. If this parameter is passed in, the callers identified in the
-     * <span class="keyword parmname">toPhoneNumber</span> parameter are automatically joined into the
-     * conference call identified by this record. <p class="p">GlideRecord for the Notify Call
+     * toPhoneNumber parameter are automatically joined into the
+     * conference call identified by this record. GlideRecord for the Notify Call
      * [notify_call] table which identifies the conference call record. This record is
      * automatically added to the outgoing call workflow scratchpad as the
-     * workflow.scratchpad.conference_call variable.</p>
+     * workflow.scratchpad.conference_call variable.
      * @param userSysId Optional. Unique identifier (sys_id) of the user associated with the
      * call.
      * @param groupSysId Optional. Unique identifier (sys_id) of the group associated with the
      * call.
      * @param sourceRecord Optional. Source record that prompted this call.
     */
-    call(notifyPhoneNumber: string, toPhoneNumber: string, conferenceCall: GlideRecord, userSysId: string, groupSysId: string, sourceRecord: GlideRecord): void;
+    call(notifyPhoneNumber: string, toPhoneNumber: string, conferenceCall?: GlideRecord, userSysId?: string, groupSysId?: string, sourceRecord?: GlideRecord): void;
     /**
      * Creates a new conference call GlideRecord.
      * @param sourceRecord Optional. Record that initiated the request to create the conference call. Used
      * to populate the source and table fields on notify_conference_call record.
     */
-    conferenceCall(sourceRecord: GlideRecord): GlideRecord;
+    conferenceCall(sourceRecord?: GlideRecord): GlideRecord;
     /**
      * Resumes a call after it was put in a queue (on hold).
      * @param callRecord GlideRecord object on the Notify Call [notify_call] table with the held call
@@ -65,14 +65,14 @@ declare class sn_notify_SNAPINotify {
     /**
      * Returns the maximum amount of time that a client session stays active for a specified
      * telephony driver before automatically timing out.
-     * @param owner Name of the telephony driver for which to retrieve the session length. <p class="p">Valid
-     * values:</p>
-     * <ul class="ul" id="NotifyScoped-getTokenTTL_S__ul_ql5_vgc_1gb">
-     * <li class="li">Twilio: for the old driver</li>
+     * @param owner Name of the telephony driver for which to retrieve the session length. Valid
+     * values:
      *
-     * <li class="li">TwilioDirect: for the new driver</li>
+     * Twilio: for the old driver
      *
-     * </ul>
+     * TwilioDirect: for the new driver
+     *
+     *
     */
     getTokenTTL(owner: string): number;
     /**

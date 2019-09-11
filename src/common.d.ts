@@ -138,6 +138,7 @@ export module SNC {
     name: string;
     type: string;
     description: string;
+    optional: boolean;
   }
 
   interface ProcessClassOpts extends NSOpts {

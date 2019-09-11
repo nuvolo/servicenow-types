@@ -9,9 +9,9 @@ declare class sn_cc_SNAPIStandardCredentialsProvider {
      * This function returns an array of all credentials that match the given types and
      * tags.
      * @param types Types is an array of credential type names. For example, ["ssh",
-     * "windows"]<div class="note note"><span class="notetitle">Note:</span> If types are null or empty, any match returns a credential. If
+     * "windows"]Note: If types are null or empty, any match returns a credential. If
      * types are specified, the credentials whose type matches one of the types
-     * returns.</div>
+     * returns.
      * @param handles Handles is a comma-separated list of handle names. For example,
      * "ssh,jdbc"
     */

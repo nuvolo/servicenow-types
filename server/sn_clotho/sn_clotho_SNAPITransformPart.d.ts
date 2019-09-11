@@ -42,23 +42,23 @@ declare class sn_clotho_SNAPITransformPart {
     div(constant: number): TransformPart;
     /**
      * Create a series using the specified aggregator for the specified time.
-     * @param aggregator Can be:<ul class="ul" id="TP-filter_O_O__ul_jdr_lqy_1gb">
-     * <li class="li">AVG</li>
+     * @param aggregator Can be:
+     * AVG
      *
-     * <li class="li">CHISQUARE</li>
+     * CHISQUARE
      *
-     * <li class="li">LAST </li>
+     * LAST
      *
-     * <li class="li">MAX</li>
+     * MAX
      *
-     * <li class="li">MEDIAN</li>
+     * MEDIAN
      *
-     * <li class="li">MIN</li>
+     * MIN
      *
-     * <li class="li">STDDEV</li>
+     * STDDEV
      *
-     * </ul>
-     * For definitions of these options, see <a class="xref" href="app.do#!/api_doc?v=madrid&amp;id=undefined" title="Transforms enable you to visualize MetricBase data in different ways.">MetricBase transforms</a>. .
+     *
+     * For definitions of these options, see MetricBase transforms. .
      * @param duration The time period for doing
     */
     filter(aggregator: any, duration: any): TransformPart;
@@ -163,10 +163,10 @@ declare class sn_clotho_SNAPITransformPart {
     /**
      * Specify the number of data points to include in the result.
      * @param aggregator Can be LAST, AVG, MIN, or MAX.
-     * @param numValues The number of samples to include in the result set.<p class="p">When the number of values
+     * @param numValues The number of samples to include in the result set.When the number of values
      * requested is greater than the number of values in the data for the requested time
-     * period, <span class="keyword apiname">interpolate()</span> is used to add values between existing
-     * points to reach the requested number of values.</p>
+     * period, interpolate() is used to add values between existing
+     * points to reach the requested number of values.
     */
     resample(aggregator: string, numValues: number): TransformPart;
     /**
