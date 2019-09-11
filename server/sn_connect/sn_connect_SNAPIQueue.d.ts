@@ -5,7 +5,7 @@ declare class sn_connect_SNAPIQueue {
     */
     get(SysID: string): any;
     /**
-     * Add the current user to an existing <span class="ph">Connect Support</span> chat queue. Use a sysID
+     * Add the current user to an existing Connect Support chat queue. Use a sysID
      * from the chat_queue table.
      * @param Question Type a question to add to the queue.
     */

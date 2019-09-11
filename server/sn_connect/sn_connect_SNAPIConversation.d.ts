@@ -5,7 +5,7 @@ declare class sn_connect_SNAPIConversation {
     */
     addSubscriber(sysID: string): void;
     /**
-     * Create a <span class="ph">Connect</span>
+     * Create a Connect
      * conversation.
      * @param name Create a conversation with a specific name.
      * @param type Include a specific conversation type. The type is determined by the type choice

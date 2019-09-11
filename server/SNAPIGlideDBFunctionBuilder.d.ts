@@ -14,7 +14,7 @@ declare class SNAPIGlideDBFunctionBuilder {
     concat(): void;
     /**
      * Defines a constant value to use in the function. If used with the
-     * <span class="keyword apiname">dayofweek()</span> method, the string defines whether to use Sunday or Monday as
+     * dayofweek() method, the string defines whether to use Sunday or Monday as
      * the first day of the week.
      * @param constant A constant value used in a function. <p class="p">When used with the
      * <span class="keyword apiname">dayofweek()</span> method, the value defines whether the week starts

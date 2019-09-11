@@ -1,6 +1,6 @@
 declare class sn_sc_SNAPICatCategory {
     /**
-     * Adds the <span class="keyword parmname">Available For</span> user criteria to a catalog
+     * Adds the Available For user criteria to a catalog
      * category.
      * @param action Specify <kbd class="ph userinput">add</kbd> to add the user criteria to the
      * <span class="ph uicontrol">Available For</span> list. <p class="p">Specify
@@ -38,7 +38,7 @@ declare class sn_sc_SNAPICatCategory {
     */
     getID(): string;
     /**
-     * Adds the <span class="keyword parmname">Not Available For</span> user criteria to a catalog
+     * Adds the Not Available For user criteria to a catalog
      * category.
      * @param action Specify <kbd class="ph userinput">add</kbd> to add the user criteria to the
      * <span class="ph uicontrol">Not Available For</span> list. <p class="p">Specify

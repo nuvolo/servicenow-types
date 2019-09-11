@@ -186,13 +186,13 @@ declare class SNAPIGlideSystem {
     getCurrentScopeName(): string;
     /**
      * Returns the list of error messages for the session that were added by
-     * <span class="keyword apiname">addErrorMessage()</span>.
+     * addErrorMessage().
     */
     getErrorMessages(): string;
     /**
      * Retrieves a message from UI messages that has HTML special characters, and replaces
-     * them with escape sequences. For example, <samp class="ph codeph">&amp;</samp> becomes
-     * <samp class="ph codeph">&amp;amp;</samp>.
+     * them with escape sequences. For example, &amp; becomes
+     * &amp;amp;.
      * @param id ID of the message.
      * @param args Optional. List of strings or other values defined by java.text.MessageFormat,
      * which allows you to produce language-neutral messages for display to users.
@@ -223,7 +223,7 @@ declare class SNAPIGlideSystem {
     getSessionID(): string;
     /**
      * This method is no longer available. Instead, use
-     * <samp class="ph codeph">gs.getSession().getSessionToken()</samp>.
+     * gs.getSession().getSessionToken().
     */
     getSessionToken(): string;
     /**

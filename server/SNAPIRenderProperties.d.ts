@@ -34,12 +34,12 @@ declare class SNAPIRenderProperties {
     */
     isInteractive(): boolean;
     /**
-     * Returns true when the <samp class="ph codeph">sysparm_collection_related_file</samp> URL parameter is
+     * Returns true when the sysparm_collection_related_file URL parameter is
      * set.
     */
     isManyToMany(): boolean;
     /**
-     * Returns true when the <samp class="ph codeph">sys_is_related_list</samp> URL-parameter is true.
+     * Returns true when the sys_is_related_list URL-parameter is true.
      * Returns false if the parameter is not present.
     */
     isRelatedList(): boolean;

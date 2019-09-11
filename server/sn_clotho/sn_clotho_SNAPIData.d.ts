@@ -5,8 +5,8 @@ declare class sn_clotho_SNAPIData {
     */
     getEnd(): GlideDateTime;
     /**
-     * Returns the label assigned by the <span class="keyword apiname">
-     * sn_clotho.ClothoTransform.label()</span> method.
+     * Returns the label assigned by the
+     * sn_clotho.ClothoTransform.label() method.
     */
     getLabel(): string;
     /**

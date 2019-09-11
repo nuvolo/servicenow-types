@@ -10,7 +10,7 @@ declare class sn_impex_SNAPIGlideExcelParser {
     */
     getColumnHeaders(): any[];
     /**
-     * Returns the error message when the <span class="keyword apiname">parse()</span> method fails.
+     * Returns the error message when the parse() method fails.
     */
     getErrorMessage(): string;
     /**

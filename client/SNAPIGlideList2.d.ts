@@ -5,14 +5,14 @@ declare class SNAPIGlideList2 {
     */
     addFilter(filter: string): void;
     /**
-     * Returns the <span class="keyword apiname">GlideList2</span> object for the list that contains the specified
+     * Returns the GlideList2 object for the list that contains the specified
      * item.
      * @param DOMelement The DOM element ID for the list for which you want the
      * <span class="keyword apiname">GlideList2</span> object.
     */
     get(DOMelement: any): any;
     /**
-     * Returns the <span class="keyword apiname">GlideList2</span> object for the list that contains the specified
+     * Returns the GlideList2 object for the list that contains the specified
      * item.
      * @param ListID The list ID for which you want the <span class="keyword apiname">GlideList2</span>
      * object.
@@ -71,12 +71,12 @@ declare class SNAPIGlideList2 {
     */
     getView(): string;
     /**
-     * Returns <span class="ph uicontrol">true</span> if the list has been personalized by the user by
+     * Returns true if the list has been personalized by the user by
      * choosing the list mechanic and changing the list layout.
     */
     isUserList(): boolean;
     /**
-     * Refreshes the list.  The <span class="keyword parmname">orderBy</span> part of the list filter is ignored
+     * Refreshes the list.  The orderBy part of the list filter is ignored
      * so that the list uses its natural ordering when it is refreshed.
      * @param firstRow (Optional) The first row to appear in the list. If not specified, the first row
      * of the current is used.
@@ -85,21 +85,21 @@ declare class SNAPIGlideList2 {
     */
     refresh(firstRow: number, additionalParms: string): void;
     /**
-     * Refreshes the list. The <span class="keyword parmname">orderBy</span> part of the list filter is included
+     * Refreshes the list. The orderBy part of the list filter is included
      * if it is specified for the list.
      * @param firstRow (Optional) The first row to appear in the list.
      * @param description (Optional)  name=value pairs that are submitted with the list refresh request.
     */
     refreshWithOrderBy(firstRow: number, description: string): void;
     /**
-     * Sets the encoded query string for the list, ignoring the <span class="keyword parmname">orderBy</span> and
-     * <span class="keyword parmname">groupBy</span> parts of the query string.
+     * Sets the encoded query string for the list, ignoring the orderBy and
+     * groupBy parts of the query string.
      * @param filter Encoded query string.
     */
     setFilter(filter: string): void;
     /**
-     * Sets the encoded query string for the list, including the <span class="keyword parmname">orderBy</span>
-     * and <span class="keyword parmname">groupBy</span> if specified, and then refreshes the list using the new
+     * Sets the encoded query string for the list, including the orderBy
+     * and groupBy if specified, and then refreshes the list using the new
      * filter.
      * @param filter Encoded query string.
     */
@@ -110,13 +110,13 @@ declare class SNAPIGlideList2 {
     */
     setFirstRow(rowNum: number): void;
     /**
-     * Sets the <span class="keyword parmname">groupBy</span> criteria for the list, for a single field or
+     * Sets the groupBy criteria for the list, for a single field or
      * multiple fields.
      * @param groupBy The <span class="keyword parmname">groupBy</span> criteria for the list.
     */
     setGroupBy(groupBy: string): void;
     /**
-     * Sets the <span class="keyword parmname">orderBy</span> criteria for the list.
+     * Sets the orderBy criteria for the list.
      * @param orderBy Single or multiple order by fields.
     */
     setOrderBy(orderBy: string): void;

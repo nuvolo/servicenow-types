@@ -18,15 +18,15 @@ declare class SNAPIGlideSPScriptable {
     */
     canSeePage(pageID: string): boolean;
     /**
-     * Returns a model and view model for a <samp class="ph codeph">sc_cat_item</samp> or
-     * <samp class="ph codeph">sc_cat_item_guide</samp>.
+     * Returns a model and view model for a sc_cat_item or
+     * sc_cat_item_guide.
      * @param sysId The sys_id of the catalog item (<samp class="ph codeph">sc_cat_item</samp>) or order guide
      * (<samp class="ph codeph">sc_cat_item_guide</samp>).
     */
     getCatalogItem(sysId: string): any;
     /**
-     * Returns a model and view model for a <samp class="ph codeph">sc_cat_item</samp> or
-     * <samp class="ph codeph">sc_cat_item_guide</samp>.
+     * Returns a model and view model for a sc_cat_item or
+     * sc_cat_item_guide.
      * @param sysId The sys_id of the catalog item (<samp class="ph codeph">sc_cat_item</samp>) or order guide
      * (<samp class="ph codeph">sc_cat_item_guide</samp>).
      * @param isOrdering When true, uses create roles security check. When false, uses write roles
@@ -39,7 +39,7 @@ declare class SNAPIGlideSPScriptable {
     getCatalogItem(sysId: string, isOrdering: boolean): any;
     /**
      * Returns the display value of the specified field (if it exists and has a value) from
-     * either the widget's <samp class="ph codeph">sp_instance</samp> or the <samp class="ph codeph">sp_portal</samp>
+     * either the widget's sp_instance or the sp_portal
      * record.
      * @param fieldName Name of the field
     */
@@ -149,7 +149,7 @@ declare class SNAPIGlideSPScriptable {
     */
     getRecordValues(data: any, from: GlideRecord, names: string): void;
     /**
-     * Returns <span class="ph">Service Catalog</span>
+     * Returns Service Catalog
      * variables associated with a record in String format.
      * @param gr The record to retrieve <span class="ph">Service Catalog</span> variables
      * for. Must be a record with <span class="ph">Service Catalog</span> variables
@@ -159,7 +159,7 @@ declare class SNAPIGlideSPScriptable {
     */
     getRecordVariables(gr: GlideRecord, includeNilResponses: boolean): string;
     /**
-     * Returns an array of <span class="ph">Service Catalog</span> variables associated
+     * Returns an array of Service Catalog variables associated
      * with a record.
      * @param gr The record to retrieve <span class="ph">Service Catalog</span> variables
      * for. Must be a record with <span class="ph">Service Catalog</span> variables
@@ -191,7 +191,7 @@ declare class SNAPIGlideSPScriptable {
     */
     getValues(data: any, names: string): void;
     /**
-     * Returns an array of <span class="ph">Service Catalog</span> variables associated
+     * Returns an array of Service Catalog variables associated
      * with the record in the URL.
      * @param includeNilResponses Optional. If true, the API includes variables with no user-defined value.
     */
@@ -210,7 +210,7 @@ declare class SNAPIGlideSPScriptable {
     getWidget(sysID: string, options: any): any;
     /**
      * Transforms a URL requesting a list or form in the platform UI into the URL of the
-     * corresponding <samp class="ph codeph">id=list</samp> or <samp class="ph codeph">id=form</samp> Service Portal
+     * corresponding id=list or id=form Service Portal
      * page.
      * @param url Platform UI URL
     */

@@ -311,14 +311,14 @@ declare class SNAPIGlideRecord {
     updateMultiple(): void;
     /**
      * Moves to the next record in the GlideRecord. Provides the same functionality as
-     * <span class="keyword apiname">next()</span>, it is  intended to be used in cases where the GlideRecord has a
+     * next(), it is  intended to be used in cases where the GlideRecord has a
      * column named next.
     */
     _next(): boolean;
     /**
-     * Identical to <span class="keyword apiname">query()</span>. This method is intended to be used on tables
+     * Identical to query(). This method is intended to be used on tables
      * where there is a column named query, which would interfere with using the
-     * <span class="keyword apiname">query()</span> method.
+     * query() method.
      * @param name Column name on which to query
      * @param value Value for which to query
     */

@@ -11,7 +11,7 @@ declare class sn_sc_SNAPIOrderGuide {
     */
     init(request: any): any;
     /**
-     * Specifies if the <span class="ph uicontrol">Show Include Toggle</span> (include_items) check box
+     * Specifies if the Show Include Toggle (include_items) check box
      * is selected for the specified order guide.
     */
     isIncludeItems(): boolean;

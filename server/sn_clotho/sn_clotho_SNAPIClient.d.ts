@@ -3,7 +3,7 @@ import { DataBuilder } from "../sn_clotho";
 declare class sn_clotho_SNAPIClient {
     constructor();
     /**
-     * Remove the data in the <span class="ph">MetricBase</span> database associated with
+     * Remove the data in the MetricBase database associated with
      * the specified metric in the specified GlideRecord. Use this method for removing test data.
      * @param gr The records whose time series data for the specified metric is to be
      * deleted.
@@ -11,7 +11,7 @@ declare class sn_clotho_SNAPIClient {
     */
     deleteSeries(gr: GlideRecord, metric: string): void;
     /**
-     * Save metric data to the <span class="ph">MetricBase</span> database.
+     * Save metric data to the MetricBase database.
      * @param metricData A DataBuilder object containing metric data.
     */
     put(metricData: DataBuilder): void;

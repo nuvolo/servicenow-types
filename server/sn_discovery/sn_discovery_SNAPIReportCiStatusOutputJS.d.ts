@@ -9,7 +9,7 @@ declare class sn_discovery_SNAPIReportCiStatusOutputJS {
     */
     getCmdbCI(): string;
     /**
-     * Used to return the value from the <span class="ph uicontrol">State</span> field in the Discovery
+     * Used to return the value from the State field in the Discovery
      * Status [discovery_status] table.
     */
     getDiscoveryState(): string;
@@ -29,7 +29,7 @@ declare class sn_discovery_SNAPIReportCiStatusOutputJS {
     */
     getIssuesLink(): string;
     /**
-     * Used to serialized the <span class="keyword parmname">ReportCiStatusOutputJS</span> object.
+     * Used to serialized the ReportCiStatusOutputJS object.
     */
     toJson(): string;
 }

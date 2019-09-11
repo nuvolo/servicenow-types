@@ -185,7 +185,7 @@ function getMethods(c: SNC.ClassData) {
       }
       if (!methods.hasOwnProperty(methodName)) {
         let method: SNC.SNClassMethod = {
-          description: m.text || "",
+          description: striptags(m.text) || "",
           instances: []
         };
         methods[methodName] = method;

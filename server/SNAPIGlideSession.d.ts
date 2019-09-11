@@ -1,7 +1,7 @@
 declare class SNAPIGlideSession {
     /**
      * Retrieves a session client value previously set with
-     * <span class="keyword apiname">putClientData()</span>.
+     * putClientData().
      * @param paramName Name of the client data to retrieve.
     */
     getClientData(paramName: string): string;
@@ -43,7 +43,7 @@ declare class SNAPIGlideSession {
     isLoggedIn(): boolean;
     /**
      * Sets a session client value that can be retrieved with
-     * <span class="keyword apiname">getClientData()</span>. This method is used in a server side script that runs when
+     * getClientData(). This method is used in a server side script that runs when
      * a form is created.
      * @param paramName Name of the client data to set.
      * @param paramValue Value of the client data.

@@ -141,8 +141,8 @@ declare class SNAPIGlideForm {
     */
     getLabelOf(fieldName: string): string;
     /**
-     * Returns the option element for a selected box named <span class="keyword parmname">fieldName</span>
-     * where <span class="keyword parmname">choiceValue</span> matches the option value.
+     * Returns the option element for a selected box named fieldName
+     * where choiceValue matches the option value.
      * @param fieldName Name of the field.
      * @param choiceValue Value of the option.
     */
@@ -184,17 +184,17 @@ declare class SNAPIGlideForm {
     */
     hideAllFieldMsgs(type: string): void;
     /**
-     * Hides the error message placed by <span class="keyword apiname">showErrorBox()</span>.
+     * Hides the error message placed by showErrorBox().
      * @param fieldName The name of the field or control.
     */
     hideErrorBox(fieldName: string): void;
     /**
-     * Hides the last message placed by <span class="keyword apiname">showFieldMsg()</span>.
+     * Hides the last message placed by showFieldMsg().
      * @param fieldName Name of the field.
     */
     hideFieldMsg(fieldName: string): void;
     /**
-     * Hides the last message placed by <span class="keyword apiname">showFieldMsg()</span>.
+     * Hides the last message placed by showFieldMsg().
      * @param fieldName Name of the field.
      * @param clearAll When true, all messages for the field are cleared. When false, only the last
      * message is removed.

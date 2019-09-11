@@ -141,13 +141,13 @@ declare class SNAPIGlideListV3 {
     */
     setFormTarget(target: string): void;
     /**
-     * Sets the <span class="keyword parmname">groupBy</span> criteria for the list, for a single field or
+     * Sets the groupBy criteria for the list, for a single field or
      * multiple fields.
      * @param String The group by criteria for the list.
     */
     setGroupBy(String: string): void;
     /**
-     * Sets the <span class="keyword parmname">orderBy</span> criteria for the list.
+     * Sets the orderBy criteria for the list.
      * @param orderBy Single or multiple order by fields.
     */
     setOrderBy(orderBy: string): void;

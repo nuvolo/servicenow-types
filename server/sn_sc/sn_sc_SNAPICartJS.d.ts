@@ -28,8 +28,8 @@ declare class sn_sc_SNAPICartJS {
     */
     addToCart(request: any): any;
     /**
-     * Specifies if the current user has the required role to edit the <span class="ph uicontrol">Request
-     * for</span> field.
+     * Specifies if the current user has the required role to edit the Request
+     * for field.
     */
     canViewRF(): boolean;
     /**
@@ -109,9 +109,9 @@ declare class sn_sc_SNAPICartJS {
     setSpecialInstructions(specialInstructions: string): void;
     /**
      * Updates special instructions, requested for, and delivery address from the
-     * <span class="keyword parmname">request</span> parameter and performs the cart checkout. Use this API to modify
+     * request parameter and performs the cart checkout. Use this API to modify
      * the mentioned parameters of the cart and perform the cart checkout simultaneously. Missing
-     * parameters in the <span class="keyword parmname">request</span> object will have their default value.
+     * parameters in the request object will have their default value.
      * @param request A JSON object that contains details of the cart to be submitted.<p class="p">The
      * structure of the request object
      * is:</p>

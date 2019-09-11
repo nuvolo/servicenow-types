@@ -56,7 +56,7 @@ declare class SNAPIGlideStringUtil {
     */
     isEligibleSysID(sourceString: string): boolean;
     /**
-     * Replaces the new line character, "/n", with a break code "<br/>".
+     * Replaces the new line character, "/n", with a break code "".
      * @param sourceString The string to be processed.
     */
     newLinesToBreaks(sourceString: string): string;

@@ -335,8 +335,8 @@ declare class SNAPIGlideDateTime {
     /**
      * Sets a date and time value using the UTC time zone and the specified date and time
      * format. This method throws a runtime exception if the date and time format used in the
-     * <span class="keyword parmname">dt</span> parameter does not match the <span class="keyword parmname">format</span> parameter.
-     * You can retrieve the error message by calling <samp class="ph codeph">getErrorMsg()</samp> on the
+     * dt parameter does not match the format parameter.
+     * You can retrieve the error message by calling getErrorMsg() on the
      * GlideDateTime object after the exception is caught.
      * @param dt The date and time to use.
      * @param format The date and time format to use.

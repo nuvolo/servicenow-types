@@ -36,8 +36,8 @@ declare class SNAPIspUtil {
     */
     recordWatch($scope: any, table: string, filter: string, callback: any): Promise<any>;
     /**
-     * Calls the server and replaces the current <span class="ph uicontrol">options</span> and
-     * <span class="ph uicontrol">data</span> with the server response.
+     * Calls the server and replaces the current options and
+     * data with the server response.
      * @param $scope The scope defined for the update.
     */
     refresh($scope: any): any;

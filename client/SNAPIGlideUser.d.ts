@@ -4,7 +4,7 @@ declare class SNAPIGlideUser {
     userID: string;
     userName: string;
     /**
-     * Returns a session client value previously set with <span class="keyword apiname">putClientData()</span>.
+     * Returns a session client value previously set with putClientData().
      * @param Key Name of the client data to retrieve.
     */
     getClientData(Key: string): string;
