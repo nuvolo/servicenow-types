@@ -2,6 +2,7 @@ import ts from "typescript";
 import path from "path";
 import { promises as fs, default as fss } from "fs";
 import { comment } from "./CommentGenerator";
+import prettier from "prettier";
 import { SNC, TSG, Mod } from "./common";
 export const NO_NAMESPACE = "No namespace qualifier";
 const OUTPUT_DIR = "../";
@@ -30,7 +31,7 @@ async function generateIndexFile(opts: TSG.GenIndexOpts) {
   if (!fss.existsSync(parentDir)) {
     fss.mkdirSync(parentDir, { recursive: true });
   }
-  await fs.writeFile(filePath, printer.printFile(sourceFile));
+  await writePrettyFile(filePath, printer.printFile(sourceFile));
 }
 
 function getModuleMap(hierarchy: SNC.SNApiHierarchy) {
@@ -66,7 +67,7 @@ async function generateNamespaceFile(opts: TSG.ProcessNSOpts) {
   if (!fss.existsSync(parentDir)) {
     fss.mkdirSync(parentDir, { recursive: true });
   }
-  await fs.writeFile(filePath, printer.printFile(sourceFile));
+  await writePrettyFile(filePath, printer.printFile(sourceFile));
 }
 
 async function processClass(opts: TSG.ProcessClassOpts) {
@@ -88,7 +89,7 @@ async function generateAPIClass(opts: TSG.ProcessClassOpts) {
   let filePath = generateTypeFilePath({ ...opts, fileName });
   let parentDir = path.dirname(filePath);
   ensurePathExists(parentDir);
-  await fs.writeFile(filePath, printer.printFile(sourceFile));
+  await writePrettyFile(filePath, printer.printFile(sourceFile));
 }
 
 async function generateExtendedClass(opts: TSG.ProcessClassOpts) {
@@ -111,7 +112,7 @@ async function generateExtendedClass(opts: TSG.ProcessClassOpts) {
   let parentDir = path.dirname(filePath);
   ensurePathExists(parentDir);
   if (!fss.existsSync(filePath)) {
-    await fs.writeFile(filePath, printer.printFile(sourceFile));
+    await writePrettyFile(filePath, printer.printFile(sourceFile));
   }
 }
 
@@ -132,6 +133,15 @@ function ensurePathExists(ensurePath: string) {
   if (!fss.existsSync(ensurePath)) {
     fss.mkdirSync(ensurePath, { recursive: true });
   }
+}
+
+async function writePrettyFile(pth: string, text: string) {
+  await fs.writeFile(
+    pth,
+    prettier.format(text, {
+      parser: "typescript"
+    })
+  );
 }
 
 function getPrefixedClassName(opts: TSG.GenClassNameOpts) {

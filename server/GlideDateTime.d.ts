@@ -1,4 +1,3 @@
 import { SNAPIGlideDateTime } from "./SNAPIGlideDateTime";
-declare class GlideDateTime extends SNAPIGlideDateTime {
-}
+declare class GlideDateTime extends SNAPIGlideDateTime {}
 export { GlideDateTime };

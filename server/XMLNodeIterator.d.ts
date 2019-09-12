@@ -1,4 +1,3 @@
 import { SNAPIXMLNodeIterator } from "./SNAPIXMLNodeIterator";
-declare class XMLNodeIterator extends SNAPIXMLNodeIterator {
-}
+declare class XMLNodeIterator extends SNAPIXMLNodeIterator {}
 export { XMLNodeIterator };

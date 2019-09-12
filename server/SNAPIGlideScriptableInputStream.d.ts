@@ -1,3 +1,2 @@
-declare class SNAPIGlideScriptableInputStream {
-}
+declare class SNAPIGlideScriptableInputStream {}
 export { SNAPIGlideScriptableInputStream };

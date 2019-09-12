@@ -1,4 +1,3 @@
 import { SNAPIGlideTextReader } from "./SNAPIGlideTextReader";
-declare class GlideTextReader extends SNAPIGlideTextReader {
-}
+declare class GlideTextReader extends SNAPIGlideTextReader {}
 export { GlideTextReader };

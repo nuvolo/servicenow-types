@@ -1,3 +1,2 @@
-declare class SNAPIGlideFormScratchpad {
-}
+declare class SNAPIGlideFormScratchpad {}
 export { SNAPIGlideFormScratchpad };

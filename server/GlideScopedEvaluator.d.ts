@@ -1,4 +1,3 @@
 import { SNAPIGlideScopedEvaluator } from "./SNAPIGlideScopedEvaluator";
-declare class GlideScopedEvaluator extends SNAPIGlideScopedEvaluator {
-}
+declare class GlideScopedEvaluator extends SNAPIGlideScopedEvaluator {}
 export { GlideScopedEvaluator };

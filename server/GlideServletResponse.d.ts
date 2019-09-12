@@ -1,4 +1,3 @@
 import { SNAPIGlideServletResponse } from "./SNAPIGlideServletResponse";
-declare class GlideServletResponse extends SNAPIGlideServletResponse {
-}
+declare class GlideServletResponse extends SNAPIGlideServletResponse {}
 export { GlideServletResponse };
