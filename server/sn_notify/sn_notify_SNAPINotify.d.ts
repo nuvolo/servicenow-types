@@ -23,17 +23,17 @@ declare class sn_notify_SNAPINotify {
   call(
     notifyPhoneNumber: string,
     toPhoneNumber: string,
-    conferenceCall: GlideRecord | undefined,
-    userSysId: string | undefined,
-    groupSysId: string | undefined,
-    sourceRecord: GlideRecord | undefined
+    conferenceCall?: GlideRecord,
+    userSysId?: string,
+    groupSysId?: string,
+    sourceRecord?: GlideRecord
   ): void;
   /**
    * Creates a new conference call GlideRecord.
    * @param sourceRecord Optional. Record that initiated the request to create the conference call. Used
    * to populate the source and table fields on notify_conference_call record.
    */
-  conferenceCall(sourceRecord: GlideRecord | undefined): GlideRecord;
+  conferenceCall(sourceRecord?: GlideRecord): GlideRecord;
   /**
    * Resumes a call after it was put in a queue (on hold).
    * @param callRecord GlideRecord object on the Notify Call [notify_call] table with the held call

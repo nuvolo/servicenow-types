@@ -47,6 +47,6 @@ declare class SNAPIspModal {
    * @param message The message to display.
    * @param default_ A default value to use if the user does not provide a response.
    */
-  prompt(message: string, default_: string | undefined): string;
+  prompt(message: string, default_?: string): string;
 }
 export { SNAPIspModal };

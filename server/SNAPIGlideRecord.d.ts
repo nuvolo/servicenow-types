@@ -26,8 +26,8 @@ declare class SNAPIGlideRecord {
    */
   addJoinQuery(
     joinTable: string,
-    primaryField: any | undefined,
-    joinTableField: any | undefined
+    primaryField?: any,
+    joinTableField?: any
   ): GlideQueryCondition;
   /**
    * A filter that specifies records where the value of the field passed in the parameter is
@@ -308,7 +308,7 @@ declare class SNAPIGlideRecord {
    * @param reason Optional. Reason for the update. The reason appears in the audit
    * record.
    */
-  update(reason: string | undefined): string;
+  update(reason?: string): string;
   /**
    * Updates each GlideRecord in a stated query with a specified set of changes.
    */

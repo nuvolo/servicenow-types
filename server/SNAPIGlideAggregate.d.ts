@@ -6,7 +6,7 @@ declare class SNAPIGlideAggregate {
    * @param agg Name of the aggregate to add, for example, COUNT, MIN, or MAX
    * @param name (Optional) Name of the column to aggregate. Null is the default.
    */
-  addAggregate(agg: string, name: string | undefined): void;
+  addAggregate(agg: string, name?: string): void;
   /**
    * Adds an encoded query to the other queries that may have been set for this
    * aggregate.

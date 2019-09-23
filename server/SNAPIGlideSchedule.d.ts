@@ -8,7 +8,7 @@ declare class SNAPIGlideSchedule {
    */
   add(startDate: GlideDateTime, offSet: GlideDuration): GlideDateTime;
   constructor();
-  constructor(sysID: string, timeZone: string | undefined);
+  constructor(sysID: string, timeZone?: string);
   /**
    * Determines the elapsed time in the schedule between two date time values using the
    * timezone of the schedule or, if that is not specified, the timezone of the session.

@@ -12,7 +12,7 @@ declare class sn_discovery_SNAPIDiscoveryAPI {
   discoverIpAddress(
     IP_address: string,
     application: string,
-    source: string | undefined
+    source?: string
   ): string;
   /**
    * Used to return a summary of a configuration item's Discovery status given the specific

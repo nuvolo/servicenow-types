@@ -54,7 +54,7 @@ declare class SNAPINotifyClient {
    *
    *
    */
-  addEventListener(event: string | undefined): any;
+  addEventListener(event?: string): any;
   /**
    * Calls the specified phone number or the phone number associated with a specified
    * user.
@@ -144,7 +144,7 @@ declare class SNAPINotifyClient {
    * notifyConfig.vendor has been set in the callback to ensure
    * that a vendor has been specified.
    */
-  setCallerId(value: string, autoSelectVendorCallback: any | undefined): void;
+  setCallerId(value: string, autoSelectVendorCallback?: any): void;
   /**
    * Sets the availability of an active WebRTC client agent.
    * @param available Flag that indicates whether an active WebRTC client wants to receive calls.

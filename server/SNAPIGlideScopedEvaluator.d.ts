@@ -10,8 +10,8 @@ declare class SNAPIGlideScopedEvaluator {
    */
   evaluateScript(
     grObj: GlideRecord,
-    scriptField: string | undefined,
-    variables: any | undefined
+    scriptField?: string,
+    variables?: any
   ): any;
   /**
    * Returns a variable from a GlideScopedEvaluator object.

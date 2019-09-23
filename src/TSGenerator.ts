@@ -333,13 +333,30 @@ function generateProperties(properties: SNC.Property[]) {
 }
 
 function generateParameters(params: SNC.SNMethodParam[], _class: SNC.SNClass) {
-  return params.map(param => {
+  //figure out last non-optional param
+  let lastNonOptional = findLastNonOptionalParam(params);
+  return params.map((param, index) => {
     let paramType = generateType(param.type, _class);
-    if (param.optional) {
+    if (param.optional && index < lastNonOptional) {
       paramType = ts.createUnionTypeNode([generateType(param.type), generateType("undefined")]);
+      return ts.createParameter(_, _, _, param.name, _, paramType, _);
+    } else if (param.optional && index > lastNonOptional) {
+      let questionMarkToken = ts.createToken(ts.SyntaxKind.QuestionToken);
+      return ts.createParameter(_, _, _, param.name, questionMarkToken, paramType, _);
+    } else {
+      return ts.createParameter(_, _, _, param.name, _, paramType, _);
     }
-    return ts.createParameter(_, _, _, param.name, _, paramType, _);
   });
+}
+
+function findLastNonOptionalParam(params: SNC.SNMethodParam[]) {
+  let last = -1;
+  for (let i = 0; i < params.length; i++) {
+    if (!params[i].optional) {
+      last = i;
+    }
+  }
+  return last;
 }
 
 function generateType(typeName: string, _class?: SNC.SNClass): ts.TypeNode {

@@ -54,10 +54,10 @@ declare class SNAPIGlideList2 {
    * query.
    */
   getQuery(
-    orderBy: boolean | undefined,
-    groupBy: boolean | undefined,
-    fixed: boolean | undefined,
-    all: boolean | undefined
+    orderBy?: boolean,
+    groupBy?: boolean,
+    fixed?: boolean,
+    all?: boolean
   ): string;
   /**
    * Returns the related list field that associates the related list to the parent form.
@@ -88,20 +88,14 @@ declare class SNAPIGlideList2 {
    * @param additionalParms (Optional) name-value pairs that are submitted with the list refresh
    * request.
    */
-  refresh(
-    firstRow: number | undefined,
-    additionalParms: string | undefined
-  ): void;
+  refresh(firstRow?: number, additionalParms?: string): void;
   /**
    * Refreshes the list. The orderBy part of the list filter is included
    * if it is specified for the list.
    * @param firstRow (Optional) The first row to appear in the list.
    * @param description (Optional)  name=value pairs that are submitted with the list refresh request.
    */
-  refreshWithOrderBy(
-    firstRow: number | undefined,
-    description: string | undefined
-  ): void;
+  refreshWithOrderBy(firstRow?: number, description?: string): void;
   /**
    * Sets the encoded query string for the list, ignoring the orderBy and
    * groupBy parts of the query string.

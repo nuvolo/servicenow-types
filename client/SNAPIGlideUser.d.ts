@@ -20,7 +20,7 @@ declare class SNAPIGlideUser {
    * see Explicit roles.
    * Default: false
    */
-  hasRole(role: string, includeDefaults: boolean | undefined): boolean;
+  hasRole(role: string, includeDefaults?: boolean): boolean;
   /**
    * Returns true only if the current user has the specified role.
    * @param role Role to check
@@ -29,7 +29,7 @@ declare class SNAPIGlideUser {
    * see Explicit roles.
    * Default: false
    */
-  hasRoleExactly(role: string, includeDefaults: boolean | undefined): boolean;
+  hasRoleExactly(role: string, includeDefaults?: boolean): boolean;
   /**
    * Returns true if the current user has at least one of the specified roles or has the
    * admin role.
@@ -39,7 +39,7 @@ declare class SNAPIGlideUser {
    * see Explicit roles.
    * Default: false
    */
-  hasRoleFromList(roles: string, includeDefaults: boolean | undefined): boolean;
+  hasRoleFromList(roles: string, includeDefaults?: boolean): boolean;
   /**
    * Returns true if the current user has any role.
    * @param includeDefaults (Optional) Flag that indicates whether to include default roles, such as
@@ -47,6 +47,6 @@ declare class SNAPIGlideUser {
    * see Explicit roles.
    * Default: false
    */
-  hasRoles(includeDefaults: boolean | undefined): boolean;
+  hasRoles(includeDefaults?: boolean): boolean;
 }
 export { SNAPIGlideUser };
