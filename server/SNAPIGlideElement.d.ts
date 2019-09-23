@@ -53,7 +53,7 @@ declare class SNAPIGlideElement {
    * Generates a choice list for a field.
    * @param dependent Optional: a dependent value
    */
-  getChoices(dependent?: string): any[];
+  getChoices(dependent: string | undefined): any[];
   /**
    * Returns the choice label for the current choice.
    */
@@ -67,7 +67,7 @@ declare class SNAPIGlideElement {
    * Gets the formatted display value of the field.
    * @param maxCharacters Optional: Maximum characters desired
    */
-  getDisplayValue(maxCharacters?: number): string;
+  getDisplayValue(maxCharacters: number | undefined): string;
   /**
    * Returns the field's element descriptor.
    */
@@ -80,7 +80,7 @@ declare class SNAPIGlideElement {
    * Returns the HTML value of a field.
    * @param maxChars Optional. Maximum number of characters to return.
    */
-  getHTMLValue(maxChars?: number): string;
+  getHTMLValue(maxChars: number | undefined): string;
   /**
    * Returns either the most recent journal entry or all journal entries.
    * @param mostRecent If 1, returns the most recent entry. If -1, returns all journal

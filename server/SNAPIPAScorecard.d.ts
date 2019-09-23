@@ -105,7 +105,7 @@ declare class SNAPIPAScorecard {
    * parameter is also set to true.
    */
   addParam(
-    uuid?: string,
+    uuid: string | undefined,
     breakdown: string,
     breakdown_relation: string,
     elements_filter: string,

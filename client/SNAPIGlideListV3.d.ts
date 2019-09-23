@@ -107,7 +107,10 @@ declare class SNAPIGlideListV3 {
    * @param additionalParams (Optional) Name- value pairs that are submitted with the list refresh
    * request.
    */
-  refresh(firstRow?: number, additionalParams?: any): void;
+  refresh(
+    firstRow: number | undefined,
+    additionalParams: any | undefined
+  ): void;
   /**
    * Refreshes the list using the orderBy fields.
    * @param firstRow (Optional) The first row to display in the list. If not specified, the list's
@@ -115,7 +118,10 @@ declare class SNAPIGlideListV3 {
    * @param additionalParams (Optional) Name- value pairs that are submitted with the list refresh
    * request.
    */
-  refreshWithOrderBy(firstRow?: number, additionalParams?: any): void;
+  refreshWithOrderBy(
+    firstRow: number | undefined,
+    additionalParams: any | undefined
+  ): void;
   /**
    * Sets the encoded query string for the list ignoring the orderBy and groupBy parts of
    * the query string.

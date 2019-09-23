@@ -26,8 +26,8 @@ declare class SNAPIGlideRecord {
    */
   addJoinQuery(
     joinTable: string,
-    primaryField?: any,
-    joinTableField?: any
+    primaryField: any | undefined,
+    joinTableField: any | undefined
   ): GlideQueryCondition;
   /**
    * A filter that specifies records where the value of the field passed in the parameter is
@@ -140,7 +140,7 @@ declare class SNAPIGlideRecord {
    * passed in, the method assumes that this parameter is sys_id.
    * @param value Value to match.
    */
-  get(name?: any, value: any): boolean;
+  get(name: any | undefined, value: any): boolean;
   /**
    * Returns the dictionary attributes for the specified field.
    * @param fieldName Field name for which to return the dictionary attributes
@@ -308,7 +308,7 @@ declare class SNAPIGlideRecord {
    * @param reason Optional. Reason for the update. The reason appears in the audit
    * record.
    */
-  update(reason?: string): string;
+  update(reason: string | undefined): string;
   /**
    * Updates each GlideRecord in a stated query with a specified set of changes.
    */

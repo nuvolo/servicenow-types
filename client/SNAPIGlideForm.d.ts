@@ -295,7 +295,7 @@ declare class SNAPIGlideForm {
    * @param mandatory When true makes the field mandatory. When false makes the field
    * optional.
    */
-  setMandatory(fieldName: string, mandatory?: boolean): void;
+  setMandatory(fieldName: string, mandatory: boolean | undefined): void;
   /**
    * Makes the specified field read only or editable.
    * @param fieldName Name of the field.

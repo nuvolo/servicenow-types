@@ -7,7 +7,7 @@ import { generateFiles } from "./TSGenerator";
 import { SNC } from "./common";
 const release = "madrid";
 const configurations: SNC.HierarchyOpts[] = [
-  { release, api: "server", type: "scoped" }
+  { release, api: "server", type: "scoped" },
   { release, api: "client", type: "all" }
   // { release, api: "server_legacy", type: "global" }
 ];

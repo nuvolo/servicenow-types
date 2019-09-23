@@ -92,11 +92,11 @@ declare class SNAPIGlideSystem {
    */
   debug(
     message: string,
-    param1?: any,
-    param2?: any,
-    param3?: any,
-    param4?: any,
-    param5?: any
+    param1: any | undefined,
+    param2: any | undefined,
+    param3: any | undefined,
+    param4: any | undefined,
+    param5: any | undefined
   ): void;
   /**
    * Returns the date and time for the end of last month in GMT.
@@ -149,11 +149,11 @@ declare class SNAPIGlideSystem {
    */
   error(
     message: string,
-    param1?: any,
-    param2?: any,
-    param3?: any,
-    param4?: any,
-    param5?: any
+    param1: any | undefined,
+    param2: any | undefined,
+    param3: any | undefined,
+    param4: any | undefined,
+    param5: any | undefined
   ): void;
   /**
    * Queues an event for the event manager.
@@ -166,8 +166,8 @@ declare class SNAPIGlideSystem {
   eventQueue(
     name: string,
     instance: any,
-    parm1?: string,
-    parm2?: string,
+    parm1: string | undefined,
+    parm2: string | undefined,
     queue: string
   ): void;
   /**
@@ -181,8 +181,8 @@ declare class SNAPIGlideSystem {
   eventQueueScheduled(
     name: string,
     instance: any,
-    parm1?: string,
-    parm2?: string,
+    parm1: string | undefined,
+    parm2: string | undefined,
     expiration: any
   ): void;
   /**
@@ -223,7 +223,7 @@ declare class SNAPIGlideSystem {
    * @param args Optional. List of strings or other values defined by java.text.MessageFormat,
    * which allows you to produce language-neutral messages for display to users.
    */
-  getEscapedMessage(id: string, args?: any[]): string;
+  getEscapedMessage(id: string, args: any[] | undefined): string;
   /**
    * Retrieves a message from UI messages.
    * @param id The ID of the message.
@@ -231,14 +231,14 @@ declare class SNAPIGlideSystem {
    * java.text.MessageFormat,
    * which allows you to produce language-neutral messages for display to users.
    */
-  getMessage(id: string, args?: any[]): string;
+  getMessage(id: string, args: any[] | undefined): string;
   /**
    * Gets the value of a Glide property. If the property is not found, returns an alternate
    * value.
    * @param key The key for the property whose value should be returned.
    * @param alt (Optional) Alternate object to return if the property is not found.
    */
-  getProperty(key: string, alt?: any): string;
+  getProperty(key: string, alt: any | undefined): string;
   /**
    * Gets a reference to the current Glide session.
    */
@@ -315,11 +315,11 @@ declare class SNAPIGlideSystem {
    */
   info(
     message: string,
-    param1?: any,
-    param2?: any,
-    param3?: any,
-    param4?: any,
-    param5?: any
+    param1: any | undefined,
+    param2: any | undefined,
+    param3: any | undefined,
+    param4: any | undefined,
+    param5: any | undefined
   ): void;
   /**
    * Determines if debugging is active for a specific scope.
@@ -421,11 +421,11 @@ declare class SNAPIGlideSystem {
    */
   warn(
     message: string,
-    param1?: any,
-    param2?: any,
-    param3?: any,
-    param4?: any,
-    param5?: any
+    param1: any | undefined,
+    param2: any | undefined,
+    param3: any | undefined,
+    param4: any | undefined,
+    param5: any | undefined
   ): void;
   /**
    * Takes an XML string and returns a JSON object.

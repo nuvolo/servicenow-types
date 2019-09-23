@@ -239,6 +239,11 @@ function processMethod(m: SNC.ClassChild): SNC.SNMethodInstance {
   if (m.children) {
     for (let child of m.children) {
       if (child.type === "Parameter") {
+        //some methods have child data types in their params...
+        //this check removes them so we can manually update those for now
+        if (child.name.includes(".")) {
+          continue;
+        }
         let strippedText2 = striptags(child.text2 || "");
         let optional = containsOptional([child.name, strippedText2]);
         params.push({
@@ -274,6 +279,7 @@ function getDependencies(opts: SNC.GetDependenciesOpts) {
     .add("htmlelement")
     .add("htmlformelement")
     .add("this")
+    .add("date")
     .add("promise<any>");
   let depSet = new Set<string>();
   let dependencies: SNC.SNClassDependency[] = [];
@@ -334,6 +340,7 @@ function getNormalizedType(type: string) {
   incorrectTypesMap.set("???", "any");
   incorrectTypesMap.set("name/value", "any");
   incorrectTypesMap.set("Void", "void");
+  incorrectTypesMap.set("Constant", "any");
 
   let typeConversionMap: { [type: string]: RegExp } = {
     string: /^string$/i,

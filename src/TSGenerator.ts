@@ -334,11 +334,11 @@ function generateProperties(properties: SNC.Property[]) {
 
 function generateParameters(params: SNC.SNMethodParam[], _class: SNC.SNClass) {
   return params.map(param => {
-    let questionMark = undefined;
+    let paramType = generateType(param.type, _class);
     if (param.optional) {
-      questionMark = ts.createToken(ts.SyntaxKind.QuestionToken);
+      paramType = ts.createUnionTypeNode([generateType(param.type), generateType("undefined")]);
     }
-    return ts.createParameter(_, _, _, param.name, questionMark, generateType(param.type, _class), _);
+    return ts.createParameter(_, _, _, param.name, _, paramType, _);
   });
 }
 
@@ -350,7 +350,8 @@ function generateType(typeName: string, _class?: SNC.SNClass): ts.TypeNode {
     .set("number", ts.createKeywordTypeNode(types.NumberKeyword))
     .set("any", ts.createKeywordTypeNode(types.AnyKeyword))
     .set("any[]", ts.createArrayTypeNode(ts.createKeywordTypeNode(types.AnyKeyword)))
-    .set("boolean", ts.createKeywordTypeNode(types.BooleanKeyword));
+    .set("boolean", ts.createKeywordTypeNode(types.BooleanKeyword))
+    .set("undefined", ts.createKeywordTypeNode(types.UndefinedKeyword));
   if (basicTypes.has(typeName)) {
     return basicTypes.get(typeName) as ts.TypeNode;
   } else {

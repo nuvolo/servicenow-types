@@ -6,6 +6,6 @@ declare class SNAPIGlideGuidV3 {
    * is optional. If not specified, the returned string will be 32 characters
    * long.
    */
-  generate(stringLength?: number): string;
+  generate(stringLength: number | undefined): string;
 }
 export { SNAPIGlideGuidV3 };

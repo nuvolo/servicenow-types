@@ -1,6 +1,6 @@
 declare class SNAPIGlideAjaxV3 {
   constructor(processor: string);
-  constructor(processor: string, targetURL?: string);
+  constructor(processor: string, targetURL: string | undefined);
   /**
    * Set a name-value pair to be sent to the processor.
    * @param name The name of the parameter. This usually has the prefix 'sysparm_'.

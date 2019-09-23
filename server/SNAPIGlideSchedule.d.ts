@@ -8,7 +8,7 @@ declare class SNAPIGlideSchedule {
    */
   add(startDate: GlideDateTime, offSet: GlideDuration): GlideDateTime;
   constructor();
-  constructor(sysID: string, timeZone?: string);
+  constructor(sysID: string, timeZone: string | undefined);
   /**
    * Determines the elapsed time in the schedule between two date time values using the
    * timezone of the schedule or, if that is not specified, the timezone of the session.
@@ -37,7 +37,11 @@ declare class SNAPIGlideSchedule {
    * session timezone is used for the schedule.
    * @param excludeSpanID Any span to exclude.
    */
-  load(sysID: string, timeZone?: string, excludeSpanID: string): void;
+  load(
+    sysID: string,
+    timeZone: string | undefined,
+    excludeSpanID: string
+  ): void;
   /**
    * Sets the timezone for the current schedule.
    * @param timeZone The timezone.

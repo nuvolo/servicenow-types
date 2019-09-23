@@ -127,7 +127,7 @@ declare class SNAPIGlideSPScriptable {
    * @param sys_id Optional. The Sys ID of the record to return. If no parameters are included,
    * returns the record identified by the current URL.
    */
-  getRecord(table?: string, sys_id?: string): GlideRecord;
+  getRecord(table: string | undefined, sys_id: string | undefined): GlideRecord;
   /**
    * Copies display values for the specified fields into the data parameter.
    * @param data The display values for the specified fields are copied to this object.
@@ -161,7 +161,10 @@ declare class SNAPIGlideSPScriptable {
    * through a record producer.
    * @param includeNilResponses Optional. If true, the API includes variables with no user-defined value.
    */
-  getRecordVariables(gr: GlideRecord, includeNilResponses?: boolean): string;
+  getRecordVariables(
+    gr: GlideRecord,
+    includeNilResponses: boolean | undefined
+  ): string;
   /**
    * Returns an array of Service Catalog variables associated
    * with a record.
@@ -171,7 +174,10 @@ declare class SNAPIGlideSPScriptable {
    * through a record producer.
    * @param includeNilResponses Optional. If true, the API includes variables with no user-defined value.
    */
-  getRecordVariablesArray(gr: GlideRecord, includeNilResponses?: boolean): any;
+  getRecordVariablesArray(
+    gr: GlideRecord,
+    includeNilResponses: boolean | undefined
+  ): any;
   /**
    * Gets the activity stream for the specified record. This method works on tables that
    * extend the task table.
@@ -199,7 +205,7 @@ declare class SNAPIGlideSPScriptable {
    * with the record in the URL.
    * @param includeNilResponses Optional. If true, the API includes variables with no user-defined value.
    */
-  getVariablesArray(includeNilResponses?: boolean): any;
+  getVariablesArray(includeNilResponses: boolean | undefined): any;
   /**
    * Gets a widget by id or sys_id, executes that widget's server script using the provided
    * options, then returns the widget model.

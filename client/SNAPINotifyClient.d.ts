@@ -1,14 +1,5 @@
-import { Constant } from "./Constant";
 declare class SNAPINotifyClient {
-  constructor(
-    initializeVendorClientLazily: boolean,
-    notifyConfig: any,
-    notifyConfig_autoLoadScriptResources: boolean,
-    notifyConfig_callerId: number,
-    notifyConfig_forceRefreshToken: boolean,
-    notifyConfig_skipParentId: boolean,
-    notifyConfig_vendor: Constant
-  );
+  constructor(initializeVendorClientLazily: boolean, notifyConfig: any);
   /**
    * Registers an event handler to listen for changes in a Notify client.
    * @param event Name of the event to listen for. Instead of passing strings, use the
@@ -63,7 +54,7 @@ declare class SNAPINotifyClient {
    *
    *
    */
-  addEventListener(event?: string): any;
+  addEventListener(event: string | undefined): any;
   /**
    * Calls the specified phone number or the phone number associated with a specified
    * user.
@@ -153,7 +144,7 @@ declare class SNAPINotifyClient {
    * notifyConfig.vendor has been set in the callback to ensure
    * that a vendor has been specified.
    */
-  setCallerId(value: string, autoSelectVendorCallback?: any): void;
+  setCallerId(value: string, autoSelectVendorCallback: any | undefined): void;
   /**
    * Sets the availability of an active WebRTC client agent.
    * @param available Flag that indicates whether an active WebRTC client wants to receive calls.

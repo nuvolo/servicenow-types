@@ -79,27 +79,8 @@ declare class sn_sc_SNAPICartJS {
    * method completes the purchase of the specified item and returns the sys_id of the generated
    * request.
    * @param request JSON object that contains details of the catalog item to order.
-   * @param request_delivery_address Address to which to deliver the items.Default: Address of user
-   * @param request_sysparm_id Required. The sys_id of the item to purchase.
-   * @param request_special_instructions Instructions to follow when processing the order.
-   * @param request_sysparm_quantity Quantity of the specified item to purchase.Default: 1
-   * @param request_sysparm_requested_for The sys_id of the user for whom the item is requested.Default: Session
-   * user
-   * @param request_variables Questions and customer answers associated with the item.
-   * @param request_variables_var_name Name of the question.
-   * @param request_variables_var_value Customer's response to the associated question.
    */
-  orderNow(
-    request: any,
-    request_delivery_address: string,
-    request_sysparm_id: string,
-    request_special_instructions: string,
-    request_sysparm_quantity: number,
-    request_sysparm_requested_for: string,
-    request_variables: any[],
-    request_variables_var_name: string,
-    request_variables_var_value: string
-  ): any;
+  orderNow(request: any): any;
   /**
    * Sets the delivery address for the current cart.
    * @param address Delivery address for the current cart.

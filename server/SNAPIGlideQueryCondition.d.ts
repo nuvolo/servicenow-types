@@ -7,7 +7,11 @@ declare class SNAPIGlideQueryCondition {
    * condition uses an equals operator.
    * @param value The value to query on.
    */
-  addCondition(name: string, oper?: string, value: any): GlideQueryCondition;
+  addCondition(
+    name: string,
+    oper: string | undefined,
+    value: any
+  ): GlideQueryCondition;
   /**
    * Appends a 2-or-3 parameter OR condition to an existing GlideQueryCondition.
    * @param name Field name
@@ -48,6 +52,10 @@ declare class SNAPIGlideQueryCondition {
    * contain a minimum of two elements. Single element arrays are not
    * supported.
    */
-  addOrCondition(name: string, oper?: string, value: any): GlideQueryCondition;
+  addOrCondition(
+    name: string,
+    oper: string | undefined,
+    value: any
+  ): GlideQueryCondition;
 }
 export { SNAPIGlideQueryCondition };

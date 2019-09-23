@@ -25,7 +25,7 @@ declare class SNAPIspUtil {
    * @param widgetId Widget ID or sys_id of the widget to embed.
    * @param data (Optional) Name/value pairs of parameters to pass to the widget model.
    */
-  get(widgetId: string, data?: any): any;
+  get(widgetId: string, data: any | undefined): any;
   /**
    * Watches for updates to a table or filter and returns the value from the callback
    * function.
@@ -38,7 +38,7 @@ declare class SNAPIspUtil {
     $scope: any,
     table: string,
     filter: string,
-    callback?: any
+    callback: any | undefined
   ): Promise<any>;
   /**
    * Calls the server and replaces the current options and

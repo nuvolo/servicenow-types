@@ -1,4 +1,3 @@
-import { Date } from "./Date";
 declare class SNAPIStopWatch {
   constructor();
   constructor(initialDate: Date);

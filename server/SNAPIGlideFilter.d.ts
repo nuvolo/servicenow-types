@@ -16,6 +16,10 @@ declare class SNAPIGlideFilter {
    *
    * Default: true
    */
-  checkRecord(gr: GlideRecord, filter: string, match?: boolean): boolean;
+  checkRecord(
+    gr: GlideRecord,
+    filter: string,
+    match: boolean | undefined
+  ): boolean;
 }
 export { SNAPIGlideFilter };
