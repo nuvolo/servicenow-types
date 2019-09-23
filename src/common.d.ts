@@ -144,6 +144,10 @@ export module SNC {
   interface ProcessClassOpts extends NSOpts {
     _class: ClassData;
   }
+
+  interface ProcessMethodOpts extends ProcessClassOpts {
+    method: ClassChild;
+  }
 }
 export module TSG {
   interface Base {

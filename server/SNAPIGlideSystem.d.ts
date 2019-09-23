@@ -166,9 +166,9 @@ declare class SNAPIGlideSystem {
   eventQueue(
     name: string,
     instance: any,
-    parm1: string | undefined,
-    parm2: string | undefined,
-    queue: string
+    parm1?: string,
+    parm2?: string,
+    queue?: string
   ): void;
   /**
    * Queues an event for the event manager at a specified date and time.

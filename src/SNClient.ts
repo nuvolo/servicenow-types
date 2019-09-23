@@ -162,7 +162,7 @@ async function processNamespace(opts: SNC.NSOpts): Promise<SNC.SNApiNamespace> {
 
 function processClass(opts: SNC.ProcessClassOpts) {
   let { _class } = opts;
-  let methods = getMethods(_class);
+  let methods = getMethods(opts);
   let properties = getProperties(_class);
   let dependencies = getDependencies({ ...opts, methods, _class, properties });
   let classObj: SNC.SNClass = {
@@ -174,23 +174,24 @@ function processClass(opts: SNC.ProcessClassOpts) {
   return classObj;
 }
 
-function getMethods(c: SNC.ClassData) {
+function getMethods(opts: SNC.ProcessClassOpts) {
+  let { _class } = opts;
   let methods: { [name: string]: SNC.SNClassMethod } = {};
-  if (c.children) {
-    let methodList = c.children.filter(child => child.type === "Method" || child.type === "Constructor");
-    for (let m of methodList) {
-      let methodName = getMethodName(m);
+  if (_class.children) {
+    let methodList = _class.children.filter(child => child.type === "Method" || child.type === "Constructor");
+    for (let curMethod of methodList) {
+      let methodName = getMethodName(curMethod);
       if (methodName.indexOf(".") > -1) {
         continue;
       }
       if (!methods.hasOwnProperty(methodName)) {
         let method: SNC.SNClassMethod = {
-          description: striptags(m.text) || "",
+          description: striptags(curMethod.text) || "",
           instances: []
         };
         methods[methodName] = method;
       }
-      methods[methodName].instances.push(processMethod(m));
+      methods[methodName].instances.push(processMethod({ ...opts, method: curMethod }));
     }
   }
   return methods;
@@ -233,11 +234,31 @@ function containsOptional(texts: string[]) {
   return false;
 }
 
-function processMethod(m: SNC.ClassChild): SNC.SNMethodInstance {
+function isOptionalParam(opts: SNC.ProcessMethodOpts, param: SNC.MethodDescriptor, textChecks: string[]) {
+  let { api, method, _class } = opts;
+  let server_exceptions = new Set<string>();
+  server_exceptions.add("GlideSystem->eventQueue->queue");
+  let client_exceptions = new Set<string>();
+  let exceptions = new Map<string, Set<string>>();
+  exceptions.set("server", server_exceptions);
+  exceptions.set("client", client_exceptions);
+  let curExceptions = exceptions.get(api);
+  if (curExceptions) {
+    let methodName = getMethodName(method);
+    let query = `${_class.name}->${methodName}->${sanitizeParamName(param.name)}`;
+    if (curExceptions.has(query)) {
+      return true;
+    }
+  }
+  return containsOptional(textChecks);
+}
+
+function processMethod(opts: SNC.ProcessMethodOpts): SNC.SNMethodInstance {
+  let { method } = opts;
   let params: SNC.SNMethodParam[] = [];
   let returns = undefined;
-  if (m.children) {
-    for (let child of m.children) {
+  if (method.children) {
+    for (let child of method.children) {
       if (child.type === "Parameter") {
         //some methods have child data types in their params...
         //this check removes them so we can manually update those for now
@@ -245,7 +266,7 @@ function processMethod(m: SNC.ClassChild): SNC.SNMethodInstance {
           continue;
         }
         let strippedText2 = striptags(child.text2 || "");
-        let optional = containsOptional([child.name, strippedText2]);
+        let optional = isOptionalParam(opts, child, [child.name, strippedText2]);
         params.push({
           name: sanitizeParamName(child.name),
           type: parseType(child.text),
