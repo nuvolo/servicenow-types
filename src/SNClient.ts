@@ -2,6 +2,13 @@ import axios, { AxiosResponse } from "axios";
 import striptags from "striptags";
 import { SNC } from "./common";
 import { NO_NAMESPACE } from "./TSGenerator";
+import {
+  incorrectTypesMap,
+  typeConversionMap,
+  nonDependencyTypes,
+  disallowedParamNames,
+  optionalParamExceptions
+} from "./SNClientConfigObjs";
 let cookie = process.env.COOKIE;
 let userToken = process.env.USER_TOKEN;
 let client = axios.create({
@@ -236,13 +243,7 @@ function containsOptional(texts: string[]) {
 
 function isOptionalParam(opts: SNC.ProcessMethodOpts, param: SNC.MethodDescriptor, textChecks: string[]) {
   let { api, method, _class } = opts;
-  let server_exceptions = new Set<string>();
-  server_exceptions.add("GlideSystem->eventQueue->queue");
-  let client_exceptions = new Set<string>();
-  let exceptions = new Map<string, Set<string>>();
-  exceptions.set("server", server_exceptions);
-  exceptions.set("client", client_exceptions);
-  let curExceptions = exceptions.get(api);
+  let curExceptions = optionalParamExceptions.get(api);
   if (curExceptions) {
     let methodName = getMethodName(method);
     let query = `${_class.name}->${methodName}->${sanitizeParamName(param.name)}`;
@@ -288,20 +289,6 @@ function processMethod(opts: SNC.ProcessMethodOpts): SNC.SNMethodInstance {
 
 function getDependencies(opts: SNC.GetDependenciesOpts) {
   let { methods, _class, properties } = opts;
-  //non-dependency-types
-  let ndt = new Set<string>();
-  ndt
-    .add("string")
-    .add("number")
-    .add("boolean")
-    .add("any")
-    .add("any[]")
-    .add("void")
-    .add("htmlelement")
-    .add("htmlformelement")
-    .add("this")
-    .add("date")
-    .add("promise<any>");
   let depSet = new Set<string>();
   let dependencies: SNC.SNClassDependency[] = [];
   for (let methodName in methods) {
@@ -332,7 +319,7 @@ function getDependencies(opts: SNC.GetDependenciesOpts) {
     let normalized = type.toLowerCase();
     //not using this right now, but I think we will need it later (circular dependencies)
     //let typeIsSamAsClass = normalized !== _class.name.split(" ")[0].toLowerCase();
-    if (!ndt.has(normalized)) {
+    if (!nonDependencyTypes.has(normalized)) {
       return true;
     }
     return false;
@@ -350,26 +337,6 @@ function parseType(inputType: string) {
 }
 
 function getNormalizedType(type: string) {
-  let incorrectTypesMap = new Map<string, string>();
-  incorrectTypesMap.set("QueryCondition", "GlideQueryCondition");
-  incorrectTypesMap.set("SysListControl", "GlideSysListControl");
-  incorrectTypesMap.set("RESTResponse", "RESTResponseV2");
-  incorrectTypesMap.set("Strings", "string");
-  incorrectTypesMap.set("groupBy", "string");
-  incorrectTypesMap.set("Promise", "Promise<any>");
-  incorrectTypesMap.set("node", "HTMLElement");
-  incorrectTypesMap.set("???", "any");
-  incorrectTypesMap.set("name/value", "any");
-  incorrectTypesMap.set("Void", "void");
-  incorrectTypesMap.set("Constant", "any");
-
-  let typeConversionMap: { [type: string]: RegExp } = {
-    string: /^string$/i,
-    boolean: /^boolean$/i,
-    any: /^object|map|mapstring|standardcredential|list|notifyaction|json|function|window|glidemenuitem|glidemodal|\s$/i,
-    number: /^number|integer|int$/i,
-    "any[]": /^array|arraylist$/i
-  };
   for (let resType in typeConversionMap) {
     let reg = typeConversionMap[resType];
     if (reg.test(type)) {
@@ -386,11 +353,7 @@ function getNormalizedType(type: string) {
 }
 
 function sanitizeParamName(name: string) {
-  let disallowed = new Set<string>();
-  disallowed.add("function");
-  disallowed.add("default");
-  disallowed.add("class");
-  if (disallowed.has(name)) {
+  if (disallowedParamNames.has(name)) {
     name = `_${name as string}`;
   }
   let splitName = name.split("(")[0];
