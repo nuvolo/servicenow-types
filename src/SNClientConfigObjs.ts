@@ -43,8 +43,7 @@ const disallowedParamNames = new Set<string>()
 
 //exceptions to make function params optional when they aren't marked as such in the docs
 const optionalParamExceptions = new Map<string, Set<string>>();
-const server_exceptions = new Set<string>();
-server_exceptions.add("GlideSystem->eventQueue->queue");
+const server_exceptions = new Set<string>().add("GlideSystem->eventQueue->queue");
 const client_exceptions = new Set<string>();
 optionalParamExceptions.set("server", server_exceptions);
 optionalParamExceptions.set("client", client_exceptions);
