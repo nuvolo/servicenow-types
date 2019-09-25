@@ -62,3 +62,8 @@ This package scrapes the docs to generate basic types for ServiceNow. Those `.d.
 ### How to contribute / I noticed something wrong with the types
 
 Since the types are generated from the documentation (which is unfortunately not always accurate), we have very loosely defined types which we can then extend and correct/improve. If you wanted to fix `GlideRecord` in the `server` package, you could simply branch this repo, make your changes to `server/GlideRecord.d.ts` and submit a pull request! Easy right?
+
+#### Rules
+
+1. Always add jsdoc comments to whatever you contribute if they aren't already there
+2. Name your parameters well
