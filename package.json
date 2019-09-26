@@ -1,5 +1,5 @@
 {
-  "name": "servicenow-types",
+  "name": "@nuvolo/servicenow-types",
   "version": "0.0.1",
   "description": "",
   "main": "index.js",
@@ -22,6 +22,10 @@
   "types": "server/index.d.ts",
   "files": [
     "server",
-    "client"
-  ]
+    "client",
+    "util"
+  ],
+  "publishConfig": {
+    "access": "public"
+  }
 }

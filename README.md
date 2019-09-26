@@ -2,6 +2,12 @@
 
 This repo is for generating accurate and useful types from [ServiceNow's Documentation](https://developer.servicenow.com/app.do#!/api_doc?v=newyork&type=server&id=no-namespace).
 
+## Installation
+
+```bash
+npm i -D @nuvolo/servicenow-types
+```
+
 ## Type Packages
 
 Currently there are three type packages available `server`,`client`,and `util`.
