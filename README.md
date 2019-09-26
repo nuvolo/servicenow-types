@@ -29,8 +29,8 @@ This package is for convenience types.
 `TypedGR` is a utility type for creating more useful GlideRecord interactions. It can be combined with `ReferenceGlideElement` to make `getRefRecord()` work really well. It is a generic, which means you can create interfaces for your table structures and get type inferences for them.
 
 ```typescript
-import {GlideRecord,GlideElement} from "servicenow-types/server"
-import {TypedGR} from "servicenow-types/util";
+import {GlideRecord,GlideElement} from "@nuvolo/servicenow-types/server"
+import {TypedGR} from "@nuvolo/servicenow-types/util";
 //interface for my_table. All properties are GlideElements
 interface my_table{
   test:GlideElement,
@@ -45,8 +45,8 @@ let gr = new GlideRecord('my_table') as TypedGR<my_table>
 `ReferenceGlideElement` is a utility type for using `getRefRecord()`. It makes your table interfaces more powerful.
 
 ```typescript
-import {GlideRecord,GlideElement} from "servicenow-types/server"
-import {TypedGR, ReferenceGlideElement} from "servicenow-types/util";
+import {GlideRecord,GlideElement} from "@nuvolo/servicenow-types/server"
+import {TypedGR, ReferenceGlideElement} from "@nuvolo/servicenow-types/util";
 //interface for my_table.
 interface my_table{
   test:GlideElement,
