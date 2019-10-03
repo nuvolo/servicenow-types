@@ -29,15 +29,15 @@ This package is for convenience types.
 `TypedGR` is a utility type for creating more useful GlideRecord interactions. It can be combined with `ReferenceGlideElement` to make `getRefRecord()` work really well. It is a generic, which means you can create interfaces for your table structures and get type inferences for them.
 
 ```typescript
-import {GlideRecord,GlideElement} from "@nuvolo/servicenow-types/server"
-import {TypedGR} from "@nuvolo/servicenow-types/util";
+import { GlideRecord, GlideElement } from "@nuvolo/servicenow-types/server";
+import { TypedGR } from "@nuvolo/servicenow-types/util";
 //interface for my_table. All properties are GlideElements
-interface my_table{
-  test:GlideElement,
-  test2:GlideElement
+interface my_table {
+  test: GlideElement;
+  test2: GlideElement;
 }
 //gr will now suggest test and test2 as properties
-let gr = new GlideRecord('my_table') as TypedGR<my_table>
+let gr = new GlideRecord("my_table") as TypedGR<my_table>;
 ```
 
 #### ReferenceGlideElement
@@ -45,18 +45,18 @@ let gr = new GlideRecord('my_table') as TypedGR<my_table>
 `ReferenceGlideElement` is a utility type for using `getRefRecord()`. It makes your table interfaces more powerful.
 
 ```typescript
-import {GlideRecord,GlideElement} from "@nuvolo/servicenow-types/server"
-import {TypedGR, ReferenceGlideElement} from "@nuvolo/servicenow-types/util";
+import { GlideRecord, GlideElement } from "@nuvolo/servicenow-types/server";
+import { TypedGR, ReferenceGlideElement } from "@nuvolo/servicenow-types/util";
 //interface for my_table.
-interface my_table{
-  test:GlideElement,
-  test2:ReferenceGlideElement<my_table_two>
+interface my_table {
+  test: GlideElement;
+  test2: ReferenceGlideElement<my_table_two>;
 }
-interface my_table_two{
-  test3:GlideElement
+interface my_table_two {
+  test3: GlideElement;
 }
 //gr will now suggest test and test2 as properties
-let gr = new GlideRecord('my_table') as TypedGR<my_table>
+let gr = new GlideRecord("my_table") as TypedGR<my_table>;
 //ref_gr will now suggest test3 as a property
 let ref_gr = gr.test2.getRefRecord();
 ```
@@ -67,7 +67,7 @@ This package scrapes the docs to generate basic types for ServiceNow. Those `.d.
 
 ### How to contribute / I noticed something wrong with the types
 
-Since the types are generated from the documentation (which is unfortunately not always accurate), we have very loosely defined types which we can then extend and correct/improve. If you wanted to fix `GlideRecord` in the `server` package, you could simply branch this repo, make your changes to `server/GlideRecord.d.ts` and submit a pull request! Easy right?
+Since the types are generated from the documentation (which is unfortunately not always accurate), we have very loosely defined types which we can then extend and correct/improve. If you wanted to fix `GlideRecord` in the `server` package, you could simply fork this repo, make your changes to `server/GlideRecord.d.ts` and submit a pull request! Easy right?
 
 #### Rules
 
