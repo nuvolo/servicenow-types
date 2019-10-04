@@ -1,5 +1,5 @@
-import { GlideRecord } from "./GlideRecord";
-import { GlideUser } from "./GlideUser";
+import { GlideRecord } from './GlideRecord';
+import { GlideUser } from './GlideUser';
 declare class SNAPIGlideSystem {
   /**
    * Adds an error message for the current session.

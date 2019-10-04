@@ -1,4 +1,4 @@
-import { RESTAPIRequestBody } from "../sn_ws";
+import { RESTAPIRequestBody } from '../sn_ws';
 declare class sn_ws_SNAPIRESTAPIRequest {
   body: RESTAPIRequestBody;
   headers: any;

@@ -1,4 +1,4 @@
-import { GlideQueryCondition } from "./GlideQueryCondition";
+import { GlideQueryCondition } from './GlideQueryCondition';
 declare class SNAPIGlideAggregate {
   constructor(tableName: string);
   /**

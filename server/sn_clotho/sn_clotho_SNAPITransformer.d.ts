@@ -1,7 +1,7 @@
-import { GlideRecord } from "../GlideRecord";
-import { GlideDateTime } from "../GlideDateTime";
-import { TransformResult } from "../sn_clotho";
-import { TransformPart } from "../sn_clotho";
+import { GlideRecord } from '../GlideRecord';
+import { GlideDateTime } from '../GlideDateTime';
+import { TransformResult } from '../sn_clotho';
+import { TransformPart } from '../sn_clotho';
 declare class sn_clotho_SNAPITransformer {
   constructor(sourceRecords: GlideRecord);
   /**

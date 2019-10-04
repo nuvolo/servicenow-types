@@ -1,4 +1,4 @@
-import { XMLNode } from "./XMLNode";
+import { XMLNode } from './XMLNode';
 declare class SNAPIXMLNodeIterator {
   /**
    * Returns true if the iteration has more elements.

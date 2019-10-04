@@ -1,11 +1,11 @@
-import { CG } from "./common";
+import { CG } from './common';
 class JSDocComment {
-  private beginning = "/**";
-  private ending = " */";
+  private beginning = '/**';
+  private ending = ' */';
   private _description: string;
   private _params: CG.Param[];
   constructor() {
-    this._description = "";
+    this._description = '';
     this._params = [];
   }
   description(desc: string) {
@@ -22,17 +22,21 @@ class JSDocComment {
 
   private _multiLine(text: string) {
     return text
-      .split("\n")
+      .split('\n')
       .map((cur, index) => {
         return this._line(cur);
       })
-      .join("\n");
+      .join('\n');
   }
 
   render(): string {
     let desc = this._multiLine(this._description);
-    let params = this._params.map(param => this._multiLine(`@param ${param.name} ${param.description}`)).join("\n");
-    let body = [desc, params].filter(cur => cur !== "").join("\n");
+    let params = this._params
+      .map(param =>
+        this._multiLine(`@param ${param.name} ${param.description}`)
+      )
+      .join('\n');
+    let body = [desc, params].filter(cur => cur !== '').join('\n');
     return `*\n${body}\n`;
   }
 }

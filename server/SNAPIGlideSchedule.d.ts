@@ -1,5 +1,5 @@
-import { GlideDateTime } from "./GlideDateTime";
-import { GlideDuration } from "./GlideDuration";
+import { GlideDateTime } from './GlideDateTime';
+import { GlideDuration } from './GlideDuration';
 declare class SNAPIGlideSchedule {
   /**
    * Adds a new schedule segment to the current schedule.

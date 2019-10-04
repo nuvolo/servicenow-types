@@ -1,11 +1,11 @@
-import ts from "typescript";
-import path from "path";
-import { promises as fs, default as fss } from "fs";
-import { comment } from "./CommentGenerator";
-import prettier from "prettier";
-import { SNC, TSG, Mod } from "./common";
-export const NO_NAMESPACE = "No namespace qualifier";
-const OUTPUT_DIR = "../";
+import ts from 'typescript';
+import path from 'path';
+import { promises as fs, default as fss } from 'fs';
+import { comment } from './CommentGenerator';
+import prettier from 'prettier';
+import { SNC, TSG, Mod } from './common';
+export const NO_NAMESPACE = 'No namespace qualifier';
+const OUTPUT_DIR = '../';
 const _ = undefined;
 const printer = ts.createPrinter();
 
@@ -20,12 +20,20 @@ export function generateFiles(opts: TSG.Base) {
 }
 
 async function generateIndexFile(opts: TSG.GenIndexOpts) {
-  let fileName = "index.d.ts";
-  let sourceFile = ts.createSourceFile(fileName, "", ts.ScriptTarget.Latest, false, ts.ScriptKind.TS);
+  let fileName = 'index.d.ts';
+  let sourceFile = ts.createSourceFile(
+    fileName,
+    '',
+    ts.ScriptTarget.Latest,
+    false,
+    ts.ScriptKind.TS
+  );
   let importDecs = await createImportsForIndex(opts);
   let addonStatements = await processAddonsForIndex(opts);
   let exportDecs = await createExportsForIndex(opts);
-  sourceFile.statements = ts.createNodeArray(importDecs.concat(addonStatements, exportDecs));
+  sourceFile.statements = ts.createNodeArray(
+    importDecs.concat(addonStatements, exportDecs)
+  );
   let filePath = path.join(getBasePath(opts), fileName);
   let parentDir = path.dirname(filePath);
   if (!fss.existsSync(parentDir)) {
@@ -38,7 +46,7 @@ function getModuleMap(hierarchy: SNC.SNApiHierarchy) {
   let moduleMap = new Map<string, string>();
   for (let namespaceName in hierarchy) {
     let namespace = hierarchy[namespaceName];
-    let nsName = namespaceName === NO_NAMESPACE ? "" : namespaceName;
+    let nsName = namespaceName === NO_NAMESPACE ? '' : namespaceName;
     for (let _class of namespace.classes) {
       moduleMap.set(_class.name, nsName);
     }
@@ -58,7 +66,13 @@ async function processNamespace(opts: TSG.ProcessNSOpts) {
 
 async function generateNamespaceFile(opts: TSG.ProcessNSOpts) {
   let { namespaceName } = opts;
-  let sourceFile = ts.createSourceFile(`${namespaceName}.d.ts`, "", ts.ScriptTarget.Latest, false, ts.ScriptKind.TS);
+  let sourceFile = ts.createSourceFile(
+    `${namespaceName}.d.ts`,
+    '',
+    ts.ScriptTarget.Latest,
+    false,
+    ts.ScriptKind.TS
+  );
   let exportDecs = generateExportsForNamespace(opts);
   sourceFile.statements = ts.createNodeArray(exportDecs);
   let fileName = `${namespaceName}.d.ts`;
@@ -76,13 +90,26 @@ async function processClass(opts: TSG.ProcessClassOpts) {
 }
 async function generateAPIClass(opts: TSG.ProcessClassOpts) {
   let fileName = generateFileName({ ...opts, apiClass: true });
-  let sourceFile = ts.createSourceFile(fileName, "", ts.ScriptTarget.Latest, false, ts.ScriptKind.TS);
+  let sourceFile = ts.createSourceFile(
+    fileName,
+    '',
+    ts.ScriptTarget.Latest,
+    false,
+    ts.ScriptKind.TS
+  );
 
   const declareKW = ts.createModifier(ts.SyntaxKind.DeclareKeyword);
   let importDecs = getImportsFromDeps({ ...opts, apiClass: false });
   let classMembers = generateClassMembers(opts);
   let prefixedClassName = getPrefixedClassName({ ...opts, apiClass: true });
-  let classDec = ts.createClassDeclaration(_, [declareKW], prefixedClassName, _, _, classMembers);
+  let classDec = ts.createClassDeclaration(
+    _,
+    [declareKW],
+    prefixedClassName,
+    _,
+    _,
+    classMembers
+  );
   let exportDec = generateExport(prefixedClassName);
   let statements = [...importDecs, classDec, exportDec];
   sourceFile.statements = ts.createNodeArray(statements);
@@ -95,7 +122,13 @@ async function generateAPIClass(opts: TSG.ProcessClassOpts) {
 async function generateExtendedClass(opts: TSG.ProcessClassOpts) {
   const declareKW = ts.createModifier(ts.SyntaxKind.DeclareKeyword);
   let fileName = generateFileName({ ...opts, apiClass: false });
-  let sourceFile = ts.createSourceFile(fileName, "", ts.ScriptTarget.Latest, false, ts.ScriptKind.TS);
+  let sourceFile = ts.createSourceFile(
+    fileName,
+    '',
+    ts.ScriptTarget.Latest,
+    false,
+    ts.ScriptKind.TS
+  );
   let apiClass = getPrefixedClassName({ ...opts, apiClass: true });
   let importDec = generateNamedImport(apiClass, `./${apiClass}`);
   let className = getPrefixedClassName({ ...opts, apiClass: false });
@@ -104,7 +137,14 @@ async function generateExtendedClass(opts: TSG.ProcessClassOpts) {
       ts.createExpressionWithTypeArguments(_, ts.createIdentifier(apiClass))
     ])
   ];
-  let classDec = ts.createClassDeclaration(_, [declareKW], className, _, heritageClauses, []);
+  let classDec = ts.createClassDeclaration(
+    _,
+    [declareKW],
+    className,
+    _,
+    heritageClauses,
+    []
+  );
   let exportDec = generateExport(className);
   let statements = [importDec, classDec, exportDec];
   sourceFile.statements = ts.createNodeArray(statements);
@@ -136,12 +176,14 @@ function ensurePathExists(ensurePath: string) {
 }
 
 async function writePrettyFile(pth: string, text: string) {
-  await fs.writeFile(
-    pth,
-    prettier.format(text, {
-      parser: "typescript"
-    })
-  );
+  let config: prettier.Options = {
+    filepath: pth
+  };
+  let prettierConfig = await prettier.resolveConfig(process.cwd());
+  if (prettierConfig) {
+    config = Object.assign(config, prettierConfig);
+  }
+  await fs.writeFile(pth, prettier.format(text, config));
 }
 
 function getPrefixedClassName(opts: TSG.GenClassNameOpts) {
@@ -149,8 +191,12 @@ function getPrefixedClassName(opts: TSG.GenClassNameOpts) {
   return getPrefixedName(_class.name, namespaceName, apiClass);
 }
 
-function getPrefixedName(className: string, namespaceName: string, apiClass: boolean) {
-  let prefix = namespaceName === NO_NAMESPACE ? "" : namespaceName + "_";
+function getPrefixedName(
+  className: string,
+  namespaceName: string,
+  apiClass: boolean
+) {
+  let prefix = namespaceName === NO_NAMESPACE ? '' : namespaceName + '_';
   if (apiClass) {
     return `${prefix}${getAPIClassName(className)}`;
   } else {
@@ -169,9 +215,9 @@ function getImportsFromDeps(opts: TSG.GenClassNameOpts): ts.Statement[] {
     let prefixedName = getPrefixedName(dep.name, namespaceName, apiClass);
     if (moduleMap.has(dep.name)) {
       let resolvedModule = moduleMap.get(dep.name) as string;
-      if (resolvedModule === "" && namespaceName !== NO_NAMESPACE) {
+      if (resolvedModule === '' && namespaceName !== NO_NAMESPACE) {
         return generateNamedImport(dep.name, `../${dep.name}`);
-      } else if (resolvedModule === "" && namespaceName === NO_NAMESPACE) {
+      } else if (resolvedModule === '' && namespaceName === NO_NAMESPACE) {
         return generateNamedImport(dep.name, `./${dep.name}`);
       } else {
         return generateNamedImport(dep.name, `../${resolvedModule}`);
@@ -218,10 +264,17 @@ function generateExportFrom(opts: TSG.GenExportArgs) {
 function generateExportsForNamespace(opts: TSG.ProcessNSOpts) {
   let { namespace, namespaceName } = opts;
   return namespace.classes.map(_class => {
-    let prefixedClassName = getPrefixedClassName({ ...opts, _class, apiClass: false });
+    let prefixedClassName = getPrefixedClassName({
+      ...opts,
+      _class,
+      apiClass: false
+    });
     let expSpec = ts.createExportSpecifier(prefixedClassName, _class.name);
     let exportClause = ts.createNamedExports([expSpec]);
-    let relativePath = path.relative(".", path.join(namespaceName, prefixedClassName));
+    let relativePath = path.relative(
+      '.',
+      path.join(namespaceName, prefixedClassName)
+    );
     let relativeModulePath = `.${path.sep}${relativePath}`;
     let moduleSpecifier = ts.createStringLiteral(relativeModulePath);
     return ts.createExportDeclaration(_, _, exportClause, moduleSpecifier);
@@ -269,7 +322,12 @@ async function createExportsForIndex(opts: TSG.GenIndexOpts) {
     if (namespaceName === NO_NAMESPACE) {
       let namespace = hierarchy[namespaceName];
       for (let _class of namespace.classes) {
-        exportDecs.push(generateExportFrom({ className: _class.name, modulePath: _class.name }));
+        exportDecs.push(
+          generateExportFrom({
+            className: _class.name,
+            modulePath: _class.name
+          })
+        );
       }
     } else {
       exportDecs.push(generateExport(namespaceName));
@@ -296,11 +354,21 @@ function generateMethods(methods: SNC.SNMethodMap, _class: SNC.SNClass) {
     for (let inst of method.instances) {
       let methodId = ts.createIdentifier(methodName);
       let parameters = generateParameters(inst.params, _class);
-      if (methodName !== "constructor") {
+      if (methodName !== 'constructor') {
         let returnType = inst.returns
           ? generateType(inst.returns, _class)
           : ts.createKeywordTypeNode(ts.SyntaxKind.VoidKeyword);
-        let genMethod = ts.createMethod(_, _, _, methodId, _, _, parameters, returnType, _);
+        let genMethod = ts.createMethod(
+          _,
+          _,
+          _,
+          methodId,
+          _,
+          _,
+          parameters,
+          returnType,
+          _
+        );
         ts.addSyntheticLeadingComment(
           genMethod,
           ts.SyntaxKind.MultiLineCommentTrivia,
@@ -317,7 +385,10 @@ function generateMethods(methods: SNC.SNMethodMap, _class: SNC.SNClass) {
   return tsMethods;
 }
 
-function generateMethodComment(method: SNC.SNClassMethod, instance: SNC.SNMethodInstance) {
+function generateMethodComment(
+  method: SNC.SNClassMethod,
+  instance: SNC.SNMethodInstance
+) {
   let c = comment();
   c.description(method.description);
   for (let p of instance.params) {
@@ -338,11 +409,22 @@ function generateParameters(params: SNC.SNMethodParam[], _class: SNC.SNClass) {
   return params.map((param, index) => {
     let paramType = generateType(param.type, _class);
     if (param.optional && index < lastNonOptional) {
-      paramType = ts.createUnionTypeNode([generateType(param.type), generateType("undefined")]);
+      paramType = ts.createUnionTypeNode([
+        generateType(param.type),
+        generateType('undefined')
+      ]);
       return ts.createParameter(_, _, _, param.name, _, paramType, _);
     } else if (param.optional && index > lastNonOptional) {
       let questionMarkToken = ts.createToken(ts.SyntaxKind.QuestionToken);
-      return ts.createParameter(_, _, _, param.name, questionMarkToken, paramType, _);
+      return ts.createParameter(
+        _,
+        _,
+        _,
+        param.name,
+        questionMarkToken,
+        paramType,
+        _
+      );
     } else {
       return ts.createParameter(_, _, _, param.name, _, paramType, _);
     }
@@ -363,12 +445,15 @@ function generateType(typeName: string, _class?: SNC.SNClass): ts.TypeNode {
   let types = ts.SyntaxKind;
   let basicTypes = new Map<string, ts.TypeNode>();
   basicTypes
-    .set("string", ts.createKeywordTypeNode(types.StringKeyword))
-    .set("number", ts.createKeywordTypeNode(types.NumberKeyword))
-    .set("any", ts.createKeywordTypeNode(types.AnyKeyword))
-    .set("any[]", ts.createArrayTypeNode(ts.createKeywordTypeNode(types.AnyKeyword)))
-    .set("boolean", ts.createKeywordTypeNode(types.BooleanKeyword))
-    .set("undefined", ts.createKeywordTypeNode(types.UndefinedKeyword));
+    .set('string', ts.createKeywordTypeNode(types.StringKeyword))
+    .set('number', ts.createKeywordTypeNode(types.NumberKeyword))
+    .set('any', ts.createKeywordTypeNode(types.AnyKeyword))
+    .set(
+      'any[]',
+      ts.createArrayTypeNode(ts.createKeywordTypeNode(types.AnyKeyword))
+    )
+    .set('boolean', ts.createKeywordTypeNode(types.BooleanKeyword))
+    .set('undefined', ts.createKeywordTypeNode(types.UndefinedKeyword));
   if (basicTypes.has(typeName)) {
     return basicTypes.get(typeName) as ts.TypeNode;
   } else {

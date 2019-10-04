@@ -1,4 +1,4 @@
-import { GlideQueryCondition } from "./GlideQueryCondition";
+import { GlideQueryCondition } from './GlideQueryCondition';
 declare class SNAPIGlideQueryCondition {
   /**
    * Adds an AND condition to the current condition.

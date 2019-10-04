@@ -1,4 +1,4 @@
-import { GlideRecord } from "../GlideRecord";
+import { GlideRecord } from '../GlideRecord';
 declare class sn_nlp_sentiment_SNAPISentimentAnalyser {
   constructor();
   constructor(configGR: GlideRecord);

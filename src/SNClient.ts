@@ -1,42 +1,45 @@
-import axios, { AxiosResponse } from "axios";
-import striptags from "striptags";
-import { SNC } from "./common";
-import { NO_NAMESPACE } from "./TSGenerator";
+import axios, { AxiosResponse } from 'axios';
+import striptags from 'striptags';
+import { SNC } from './common';
+import { NO_NAMESPACE } from './TSGenerator';
 import {
   incorrectTypesMap,
   typeConversionMap,
   nonDependencyTypes,
   disallowedParamNames,
   optionalParamExceptions
-} from "./SNClientConfigObjs";
+} from './SNClientConfigObjs';
 let cookie = process.env.COOKIE;
 let userToken = process.env.USER_TOKEN;
 let client = axios.create({
   headers: {
     Cookie: cookie,
-    "X-UserToken": userToken
+    'X-UserToken': userToken
   },
-  baseURL: "https://developer.servicenow.com"
+  baseURL: 'https://developer.servicenow.com'
 });
 
-const CLIENT_API = "client";
-const LEGACY_API = "server_legacy";
+const CLIENT_API = 'client';
+const LEGACY_API = 'server_legacy';
 const MS_BETWEEN_REQUESTS = 500;
 
 async function getRootConfig(opts: SNC.HierarchyOpts) {
   const { release, api } = opts;
   try {
-    let res: AxiosResponse<SNC.SNResponse<SNC.DocsBase>> = await client.get("/devportal.do", {
-      params: {
-        sysparm_data: JSON.stringify({
-          action: "api.docs",
-          data: {
-            id: api,
-            release
-          }
-        })
+    let res: AxiosResponse<SNC.SNResponse<SNC.DocsBase>> = await client.get(
+      '/devportal.do',
+      {
+        params: {
+          sysparm_data: JSON.stringify({
+            action: 'api.docs',
+            data: {
+              id: api,
+              release
+            }
+          })
+        }
       }
-    });
+    );
     return res.data.result.data;
   } catch (e) {
     throw e;
@@ -46,17 +49,20 @@ async function getRootConfig(opts: SNC.HierarchyOpts) {
 async function getClassInfo(classArgs: { release: string; id: string }) {
   let { release, id } = classArgs;
   try {
-    let res: AxiosResponse<SNC.SNResponse<SNC.DocsObj>> = await client.get("/devportal.do", {
-      params: {
-        sysparm_data: JSON.stringify({
-          action: "api.docs",
-          data: {
-            id,
-            release
-          }
-        })
+    let res: AxiosResponse<SNC.SNResponse<SNC.DocsObj>> = await client.get(
+      '/devportal.do',
+      {
+        params: {
+          sysparm_data: JSON.stringify({
+            action: 'api.docs',
+            data: {
+              id,
+              release
+            }
+          })
+        }
       }
-    });
+    );
     return res.data.result.data.class_data;
   } catch (e) {
     throw e;
@@ -73,7 +79,9 @@ export async function getAPIHierarchy(opts: SNC.HierarchyOpts) {
   let hierarchy: SNC.SNApiHierarchy = {};
   let root = await getRootConfig(opts);
   let { navbar } = root;
-  let namespacePromises: { [namespace: string]: Promise<{ classes: SNC.SNClass[] }> } = {};
+  let namespacePromises: {
+    [namespace: string]: Promise<{ classes: SNC.SNClass[] }>;
+  } = {};
   let navbarItems: SNC.NavbarItem[] = [];
   try {
     if (isClient(opts)) {
@@ -81,10 +89,16 @@ export async function getAPIHierarchy(opts: SNC.HierarchyOpts) {
       hierarchy = await processClientNavBar({ ...opts, navbar: clientNavbar });
     } else if (isLegacy(opts)) {
       let legacyNavbar = navbar as SNC.LegacyNavBar;
-      hierarchy[NO_NAMESPACE] = await processLegacyNavbar({ ...opts, navbar: legacyNavbar });
+      hierarchy[NO_NAMESPACE] = await processLegacyNavbar({
+        ...opts,
+        navbar: legacyNavbar
+      });
     } else {
       for (let namespace of navbar as SNC.NavbarItem[]) {
-        namespacePromises[getNamespaceName(namespace)] = processNamespace({ ...opts, namespace });
+        namespacePromises[getNamespaceName(namespace)] = processNamespace({
+          ...opts,
+          namespace
+        });
         await wait();
       }
       await Promise.all(Object.values(namespacePromises));
@@ -111,7 +125,9 @@ async function processLegacyNavbar(opts: SNC.LegacyNavBarOpts) {
   let { navbar, release } = opts;
   let classPromises: Promise<SNC.ClassData>[] = [];
   for (let _class of navbar) {
-    classPromises.push(getClassInfo({ release, id: _class.dc_identifier || "" }));
+    classPromises.push(
+      getClassInfo({ release, id: _class.dc_identifier || '' })
+    );
     await wait();
   }
   let classResults = await Promise.all(classPromises);
@@ -119,7 +135,12 @@ async function processLegacyNavbar(opts: SNC.LegacyNavBarOpts) {
     return processClass({
       ...opts,
       _class,
-      namespace: { dc_identifier: "", items: [], name: NO_NAMESPACE, type: "Namespace" }
+      namespace: {
+        dc_identifier: '',
+        items: [],
+        name: NO_NAMESPACE,
+        type: 'Namespace'
+      }
     });
   });
   return { classes };
@@ -131,7 +152,9 @@ async function processClientNavBar(opts: SNC.ClientNavBarOpts) {
   let clientSpace = navbar.client as SNC.ClassData[];
   let classPromises: Promise<SNC.ClassData>[] = [];
   for (let _class of clientSpace) {
-    classPromises.push(getClassInfo({ release, id: _class.dc_identifier || "" }));
+    classPromises.push(
+      getClassInfo({ release, id: _class.dc_identifier || '' })
+    );
     await wait();
   }
   let classResults = await Promise.all(classPromises);
@@ -139,7 +162,12 @@ async function processClientNavBar(opts: SNC.ClientNavBarOpts) {
     return processClass({
       ...opts,
       _class,
-      namespace: { dc_identifier: "", items: [], name: NO_NAMESPACE, type: "Namespace" }
+      namespace: {
+        dc_identifier: '',
+        items: [],
+        name: NO_NAMESPACE,
+        type: 'Namespace'
+      }
     });
   });
   hierarchy[NO_NAMESPACE] = {
@@ -150,7 +178,7 @@ async function processClientNavBar(opts: SNC.ClientNavBarOpts) {
 }
 
 function getNamespaceName(namespace: SNC.NavbarItem) {
-  return namespace.name.split("-")[0].trim();
+  return namespace.name.split('-')[0].trim();
 }
 
 async function processNamespace(opts: SNC.NSOpts): Promise<SNC.SNApiNamespace> {
@@ -158,7 +186,7 @@ async function processNamespace(opts: SNC.NSOpts): Promise<SNC.SNApiNamespace> {
   let classes: SNC.SNClass[] = [];
   let classPromises = [];
   for (let item of namespace.items) {
-    classPromises.push(getClassInfo({ release, id: item.dc_identifier || "" }));
+    classPromises.push(getClassInfo({ release, id: item.dc_identifier || '' }));
   }
   let classResults = await Promise.all(classPromises);
   classes = classResults.map(_class => {
@@ -173,7 +201,7 @@ function processClass(opts: SNC.ProcessClassOpts) {
   let properties = getProperties(_class);
   let dependencies = getDependencies({ ...opts, methods, _class, properties });
   let classObj: SNC.SNClass = {
-    name: _class.name.split(" ")[0],
+    name: _class.name.split(' ')[0],
     methods,
     dependencies,
     properties
@@ -185,20 +213,24 @@ function getMethods(opts: SNC.ProcessClassOpts) {
   let { _class } = opts;
   let methods: { [name: string]: SNC.SNClassMethod } = {};
   if (_class.children) {
-    let methodList = _class.children.filter(child => child.type === "Method" || child.type === "Constructor");
+    let methodList = _class.children.filter(
+      child => child.type === 'Method' || child.type === 'Constructor'
+    );
     for (let curMethod of methodList) {
       let methodName = getMethodName(curMethod);
-      if (methodName.indexOf(".") > -1) {
+      if (methodName.indexOf('.') > -1) {
         continue;
       }
       if (!methods.hasOwnProperty(methodName)) {
         let method: SNC.SNClassMethod = {
-          description: striptags(curMethod.text) || "",
+          description: striptags(curMethod.text) || '',
           instances: []
         };
         methods[methodName] = method;
       }
-      methods[methodName].instances.push(processMethod({ ...opts, method: curMethod }));
+      methods[methodName].instances.push(
+        processMethod({ ...opts, method: curMethod })
+      );
     }
   }
   return methods;
@@ -207,7 +239,7 @@ function getMethods(opts: SNC.ProcessClassOpts) {
 function getProperties(c: SNC.ClassData): SNC.Property[] {
   if (c.children) {
     return c.children
-      .filter(child => child.type === "Property")
+      .filter(child => child.type === 'Property')
       .map(prop => {
         return {
           name: prop.name,
@@ -220,33 +252,41 @@ function getProperties(c: SNC.ClassData): SNC.Property[] {
 
 function determinePropertyType(prop: SNC.ClassChild) {
   if (prop.children) {
-    return parseType(prop.children.filter(child => child.type === "Parameter")[0].text);
+    return parseType(
+      prop.children.filter(child => child.type === 'Parameter')[0].text
+    );
   }
-  return "";
+  return '';
 }
 
 function getMethodName(method: SNC.ClassChild) {
-  if (method.type === "Constructor") {
-    return "constructor";
+  if (method.type === 'Constructor') {
+    return 'constructor';
   }
   return sanitizeMethodName(method.name);
 }
 
 function containsOptional(texts: string[]) {
   for (let text of texts) {
-    if (text.toLowerCase().includes("optional")) {
+    if (text.toLowerCase().includes('optional')) {
       return true;
     }
   }
   return false;
 }
 
-function isOptionalParam(opts: SNC.ProcessMethodOpts, param: SNC.MethodDescriptor, textChecks: string[]) {
+function isOptionalParam(
+  opts: SNC.ProcessMethodOpts,
+  param: SNC.MethodDescriptor,
+  textChecks: string[]
+) {
   let { api, method, _class } = opts;
   let curExceptions = optionalParamExceptions.get(api);
   if (curExceptions) {
     let methodName = getMethodName(method);
-    let query = `${_class.name}->${methodName}->${sanitizeParamName(param.name)}`;
+    let query = `${_class.name}->${methodName}->${sanitizeParamName(
+      param.name
+    )}`;
     if (curExceptions.has(query)) {
       return true;
     }
@@ -260,14 +300,17 @@ function processMethod(opts: SNC.ProcessMethodOpts): SNC.SNMethodInstance {
   let returns = undefined;
   if (method.children) {
     for (let child of method.children) {
-      if (child.type === "Parameter") {
+      if (child.type === 'Parameter') {
         //some methods have child data types in their params...
         //this check removes them so we can manually update those for now
-        if (child.name.includes(".")) {
+        if (child.name.includes('.')) {
           continue;
         }
-        let strippedText2 = striptags(child.text2 || "");
-        let optional = isOptionalParam(opts, child, [child.name, strippedText2]);
+        let strippedText2 = striptags(child.text2 || '');
+        let optional = isOptionalParam(opts, child, [
+          child.name,
+          strippedText2
+        ]);
         params.push({
           name: sanitizeParamName(child.name),
           type: parseType(child.text),
@@ -275,8 +318,8 @@ function processMethod(opts: SNC.ProcessMethodOpts): SNC.SNMethodInstance {
           optional
         });
       }
-      if (child.type === "Return") {
-        let stripped = striptags(child.name, ["<String>", "<GlideHTTPHeader>"]);
+      if (child.type === 'Return') {
+        let stripped = striptags(child.name, ['<String>', '<GlideHTTPHeader>']);
         returns = parseType(stripped);
       }
     }
@@ -330,8 +373,8 @@ function parseType(inputType: string) {
   //remove HTML from some types
   let stripped = striptags(inputType);
   //take first word because sometimes there's more words. Not the best solution I know...
-  let firstWord = stripped.split(" ")[0];
-  let noSymbols = firstWord.replace(/,/, "");
+  let firstWord = stripped.split(' ')[0];
+  let noSymbols = firstWord.replace(/,/, '');
   let normalized = getNormalizedType(noSymbols);
   return normalized;
 }
@@ -343,8 +386,8 @@ function getNormalizedType(type: string) {
       return resType;
     }
   }
-  if (type.toLowerCase().indexOf("scoped") === 0) {
-    return type.slice("scoped".length);
+  if (type.toLowerCase().indexOf('scoped') === 0) {
+    return type.slice('scoped'.length);
   }
   if (incorrectTypesMap.has(type)) {
     return incorrectTypesMap.get(type) as string;
@@ -356,10 +399,10 @@ function sanitizeParamName(name: string) {
   if (disallowedParamNames.has(name)) {
     name = `_${name as string}`;
   }
-  let splitName = name.split("(")[0];
-  return splitName.replace(/[\s\.]/g, "_");
+  let splitName = name.split('(')[0];
+  return splitName.replace(/[\s\.]/g, '_');
 }
 
 function sanitizeMethodName(name: string) {
-  return name.split("(")[0];
+  return name.split('(')[0];
 }

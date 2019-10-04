@@ -1,7 +1,7 @@
-import { GlideTime } from "./GlideTime";
-import { GlideDateTime } from "./GlideDateTime";
-import { GlideDate } from "./GlideDate";
-import { GlideDuration } from "./GlideDuration";
+import { GlideTime } from './GlideTime';
+import { GlideDateTime } from './GlideDateTime';
+import { GlideDate } from './GlideDate';
+import { GlideDuration } from './GlideDuration';
 declare class SNAPIGlideDateTime {
   /**
    * Adds a GlideTime object to the current GlideDateTime object.

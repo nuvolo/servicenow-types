@@ -1,4 +1,4 @@
-import { SNAPIGlideRecord } from "./SNAPIGlideRecord";
+import { SNAPIGlideRecord } from './SNAPIGlideRecord';
 declare class GlideRecord extends SNAPIGlideRecord {
   /**
    * Returns the specified record in an instantiated GlideRecord object.

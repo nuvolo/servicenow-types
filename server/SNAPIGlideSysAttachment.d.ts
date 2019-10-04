@@ -1,5 +1,5 @@
-import { GlideRecord } from "./GlideRecord";
-import { GlideScriptableInputStream } from "./GlideScriptableInputStream";
+import { GlideRecord } from './GlideRecord';
+import { GlideScriptableInputStream } from './GlideScriptableInputStream';
 declare class SNAPIGlideSysAttachment {
   constructor();
   /**

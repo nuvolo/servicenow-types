@@ -1,4 +1,4 @@
-import { GlideRecord } from "./GlideRecord";
+import { GlideRecord } from './GlideRecord';
 declare class SNAPIGlideFilter {
   /**
    * Compares a specified filter to the contents of a specified GlideRecord.

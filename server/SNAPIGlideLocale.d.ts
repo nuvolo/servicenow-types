@@ -1,4 +1,4 @@
-import { GlideLocale } from "./GlideLocale";
+import { GlideLocale } from './GlideLocale';
 declare class SNAPIGlideLocale {
   /**
    * Returns the GlideLocale object.

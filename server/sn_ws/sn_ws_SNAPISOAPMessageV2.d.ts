@@ -1,4 +1,4 @@
-import { SOAPResponseV2 } from "../sn_ws";
+import { SOAPResponseV2 } from '../sn_ws';
 declare class sn_ws_SNAPISOAPMessageV2 {
   constructor();
   constructor(soapMessage: string, soapFunction: string);

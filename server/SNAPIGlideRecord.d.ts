@@ -1,6 +1,6 @@
-import { GlideQueryCondition } from "./GlideQueryCondition";
-import { GlideElementDescriptor } from "./GlideElementDescriptor";
-import { GlideElement } from "./GlideElement";
+import { GlideQueryCondition } from './GlideQueryCondition';
+import { GlideElementDescriptor } from './GlideElementDescriptor';
+import { GlideElement } from './GlideElement';
 declare class SNAPIGlideRecord {
   /**
    * Adds a filter to return active records.
@@ -121,7 +121,8 @@ declare class SNAPIGlideRecord {
    * Sets a range of rows to be returned by subsequent queries.
    * @param firstRow The first row to include. Because the index starts at 0, a value of 0 returns
    * the first row.
-   * @param lastRow The last row to include.
+   * @param lastRow The last row to include in the range. Because the index starts at 0, use the
+   * value n - 1, in which n equals the actual row number.
    * @param forceCount If true, the getRowCount() method will return all possible records.
    */
   chooseWindow(firstRow: number, lastRow: number, forceCount: boolean): void;

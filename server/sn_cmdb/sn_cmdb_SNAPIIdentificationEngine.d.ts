@@ -1,4 +1,4 @@
-import { GlideRecord } from "../GlideRecord";
+import { GlideRecord } from '../GlideRecord';
 declare class sn_cmdb_SNAPIIdentificationEngine {
   /**
    * Insert or update configuration items in the CMDB based on identification and

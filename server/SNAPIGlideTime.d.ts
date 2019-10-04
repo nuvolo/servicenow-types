@@ -1,5 +1,5 @@
-import { GlideTime } from "./GlideTime";
-import { GlideDuration } from "./GlideDuration";
+import { GlideTime } from './GlideTime';
+import { GlideDuration } from './GlideDuration';
 declare class SNAPIGlideTime {
   constructor();
   constructor(milliseconds: number);

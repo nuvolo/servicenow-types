@@ -1,4 +1,4 @@
-import { GlideRecord } from "./GlideRecord";
+import { GlideRecord } from './GlideRecord';
 declare class SNAPIGlideElement {
   /**
    * Determines if the user's role permits the creation of new records in this

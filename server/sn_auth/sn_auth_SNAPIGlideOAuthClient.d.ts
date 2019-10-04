@@ -1,6 +1,6 @@
-import { GlideOAuthToken } from "../sn_auth";
-import { GlideOAuthClientResponse } from "../sn_auth";
-import { GlideOAuthClientRequest } from "../sn_auth";
+import { GlideOAuthToken } from '../sn_auth';
+import { GlideOAuthClientResponse } from '../sn_auth';
+import { GlideOAuthClientRequest } from '../sn_auth';
 declare class sn_auth_SNAPIGlideOAuthClient {
   /**
    * Retrieves the token for the client. You can use the token to check the expiration date

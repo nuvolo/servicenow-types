@@ -1,4 +1,4 @@
-import { GlideRecord } from "./GlideRecord";
+import { GlideRecord } from './GlideRecord';
 declare class SNAPIGlideSPScriptable {
   /**
    * Returns true if the user can read the specified GlideRecord.

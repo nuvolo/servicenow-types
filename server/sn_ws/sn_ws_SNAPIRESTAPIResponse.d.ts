@@ -1,4 +1,4 @@
-import { RESTAPIResponseStream } from "../sn_ws";
+import { RESTAPIResponseStream } from '../sn_ws';
 declare class sn_ws_SNAPIRESTAPIResponse {
   /**
    * Get the ResponseStreamWriter for this response, allowing you to write directly to the

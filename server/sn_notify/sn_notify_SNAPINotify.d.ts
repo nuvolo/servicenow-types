@@ -1,5 +1,5 @@
-import { GlideRecord } from "../GlideRecord";
-import { NotifyPhoneNumber } from "../sn_notify";
+import { GlideRecord } from '../GlideRecord';
+import { NotifyPhoneNumber } from '../sn_notify';
 declare class sn_notify_SNAPINotify {
   /**
    * Calls the specified E.164-compliant telephone number.

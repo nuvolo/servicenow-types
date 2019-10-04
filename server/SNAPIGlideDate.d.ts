@@ -1,5 +1,5 @@
-import { GlideDate } from "./GlideDate";
-import { GlideDuration } from "./GlideDuration";
+import { GlideDate } from './GlideDate';
+import { GlideDuration } from './GlideDuration';
 declare class SNAPIGlideDate {
   constructor();
   /**

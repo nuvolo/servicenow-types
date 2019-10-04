@@ -1,4 +1,4 @@
-import { GlideScriptableInputStream } from "../GlideScriptableInputStream";
+import { GlideScriptableInputStream } from '../GlideScriptableInputStream';
 declare class sn_impex_SNAPIGlideExcelParser {
   constructor();
   /**

@@ -1,15 +1,15 @@
-import { Mod } from "./common";
+import { Mod } from './common';
 const addons: Mod.AddOns = {
   dependencies: [
     {
-      name: "GlideSystem",
-      path: "./GlideSystem"
+      name: 'GlideSystem',
+      path: './GlideSystem'
     }
   ],
   variables: [
     {
-      name: "gs",
-      type: "GlideSystem"
+      name: 'gs',
+      type: 'GlideSystem'
     }
   ]
 };

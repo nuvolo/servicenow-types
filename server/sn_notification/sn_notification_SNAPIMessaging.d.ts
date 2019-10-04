@@ -1,4 +1,4 @@
-import { GlideRecord } from "../GlideRecord";
+import { GlideRecord } from '../GlideRecord';
 declare class sn_notification_SNAPIMessaging {
   /**
    * Sends a custom message to a third-party application in response to a messaging event.

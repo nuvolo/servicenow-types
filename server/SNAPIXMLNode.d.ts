@@ -1,5 +1,5 @@
-import { XMLNodeIterator } from "./XMLNodeIterator";
-import { XMLNode } from "./XMLNode";
+import { XMLNodeIterator } from './XMLNodeIterator';
+import { XMLNode } from './XMLNode';
 declare class SNAPIXMLNode {
   /**
    * Gets the value of the attribute.

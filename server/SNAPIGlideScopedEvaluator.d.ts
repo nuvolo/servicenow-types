@@ -1,4 +1,4 @@
-import { GlideRecord } from "./GlideRecord";
+import { GlideRecord } from './GlideRecord';
 declare class SNAPIGlideScopedEvaluator {
   constructor();
   /**

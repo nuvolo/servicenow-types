@@ -1,4 +1,4 @@
-import { RESTResponseV2 } from "../sn_ws";
+import { RESTResponseV2 } from '../sn_ws';
 declare class sn_ws_SNAPIRESTMessageV2 {
   constructor();
   constructor(name: string, methodName: string);

@@ -1,4 +1,4 @@
-import { GlideDateTime } from "../GlideDateTime";
+import { GlideDateTime } from '../GlideDateTime';
 declare class sn_clotho_SNAPIData {
   /**
    * Returns the end time for data in the Data object.

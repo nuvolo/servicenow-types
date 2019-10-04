@@ -1,4 +1,4 @@
-import { ConnectionInfo } from "../sn_cc";
+import { ConnectionInfo } from '../sn_cc';
 declare class sn_cc_SNAPIConnectionInfoProvider {
   constructor();
   /**

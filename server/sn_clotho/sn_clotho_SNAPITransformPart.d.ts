@@ -1,7 +1,7 @@
-import { TransformPart } from "../sn_clotho";
-import { TransformResult } from "../sn_clotho";
-import { GlideDateTime } from "../GlideDateTime";
-import { GlideDuration } from "../GlideDuration";
+import { TransformPart } from '../sn_clotho';
+import { TransformResult } from '../sn_clotho';
+import { GlideDateTime } from '../GlideDateTime';
+import { GlideDuration } from '../GlideDuration';
 declare class sn_clotho_SNAPITransformPart {
   /**
    * Add the specified number to the value in each time stamp.

@@ -1,5 +1,5 @@
-import { GlideScriptableInputStream } from "./GlideScriptableInputStream";
-import { XMLNode } from "./XMLNode";
+import { GlideScriptableInputStream } from './GlideScriptableInputStream';
+import { XMLNode } from './XMLNode';
 declare class SNAPIXMLDocument2 {
   constructor(inputStream: GlideScriptableInputStream);
   constructor();

@@ -1,14 +1,14 @@
-import dotenv from "dotenv";
+import dotenv from 'dotenv';
 dotenv.config({
-  path: "../.env"
+  path: '../.env'
 });
-import { getAPIHierarchy } from "./SNClient";
-import { generateFiles } from "./TSGenerator";
-import { SNC } from "./common";
-const release = "madrid";
+import { getAPIHierarchy } from './SNClient';
+import { generateFiles } from './TSGenerator';
+import { SNC } from './common';
+const release = 'madrid';
 const configurations: SNC.HierarchyOpts[] = [
-  { release, api: "server", type: "scoped" },
-  { release, api: "client", type: "all" }
+  { release, api: 'server', type: 'scoped' },
+  { release, api: 'client', type: 'all' }
   // { release, api: "server_legacy", type: "global" }
 ];
 main();

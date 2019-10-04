@@ -1,4 +1,4 @@
-import { GlideRecord } from "../GlideRecord";
+import { GlideRecord } from '../GlideRecord';
 declare class sn_sc_SNAPICatalogJS {
   constructor(gr: any);
   constructor(sys_id: string);

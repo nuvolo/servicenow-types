@@ -1,4 +1,4 @@
-import { Data } from "../sn_clotho";
+import { Data } from '../sn_clotho';
 declare class sn_clotho_SNAPITransformResult {
   /**
    * Returns an array of Data objects. Returns an error if no group was specified for the

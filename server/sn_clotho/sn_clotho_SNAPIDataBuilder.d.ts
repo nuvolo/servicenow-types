@@ -1,5 +1,5 @@
-import { GlideDateTime } from "../GlideDateTime";
-import { DataBuilder } from "../sn_clotho";
+import { GlideDateTime } from '../GlideDateTime';
+import { DataBuilder } from '../sn_clotho';
 declare class sn_clotho_SNAPIDataBuilder {
   /**
    * Add a series of data points to the DataBuilder object. Each data point is a time stamp

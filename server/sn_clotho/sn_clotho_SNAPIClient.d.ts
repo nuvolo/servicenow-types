@@ -1,5 +1,5 @@
-import { GlideRecord } from "../GlideRecord";
-import { DataBuilder } from "../sn_clotho";
+import { GlideRecord } from '../GlideRecord';
+import { DataBuilder } from '../sn_clotho';
 declare class sn_clotho_SNAPIClient {
   constructor();
   /**

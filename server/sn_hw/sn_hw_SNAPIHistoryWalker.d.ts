@@ -1,4 +1,4 @@
-import { GlideRecord } from "../GlideRecord";
+import { GlideRecord } from '../GlideRecord';
 declare class sn_hw_SNAPIHistoryWalker {
   constructor(tableName: string, sydId: string);
   constructor(tableName: string, sydId: string, useAudit: boolean);

@@ -83,7 +83,15 @@ export module SNC {
   interface BaseNode {
     dc_identifier?: string;
     name: string;
-    type: "Constructor" | "Method" | "Server Side Scoped" | "Namespace" | "Parameter" | "Return" | "Class" | "Property";
+    type:
+      | 'Constructor'
+      | 'Method'
+      | 'Server Side Scoped'
+      | 'Namespace'
+      | 'Parameter'
+      | 'Return'
+      | 'Class'
+      | 'Property';
   }
 
   interface DocNode extends BaseNode {

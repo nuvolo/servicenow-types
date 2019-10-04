@@ -1,4 +1,4 @@
-import { GlideDuration } from "./GlideDuration";
+import { GlideDuration } from './GlideDuration';
 declare class SNAPIGlideDuration {
   /**
    * Add the specified duration to the object.

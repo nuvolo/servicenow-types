@@ -1,4 +1,4 @@
-import { GlideOAuthToken } from "../sn_auth";
+import { GlideOAuthToken } from '../sn_auth';
 declare class sn_auth_SNAPIGlideOAuthClientResponse {
   /**
    * Retrieves all of the response information, including instance information.
