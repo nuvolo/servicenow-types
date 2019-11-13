@@ -61,6 +61,24 @@ let gr = new GlideRecord("my_table") as TypedGR<my_table>;
 let ref_gr = gr.test2.getRefRecord();
 ```
 
+### TypedRESTAPIRequest
+
+Extended type for `sn_ws.RESTAPIRequest` that takes a type to use as the body data object.
+
+```typescript
+import {sn_ws} from "@nuvolo/servicenow-types";
+import {TypedRESTAPIRequest} from "@nuvolo/servicenow-types/util";
+declare var request:TypedRESTAPIRequest<test>;
+declare var response:sn_ws.RESTAPIResponse;
+interface test{
+  prop1:string;
+  prop2:number;
+}
+(function process(request:TypedRESTAPIRequest<test>,response:sn_ws.RESTAPIResponse) {
+
+})(request,response)
+```
+
 ### How it works
 
 This package scrapes the docs to generate basic types for ServiceNow. Those `.d.ts` files are prefixed with `SNAPI`. The types that get actually used like `GlideRecord` are extended from those types so we can correct errors in the documentation without having to write it all into the scraping algorithm. It also allows us to create some really nice utility types and use them later.
