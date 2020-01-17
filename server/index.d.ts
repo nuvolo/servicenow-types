@@ -1,3 +1,4 @@
+import * as global from './global';
 import * as sn_auth from './sn_auth';
 import * as sn_cc from './sn_cc';
 import * as sn_clotho from './sn_clotho';
@@ -83,3 +84,6 @@ export { sn_notify };
 export { sn_sc };
 export { sn_uc };
 export { sn_ws };
+
+// Manually updated scopes
+export { global };
