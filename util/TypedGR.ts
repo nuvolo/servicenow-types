@@ -1,5 +1,5 @@
+import { Override } from './helpers';
 import { GlideQueryCondition, GlideElement, GlideRecord } from '../server';
-import { Override } from '.';
 
 /**
  * Operators available for filters and queries.

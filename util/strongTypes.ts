@@ -1,4 +1,5 @@
-import { Override, TypedGR } from '.';
+import { Override } from './helpers';
+import { TypedGR } from './TypedGR';
 import { GlideElement, sn_ws } from '../server';
 
 type ReferenceGlideElement<T> = Override<
