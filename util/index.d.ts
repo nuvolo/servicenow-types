@@ -49,6 +49,9 @@ type QueryOperator =
   | 'CHANGESFROM'
   | 'CHANGESTO';
 
+/**
+ * Override method and property signatures from TBase, and use the signatures provided in TOverride.
+ */
 type Override<TBase, TOverride> = Omit<TBase, keyof TOverride> & TOverride;
 
 declare interface GlideRecordOverride<T> {
