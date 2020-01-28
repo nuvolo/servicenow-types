@@ -10,10 +10,10 @@ declare class GlideRecordBase<T> extends SNAPIGlideRecord {
    * @param primaryField (Optional) If other than sys_id, the primary field
    * @param joinTableField (Optional) If other than sys_id, the field that joins the tables.
    */
-  addJoinQuery(
+  addJoinQuery<TJoinTable>(
     joinTable: string,
     primaryField?: FieldType<T>,
-    joinTableField?: any,
+    joinTableField?: FieldType<TJoinTable>,
   ): GlideQueryCondition;
 
   /**
