@@ -17,19 +17,23 @@ declare class SNAPIGlideAggregate {
    * Adds a not null query to the aggregate.
    * @param fieldname The name of the field.
    */
-  addNotNullQuery(fieldname: string): GlideQueryCondition;
+  addNotNullQuery(fieldname: string): GlideQueryCondition<any>;
   /**
    * Adds a null query to the aggregate.
    * @param fieldName The name of the field.
    */
-  addNullQuery(fieldName: string): GlideQueryCondition;
+  addNullQuery(fieldName: string): GlideQueryCondition<any>;
   /**
    * Adds a query to the aggregate.
    * @param name The query to add.
    * @param operator The operator for the query.
    * @param value The list of values to include in the query.
    */
-  addQuery(name: string, operator: string, value: string): GlideQueryCondition;
+  addQuery(
+    name: string,
+    operator: string,
+    value: string,
+  ): GlideQueryCondition<any>;
   /**
    * Adds a trend for a field.
    * @param fieldName The name of the field for which trending should occur.

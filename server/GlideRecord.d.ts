@@ -1,9 +1,12 @@
 import { SNAPIGlideRecord } from './SNAPIGlideRecord';
 import { GlideQueryCondition } from './GlideQueryCondition';
 import { GlideElement } from './GlideElement';
-import { QueryOperator } from '../util';
-type FieldType<T> = Extract<keyof T, string>;
+import { QueryOperator, FieldType } from '../util';
 declare class GlideRecordBase<T> extends SNAPIGlideRecord {
+  /**
+   * Adds a filter to return active records.
+   */
+  addActiveQuery(): GlideQueryCondition<T>;
   /**
    * Adds a filter to return records based on a relationship in a related table.
    * @param joinTable Table name
@@ -14,14 +17,14 @@ declare class GlideRecordBase<T> extends SNAPIGlideRecord {
     joinTable: string,
     primaryField?: FieldType<T>,
     joinTableField?: FieldType<TJoinTable>,
-  ): GlideQueryCondition;
+  ): GlideQueryCondition<TJoinTable>;
 
   /**
    * A filter that specifies records where the value of the field passed in the parameter is
    * not null.
    * @param fieldName Name of the field to check.
    */
-  addNotNullQuery(fieldName: FieldType<T>): GlideQueryCondition;
+  addNotNullQuery(fieldName: FieldType<T>): GlideQueryCondition<T>;
 
   /**
    * Provides the ability to build a request, which when executed, returns the rows from the
@@ -29,13 +32,13 @@ declare class GlideRecordBase<T> extends SNAPIGlideRecord {
    * @param fieldName Table field name.
    * @param value Value on which to query (not case-sensitive).
    */
-  addQuery(): GlideQueryCondition;
-  addQuery(fieldName: FieldType<T>, value: any): GlideQueryCondition;
+  addQuery(): GlideQueryCondition<T>;
+  addQuery(fieldName: FieldType<T>, value: any): GlideQueryCondition<T>;
   addQuery(
     name: FieldType<T>,
     operator: QueryOperator,
     value: any,
-  ): GlideQueryCondition;
+  ): GlideQueryCondition<T>;
   /**
    * Returns the specified record in an instantiated GlideRecord object.
    * @param sys_id sys_id of the record to get.

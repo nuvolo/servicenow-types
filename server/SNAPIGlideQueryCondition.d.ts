@@ -10,8 +10,8 @@ declare class SNAPIGlideQueryCondition {
   addCondition(
     name: string,
     oper: string | undefined,
-    value: any
-  ): GlideQueryCondition;
+    value: any,
+  ): GlideQueryCondition<any>;
   /**
    * Appends a 2-or-3 parameter OR condition to an existing GlideQueryCondition.
    * @param name Field name
@@ -55,7 +55,7 @@ declare class SNAPIGlideQueryCondition {
   addOrCondition(
     name: string,
     oper: string | undefined,
-    value: any
-  ): GlideQueryCondition;
+    value: any,
+  ): GlideQueryCondition<any>;
 }
 export { SNAPIGlideQueryCondition };
