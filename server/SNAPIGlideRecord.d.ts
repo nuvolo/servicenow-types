@@ -1,6 +1,6 @@
 import { GlideQueryCondition } from './GlideQueryCondition';
 import { GlideElementDescriptor } from './GlideElementDescriptor';
-import { GlideElement } from './GlideElement';
+import { SNAPIGlideElement } from './SNAPIGlideElement';
 declare class SNAPIGlideRecord {
   /**
    * Adds a filter to return active records.
@@ -27,7 +27,7 @@ declare class SNAPIGlideRecord {
   addJoinQuery(
     joinTable: string,
     primaryField?: any,
-    joinTableField?: any
+    joinTableField?: any,
   ): GlideQueryCondition;
   /**
    * A filter that specifies records where the value of the field passed in the parameter is
@@ -163,7 +163,7 @@ declare class SNAPIGlideRecord {
    * Retrieves the GlideElement object for the specified field.
    * @param columnName Name of the column to get the element from.
    */
-  getElement(columnName: string): GlideElement;
+  getElement(columnName: string): SNAPIGlideElement;
   /**
    * Retrieves the query condition of the current result set as an encoded query string.
    */

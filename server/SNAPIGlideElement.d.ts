@@ -1,4 +1,4 @@
-import { GlideRecord } from './GlideRecord';
+import { SNAPIGlideRecord } from './SNAPIGlideRecord';
 declare class SNAPIGlideElement {
   /**
    * Determines if the user's role permits the creation of new records in this
@@ -102,7 +102,7 @@ declare class SNAPIGlideElement {
   /**
    * Returns a GlideRecord object for a given reference element.
    */
-  getRefRecord(): GlideRecord;
+  getRefRecord(): SNAPIGlideRecord;
   /**
    * Returns the name of the table on which the field resides.
    */
