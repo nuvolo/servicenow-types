@@ -1,9 +1,9 @@
-import { GlideRecord } from '../GlideRecord';
+import { SNAPIGlideRecord } from '../SNAPIGlideRecord';
 import { GlideDateTime } from '../GlideDateTime';
 import { TransformResult } from '../sn_clotho';
 import { TransformPart } from '../sn_clotho';
 declare class sn_clotho_SNAPITransformer {
-  constructor(sourceRecords: GlideRecord);
+  constructor(sourceRecords: SNAPIGlideRecord);
   /**
    * Run the transform.
    * @param start The beginning of the period to be evaluated.

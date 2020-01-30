@@ -1,4 +1,4 @@
-import { GlideRecord } from '../GlideRecord';
+import { SNAPIGlideRecord } from '../SNAPIGlideRecord';
 declare class sn_sc_SNAPICatalogJS {
   constructor(gr: any);
   constructor(sys_id: string);
@@ -40,7 +40,7 @@ declare class sn_sc_SNAPICatalogJS {
   /**
    * Returns the catalog gliderecord.
    */
-  getGr(): GlideRecord;
+  getGr(): SNAPIGlideRecord;
   /**
    * Returns the catalog header icon.
    */

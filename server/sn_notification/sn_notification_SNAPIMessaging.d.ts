@@ -1,4 +1,4 @@
-import { GlideRecord } from '../GlideRecord';
+import { SNAPIGlideRecord } from '../SNAPIGlideRecord';
 declare class sn_notification_SNAPIMessaging {
   /**
    * Sends a custom message to a third-party application in response to a messaging event.
@@ -15,10 +15,10 @@ declare class sn_notification_SNAPIMessaging {
    * Messaging Contents record does not use a target table, set the value to null.
    */
   send(
-    messagingApplication: GlideRecord,
+    messagingApplication: SNAPIGlideRecord,
     recipient: string,
-    messagingContent: GlideRecord,
-    target: GlideRecord
+    messagingContent: SNAPIGlideRecord,
+    target: SNAPIGlideRecord,
   ): void;
 }
 export { sn_notification_SNAPIMessaging };

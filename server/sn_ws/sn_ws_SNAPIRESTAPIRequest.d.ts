@@ -1,6 +1,6 @@
-import { RESTAPIRequestBody } from '../sn_ws';
+import { sn_ws_SNAPIRESTAPIRequestBody } from './sn_ws_SNAPIRESTAPIRequestBody';
 declare class sn_ws_SNAPIRESTAPIRequest {
-  body: RESTAPIRequestBody;
+  body: sn_ws_SNAPIRESTAPIRequestBody;
   headers: any;
   pathParams: any;
   queryParams: any;

@@ -1,4 +1,4 @@
-import { GlideRecord } from '../GlideRecord';
+import { SNAPIGlideRecord } from '../SNAPIGlideRecord';
 declare class sn_sc_SNAPICartJS {
   constructor();
   constructor(cartName: string);
@@ -54,7 +54,7 @@ declare class sn_sc_SNAPICartJS {
    * Returns the GlideRecord for the cart item (sc_cart_item) in the current
    * cart.
    */
-  getCartItems(): GlideRecord;
+  getCartItems(): SNAPIGlideRecord;
   /**
    * Gets the delivery address for the current cart.
    */

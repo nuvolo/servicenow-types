@@ -1,4 +1,4 @@
-import { GlideRecord } from '../GlideRecord';
+import { SNAPIGlideRecord } from '../SNAPIGlideRecord';
 import { NotifyPhoneNumber } from '../sn_notify';
 declare class sn_notify_SNAPINotify {
   /**
@@ -23,23 +23,23 @@ declare class sn_notify_SNAPINotify {
   call(
     notifyPhoneNumber: string,
     toPhoneNumber: string,
-    conferenceCall?: GlideRecord,
+    conferenceCall?: SNAPIGlideRecord,
     userSysId?: string,
     groupSysId?: string,
-    sourceRecord?: GlideRecord
+    sourceRecord?: SNAPIGlideRecord,
   ): void;
   /**
    * Creates a new conference call GlideRecord.
    * @param sourceRecord Optional. Record that initiated the request to create the conference call. Used
    * to populate the source and table fields on notify_conference_call record.
    */
-  conferenceCall(sourceRecord?: GlideRecord): GlideRecord;
+  conferenceCall(sourceRecord?: SNAPIGlideRecord): SNAPIGlideRecord;
   /**
    * Resumes a call after it was put in a queue (on hold).
-   * @param callRecord GlideRecord object on the Notify Call [notify_call] table with the held call
+   * @param callRecord SNAPIGlideRecord object on the Notify Call [notify_call] table with the held call
    * you want to resume.
    */
-  dequeueCall(callRecord: GlideRecord): void;
+  dequeueCall(callRecord: SNAPIGlideRecord): void;
   /**
    * Forwards the specified call to a different call recipient.
    * @param call Notify call record or the telephony provider call ID, of the call to be
@@ -48,7 +48,11 @@ declare class sn_notify_SNAPINotify {
    * which to forward the call.
    * @param dtmf Dual Tone - Multi Frequency (DTMF) code to send upon call connection.
    */
-  forwardCall(call: GlideRecord, destination: GlideRecord, dtmf: string): void;
+  forwardCall(
+    call: SNAPIGlideRecord,
+    destination: SNAPIGlideRecord,
+    dtmf: string,
+  ): void;
   /**
    * Returns a list of client sessions that are available to receive calls.
    * @param notifyNumber Valid Notify phone number.
@@ -68,7 +72,7 @@ declare class sn_notify_SNAPINotify {
    * @param record GlideRecord to use to identify the Notify client, such as a group record or a
    * user record.
    */
-  getTokens(record: GlideRecord): string;
+  getTokens(record: SNAPIGlideRecord): string;
   /**
    * Returns the maximum amount of time that a client session stays active for a specified
    * telephony driver before automatically timing out.
@@ -94,7 +98,7 @@ declare class sn_notify_SNAPINotify {
    * @param participant GlideRecord object containing the Notify Participant [notify_participant]
    * record of the caller to remove from the conference call.
    */
-  kick(participant: GlideRecord): void;
+  kick(participant: SNAPIGlideRecord): void;
   /**
    * Performs one or more activities on an active Notify phone call.
    * @param callRecord Notify Call [notify_call] record of the call for which to apply the
@@ -102,19 +106,19 @@ declare class sn_notify_SNAPINotify {
    * @param notifyAction NotifyAction object describing one or more activities to perform on the
    * call.
    */
-  modifyCall(callRecord: GlideRecord, notifyAction: any): void;
+  modifyCall(callRecord: SNAPIGlideRecord, notifyAction: any): void;
   /**
    * Mutes the specified conference call participant.
    * @param participantRecord GlideRecord from the notify_participant table for the participant to
    * mute.
    */
-  mute(participantRecord: GlideRecord): void;
+  mute(participantRecord: SNAPIGlideRecord): void;
   /**
    * Puts the specified call into a queue (on hold).
    * @param callRecord GlideRecord object of the Notify Call  record (notify_call table) to put on
    * hold.
    */
-  queueCall(callRecord: GlideRecord): void;
+  queueCall(callRecord: SNAPIGlideRecord): void;
   /**
    * Sends a specified SMS message to the specified list of Notify clients (phone
    * numbers).
@@ -128,7 +132,7 @@ declare class sn_notify_SNAPINotify {
     notifyPhoneNumber: NotifyPhoneNumber,
     toPhoneNumbers: string,
     messageBody: string,
-    source: GlideRecord
+    source: SNAPIGlideRecord,
   ): string;
   /**
    * Sends an SMS text message to an E.164-compliant phone number.
@@ -141,13 +145,13 @@ declare class sn_notify_SNAPINotify {
     notifyPhoneNumber: NotifyPhoneNumber,
     toPhoneNumber: string,
     messageBody: string,
-    source: GlideRecord
+    source: SNAPIGlideRecord,
   ): string;
   /**
    * Unmutes the specified conference call participant.
    * @param participantRecord GlideRecord from the notify_participant table for the participant to
    * unmute.
    */
-  unmute(participantRecord: GlideRecord): void;
+  unmute(participantRecord: SNAPIGlideRecord): void;
 }
 export { sn_notify_SNAPINotify };

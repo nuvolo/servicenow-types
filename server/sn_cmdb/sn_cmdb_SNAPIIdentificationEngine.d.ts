@@ -1,4 +1,4 @@
-import { GlideRecord } from '../GlideRecord';
+import { SNAPIGlideRecord } from '../SNAPIGlideRecord';
 declare class sn_cmdb_SNAPIIdentificationEngine {
   /**
    * Insert or update configuration items in the CMDB based on identification and
@@ -69,6 +69,6 @@ declare class sn_cmdb_SNAPIIdentificationEngine {
    * @param gr The CI on which to run the audit to detect duplicates. The CI must have
    * independent identification rules.
    */
-  runIdentificationAudit(gr: GlideRecord): void;
+  runIdentificationAudit(gr: SNAPIGlideRecord): void;
 }
 export { sn_cmdb_SNAPIIdentificationEngine };

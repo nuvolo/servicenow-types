@@ -1,4 +1,4 @@
-import { GlideRecord } from '../GlideRecord';
+import { SNAPIGlideRecord } from '../SNAPIGlideRecord';
 declare class sn_sc_SNAPICatalogSearch {
   constructor();
   /**
@@ -15,7 +15,7 @@ declare class sn_sc_SNAPICatalogSearch {
     categoryID: string,
     term: string,
     mobile: boolean,
-    depthSearch: boolean
-  ): GlideRecord;
+    depthSearch: boolean,
+  ): SNAPIGlideRecord;
 }
 export { sn_sc_SNAPICatalogSearch };

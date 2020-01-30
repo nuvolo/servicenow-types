@@ -1,4 +1,4 @@
-import { GlideRecord } from '../GlideRecord';
+import { SNAPIGlideRecord } from '../SNAPIGlideRecord';
 declare class sn_interaction_SNAPIInteraction {
   /**
    * Accept a new interaction.
@@ -17,7 +17,7 @@ declare class sn_interaction_SNAPIInteraction {
    * @param interaction Interaction record from the interaction table [interaction] that is retrieved
    * from the system.
    */
-  getInteraction(interaction: GlideRecord): any;
+  getInteraction(interaction: SNAPIGlideRecord): any;
   /**
    * Transfer an interaction record to an agent using the sys_id for the agent.
    * @param SysID The sys_id of the user you want to transfer an interaction record to.

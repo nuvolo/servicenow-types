@@ -1,4 +1,4 @@
-import { GlideRecord } from '../GlideRecord';
+import { SNAPIGlideRecord } from '../SNAPIGlideRecord';
 declare class sn_hw_SNAPIHistoryWalker {
   constructor(tableName: string, sydId: string);
   constructor(tableName: string, sydId: string, useAudit: boolean);
@@ -10,12 +10,12 @@ declare class sn_hw_SNAPIHistoryWalker {
    * Gets the record filled with the history/audit data after walking to an update
    * number.
    */
-  getWalkedRecord(): GlideRecord;
+  getWalkedRecord(): SNAPIGlideRecord;
   /**
    * Gets a copy of the record filled with the history/audit data after walking to an update
    * number.
    */
-  getWalkedRecordCopy(): GlideRecord;
+  getWalkedRecordCopy(): SNAPIGlideRecord;
   /**
    * Specifies if the record-level read access is applied on the record when retrieving from
    * the database.
