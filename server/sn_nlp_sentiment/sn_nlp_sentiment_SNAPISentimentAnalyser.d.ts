@@ -1,7 +1,7 @@
 import { GlideRecord } from '../GlideRecord';
 declare class sn_nlp_sentiment_SNAPISentimentAnalyser {
   constructor();
-  constructor(configGR: GlideRecord);
+  constructor(configGR: GlideRecord<any>);
   /**
    * Performs sentiment analysis on the specified text.
    * @param inputText Text on which sentiment analysis should be performed.
@@ -31,10 +31,10 @@ declare class sn_nlp_sentiment_SNAPISentimentAnalyser {
    * Returns the GlideRecord of the specified connector configuration.
    * @param connectorName Name of the connector configuration.
    */
-  getConnectorByName(connectorName: string): GlideRecord;
+  getConnectorByName(connectorName: string): GlideRecord<any>;
   /**
    * Returns the GlideRecord of the default connector configuration.
    */
-  getDefaultConnector(): GlideRecord;
+  getDefaultConnector(): GlideRecord<any>;
 }
 export { sn_nlp_sentiment_SNAPISentimentAnalyser };
