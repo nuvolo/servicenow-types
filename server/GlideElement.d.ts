@@ -50,16 +50,6 @@ declare class GlideElement extends SNAPIGlideElement {
    *
    * Example: "€1.563,72"
    */
-  getDisplayValue(): string;
-
-  /**
-   * For Currency fields only!
-   *
-   * Returns the currency value in the user's session currency
-   * formatted in the user's locale with a currency symbol.
-   *
-   * Example: "€1.563,72"
-   */
   getSessionDisplayValue(): string;
 
   /**
@@ -118,27 +108,5 @@ declare class GlideElement extends SNAPIGlideElement {
    * Example: "USD"
    */
   getReferenceCurrencyCode(): string;
-
-  /**
-   * For Currency fields only!
-   *
-   * Sets the currency value as:
-   * - An unformatted number taken as a value in the user's session currency.
-   * - An unformatted number prefixed by a 3-letter currency code separated by a semicolon.
-   *
-   * @param value The currency value. Example: "4369.21" or "JPY;4369.21"
-   */
-  setValue(value: string): void;
-
-  /**
-   * For Currency fields only!
-   *
-   * Sets the currency value as:
-   * - A number formatted in the user's locale that is taken as a value in the user's session currency.
-   * - A number formatted in the user's locale prefixed by a 3-letter currency code separated by a semicolon.
-   *
-   * @param value The currency display value. Example: "4369.21" or "JPY;4369.21"
-   */
-  setDisplayValue(valud: string): void;
 }
 export { GlideElement };
