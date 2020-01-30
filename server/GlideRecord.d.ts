@@ -1,6 +1,7 @@
 import { SNAPIGlideRecord } from './SNAPIGlideRecord';
 import { GlideQueryCondition } from './GlideQueryCondition';
 import { GlideElement } from './GlideElement';
+import { QueryOperator } from '../util';
 type FieldType<T> = Extract<keyof T, string>;
 declare class GlideRecordBase<T> extends SNAPIGlideRecord {
   /**
@@ -32,7 +33,7 @@ declare class GlideRecordBase<T> extends SNAPIGlideRecord {
   addQuery(fieldName: FieldType<T>, value: any): GlideQueryCondition;
   addQuery(
     name: FieldType<T>,
-    operator: string,
+    operator: QueryOperator,
     value: any,
   ): GlideQueryCondition;
   /**
