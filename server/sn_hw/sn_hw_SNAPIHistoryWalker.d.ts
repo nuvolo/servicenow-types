@@ -10,12 +10,12 @@ declare class sn_hw_SNAPIHistoryWalker {
    * Gets the record filled with the history/audit data after walking to an update
    * number.
    */
-  getWalkedRecord(): GlideRecord;
+  getWalkedRecord(): GlideRecord<any>;
   /**
    * Gets a copy of the record filled with the history/audit data after walking to an update
    * number.
    */
-  getWalkedRecordCopy(): GlideRecord;
+  getWalkedRecordCopy(): GlideRecord<any>;
   /**
    * Specifies if the record-level read access is applied on the record when retrieving from
    * the database.

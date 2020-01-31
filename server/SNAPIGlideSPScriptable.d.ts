@@ -4,7 +4,7 @@ declare class SNAPIGlideSPScriptable {
    * Returns true if the user can read the specified GlideRecord.
    * @param gr The GlideRecord to check.
    */
-  canReadRecord(gr: GlideRecord): boolean;
+  canReadRecord(gr: GlideRecord<any>): boolean;
   /**
    * Returns true if the user can read the specified GlideRecord.
    * @param table Name of the table to query.
@@ -49,21 +49,21 @@ declare class SNAPIGlideSPScriptable {
    * @param gr The GlideRecord to check
    * @param fieldName The field to find information for
    */
-  getField(gr: GlideRecord, fieldName: string): any;
+  getField(gr: GlideRecord<any>, fieldName: string): any;
   /**
    * Checks the specified list of field names, and returns an array of valid field
    * names.
    * @param gr The GlideRecord to check
    * @param field_Names A comma separated list of field names.
    */
-  getFields(gr: GlideRecord, field_Names: string): any[];
+  getFields(gr: GlideRecord<any>, field_Names: string): any[];
   /**
    * Checks the specified list of field names and returns an object of valid field
    * names.
    * @param gr The GlideRecord to check
    * @param field_Names A comma separated list of field names.
    */
-  getFieldsObject(gr: GlideRecord, field_Names: string): any;
+  getFieldsObject(gr: GlideRecord<any>, field_Names: string): any;
   /**
    * Return the form.
    * @param tableName The name of the table
@@ -87,7 +87,7 @@ declare class SNAPIGlideSPScriptable {
   getKBCategoryArticleSummaries(
     sys_id: string,
     limit: number,
-    maxChars: number
+    maxChars: number,
   ): any[];
   /**
    * Returns the number of articles in the defined Knowledge Base.
@@ -104,7 +104,7 @@ declare class SNAPIGlideSPScriptable {
    * Returns the (?id=) portion of the URL based on the sp_menu type.
    * @param page The page
    */
-  getMenuHREF(page: GlideRecord): string;
+  getMenuHREF(page: GlideRecord<any>): string;
   /**
    * Returns an array of menu items for the specified instance.
    * @param sysId sysId of the instance
@@ -118,7 +118,7 @@ declare class SNAPIGlideSPScriptable {
   /**
    * Returns the portal GlideRecord from the Service Portals [sp_portal] table.
    */
-  getPortalRecord(): GlideRecord;
+  getPortalRecord(): GlideRecord<any>;
   /**
    * If parameters are provided, returns the GlideRecord identified by the provided table
    * and Sys ID. If no parameters are provided, returns the record identified by the current URL.
@@ -127,14 +127,18 @@ declare class SNAPIGlideSPScriptable {
    * @param sys_id Optional. The Sys ID of the record to return. If no parameters are included,
    * returns the record identified by the current URL.
    */
-  getRecord(table?: string, sys_id?: string): GlideRecord;
+  getRecord(table?: string, sys_id?: string): GlideRecord<any>;
   /**
    * Copies display values for the specified fields into the data parameter.
    * @param data The display values for the specified fields are copied to this object.
    * @param from The GlideRecord to process.
    * @param names A comma-separated list of field names.
    */
-  getRecordDisplayValues(data: any, from: GlideRecord, names: string): void;
+  getRecordDisplayValues(
+    data: any,
+    from: GlideRecord<any>,
+    names: string,
+  ): void;
   /**
    * For the specified fields, copies the element's name, display value, and value into the
    * data parameter.
@@ -143,7 +147,7 @@ declare class SNAPIGlideSPScriptable {
    * @param from The GlideRecord to process.
    * @param names A comma-separated list of field names.
    */
-  getRecordElements(data: any, from: GlideRecord, names: string): void;
+  getRecordElements(data: any, from: GlideRecord<any>, names: string): void;
   /**
    * Copies values for the specified field names from the GlideRecord into the data
    * parameter.
@@ -151,7 +155,7 @@ declare class SNAPIGlideSPScriptable {
    * @param from The GlideRecord to process.
    * @param names A comma-separated list of field names.
    */
-  getRecordValues(data: any, from: GlideRecord, names: string): void;
+  getRecordValues(data: any, from: GlideRecord<any>, names: string): void;
   /**
    * Returns Service Catalog
    * variables associated with a record in String format.
@@ -161,7 +165,10 @@ declare class SNAPIGlideSPScriptable {
    * through a record producer.
    * @param includeNilResponses Optional. If true, the API includes variables with no user-defined value.
    */
-  getRecordVariables(gr: GlideRecord, includeNilResponses?: boolean): string;
+  getRecordVariables(
+    gr: GlideRecord<any>,
+    includeNilResponses?: boolean,
+  ): string;
   /**
    * Returns an array of Service Catalog variables associated
    * with a record.
@@ -171,7 +178,10 @@ declare class SNAPIGlideSPScriptable {
    * through a record producer.
    * @param includeNilResponses Optional. If true, the API includes variables with no user-defined value.
    */
-  getRecordVariablesArray(gr: GlideRecord, includeNilResponses?: boolean): any;
+  getRecordVariablesArray(
+    gr: GlideRecord<any>,
+    includeNilResponses?: boolean,
+  ): any;
   /**
    * Gets the activity stream for the specified record. This method works on tables that
    * extend the task table.
