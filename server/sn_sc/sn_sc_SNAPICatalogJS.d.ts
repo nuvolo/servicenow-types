@@ -40,7 +40,7 @@ declare class sn_sc_SNAPICatalogJS {
   /**
    * Returns the catalog gliderecord.
    */
-  getGr(): GlideRecord;
+  getGr(): GlideRecord<any>;
   /**
    * Returns the catalog header icon.
    */

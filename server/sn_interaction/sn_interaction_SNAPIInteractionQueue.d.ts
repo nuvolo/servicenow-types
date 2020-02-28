@@ -8,7 +8,7 @@ declare class sn_interaction_SNAPIInteractionQueue {
    * Get an existing interaction queue by sys_id.
    * @param queue Queue from the interaction_queue table.
    */
-  get(queue: GlideRecord): any;
+  get(queue: GlideRecord<any>): any;
   /**
    * Returns a list of agents who are online and assigned to a particular queue.
    */
@@ -17,7 +17,7 @@ declare class sn_interaction_SNAPIInteractionQueue {
    * Check if a user is an agent for a queue.
    * @param queue Sys ID for a queue in the interaction_queue table.
    */
-  isAgentFor(queue: GlideRecord): boolean;
+  isAgentFor(queue: GlideRecord<any>): boolean;
   /**
    * Find out whether the queue is in schedule.
    */

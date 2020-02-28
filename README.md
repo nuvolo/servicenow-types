@@ -16,6 +16,43 @@ Currently there are three type packages available `server`,`client`,and `util`.
 
 This contains the server-side types for ServiceNow's backend such as `GlideRecord`, `GlideAggregate` and so on.
 
+#### GlideRecord as a generic type
+
+GlideRecord has been converted to a generic type, that means that you can get some really rich type completions by creating types for your tables!
+
+```typescript
+import { GlideRecord, GlideElement } from '@nuvolo/servicenow-types';
+import { ReferenceGlideElement } from '@nuvolo/servicenow-types/util';
+
+interface MyTableOne {
+  field_one: GlideElement;
+  field_two: ReferenceGlideElement<MyTableTwo>;
+}
+
+interface MyTableTwo {
+  field_three: GlideElement;
+}
+
+// Set up a GlideRecord for my_table_one and pass the type for that table
+const myTableGR = new GlideRecord<MyTableOne>('my_table_one');
+/**
+ * Methods like addQuery will:
+ * 1. Suggest fields from the table
+ * 2. Prevent using fields that aren't on the table
+ * 3. Suggest operators
+ */
+myTableGR.addQuery('field_one', '=', 'asdf');
+myTableGR.query();
+/**
+ * The Gliderecord will:
+ * 1. Expose field properties as type GlideElement or ReferenceGlideElement,
+ *    which makes you use getValue/setValue.
+ * 2. Correctly resolve getRefRecord on ReferenceGlideElements
+ *    (tableTwoGR is now a GlideRecord for MyTableTwo)
+ */
+const tableTwoGR = myTableGR.field_two.getRefRecord();
+```
+
 ### Client
 
 This contains client-side types for ServiceNow such as `GlideAjax`.
@@ -23,22 +60,6 @@ This contains client-side types for ServiceNow such as `GlideAjax`.
 ### Util
 
 This package is for convenience types.
-
-#### TypedGR
-
-`TypedGR` is a utility type for creating more useful GlideRecord interactions. It can be combined with `ReferenceGlideElement` to make `getRefRecord()` work really well. It is a generic, which means you can create interfaces for your table structures and get type inferences for them.
-
-```typescript
-import { GlideRecord, GlideElement } from "@nuvolo/servicenow-types/server";
-import { TypedGR } from "@nuvolo/servicenow-types/util";
-//interface for my_table. All properties are GlideElements
-interface my_table {
-  test: GlideElement;
-  test2: GlideElement;
-}
-//gr will now suggest test and test2 as properties
-let gr = new GlideRecord("my_table") as TypedGR<my_table>;
-```
 
 #### ReferenceGlideElement
 

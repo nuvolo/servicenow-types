@@ -15,10 +15,10 @@ declare class sn_notification_SNAPIMessaging {
    * Messaging Contents record does not use a target table, set the value to null.
    */
   send(
-    messagingApplication: GlideRecord,
+    messagingApplication: GlideRecord<any>,
     recipient: string,
-    messagingContent: GlideRecord,
-    target: GlideRecord
+    messagingContent: GlideRecord<any>,
+    target: GlideRecord<any>
   ): void;
 }
 export { sn_notification_SNAPIMessaging };

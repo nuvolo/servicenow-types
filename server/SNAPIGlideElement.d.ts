@@ -102,7 +102,7 @@ declare class SNAPIGlideElement {
   /**
    * Returns a GlideRecord object for a given reference element.
    */
-  getRefRecord(): GlideRecord;
+  getRefRecord(): GlideRecord<any>;
   /**
    * Returns the name of the table on which the field resides.
    */

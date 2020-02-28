@@ -9,7 +9,7 @@ declare class sn_clotho_SNAPIClient {
    * deleted.
    * @param metric The name of the metric.
    */
-  deleteSeries(gr: GlideRecord, metric: string): void;
+  deleteSeries(gr: GlideRecord<any>, metric: string): void;
   /**
    * Save metric data to the MetricBase database.
    * @param metricData A DataBuilder object containing metric data.

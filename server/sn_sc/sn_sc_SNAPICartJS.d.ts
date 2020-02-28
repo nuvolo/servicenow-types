@@ -54,7 +54,7 @@ declare class sn_sc_SNAPICartJS {
    * Returns the GlideRecord for the cart item (sc_cart_item) in the current
    * cart.
    */
-  getCartItems(): GlideRecord;
+  getCartItems(): GlideRecord<any>;
   /**
    * Gets the delivery address for the current cart.
    */
