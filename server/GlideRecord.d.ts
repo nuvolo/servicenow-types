@@ -69,7 +69,7 @@ declare class GlideRecordBase<T> extends SNAPIGlideRecord {
    * Retrieves the string value of an underlying element in a field.
    * @param fieldName The name of the field to get the value from.
    */
-  getValue(fieldName: FieldType<T>): string;
+  getValue(fieldName: FieldType<T>): string | null;
 
   /**
    * Specifies an orderBy column.
