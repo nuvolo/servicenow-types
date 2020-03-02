@@ -1,5 +1,6 @@
 import { SNAPIGlideQueryCondition } from './SNAPIGlideQueryCondition';
-declare class GlideQueryCondition extends SNAPIGlideQueryCondition {
+import { QueryOperator, FieldType } from '../util';
+declare class GlideQueryCondition<T> extends SNAPIGlideQueryCondition {
   /**
    * Adds an AND condition to the current condition.
    * @param name The name of a field.
@@ -7,12 +8,12 @@ declare class GlideQueryCondition extends SNAPIGlideQueryCondition {
    * condition uses an equals operator.
    * @param value The value to query on.
    */
-  addCondition(name: string, value: any): GlideQueryCondition;
+  addCondition(name: FieldType<T>, value: any): GlideQueryCondition<T>;
   addCondition(
-    name: string,
-    oper: string | undefined,
-    value: any
-  ): GlideQueryCondition;
+    name: FieldType<T>,
+    oper: QueryOperator | undefined,
+    value: any,
+  ): GlideQueryCondition<T>;
   /**
    * Appends a 2-or-3 parameter OR condition to an existing GlideQueryCondition.
    * @param name Field name
@@ -53,11 +54,11 @@ declare class GlideQueryCondition extends SNAPIGlideQueryCondition {
    * contain a minimum of two elements. Single element arrays are not
    * supported.
    */
-  addOrCondition(name: string, value: any): GlideQueryCondition;
+  addOrCondition(name: FieldType<T>, value: any): GlideQueryCondition<T>;
   addOrCondition(
-    name: string,
-    oper: string | undefined,
-    value: any
-  ): GlideQueryCondition;
+    name: FieldType<T>,
+    oper: QueryOperator | undefined,
+    value: any,
+  ): GlideQueryCondition<T>;
 }
 export { GlideQueryCondition };
