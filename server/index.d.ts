@@ -38,6 +38,7 @@ export { GlideRecord } from './GlideRecord';
 export { GlideSchedule } from './GlideSchedule';
 export { GlideScopedEvaluator } from './GlideScopedEvaluator';
 export { GlideScriptableInputStream } from './GlideScriptableInputStream';
+export { GlideScriptedExtensionPoint } from './GlideScriptedExtensionPoint'
 export { GlideScriptedProcessor } from './GlideScriptedProcessor';
 export { GlideSecureRandomUtil } from './GlideSecureRandomUtil';
 export { GlideSecurityUtils } from './GlideSecurityUtils';
