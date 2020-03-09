@@ -18,6 +18,10 @@ declare class GlideFilter extends SNAPIGlideFilter {
    *
    * Default: true
    */
-  static checkRecord(gr: GlideRecord, filter: string, match?: boolean): boolean;
+  static checkRecord(
+    gr: GlideRecord<any>,
+    filter: string,
+    match?: boolean,
+  ): boolean;
 }
 export { GlideFilter };

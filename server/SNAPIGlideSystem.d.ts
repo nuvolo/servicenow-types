@@ -96,7 +96,7 @@ declare class SNAPIGlideSystem {
     param2?: any,
     param3?: any,
     param4?: any,
-    param5?: any
+    param5?: any,
   ): void;
   /**
    * Returns the date and time for the end of last month in GMT.
@@ -153,7 +153,7 @@ declare class SNAPIGlideSystem {
     param2?: any,
     param3?: any,
     param4?: any,
-    param5?: any
+    param5?: any,
   ): void;
   /**
    * Queues an event for the event manager.
@@ -168,7 +168,7 @@ declare class SNAPIGlideSystem {
     instance: any,
     parm1?: string,
     parm2?: string,
-    queue?: string
+    queue?: string,
   ): void;
   /**
    * Queues an event for the event manager at a specified date and time.
@@ -183,13 +183,13 @@ declare class SNAPIGlideSystem {
     instance: any,
     parm1: string | undefined,
     parm2: string | undefined,
-    expiration: any
+    expiration: any,
   ): void;
   /**
    * Executes a job for a scoped application.
    * @param job The job to be run.
    */
-  executeNow(job: GlideRecord): string;
+  executeNow(job: GlideRecord<any>): string;
   /**
    * Generates a GUID that can be used when a unique identifier is required.
    */
@@ -319,7 +319,7 @@ declare class SNAPIGlideSystem {
     param2?: any,
     param3?: any,
     param4?: any,
-    param5?: any
+    param5?: any,
   ): void;
   /**
    * Determines if debugging is active for a specific scope.
@@ -425,7 +425,7 @@ declare class SNAPIGlideSystem {
     param2?: any,
     param3?: any,
     param4?: any,
-    param5?: any
+    param5?: any,
   ): void;
   /**
    * Takes an XML string and returns a JSON object.

@@ -34,7 +34,7 @@ declare class SNAPIGlideForm {
     fieldName: string,
     icon: string,
     title: string,
-    color: string
+    color: string,
   ): void;
   /**
    * Displays the error message at the top of the form.
@@ -64,7 +64,7 @@ declare class SNAPIGlideForm {
     fieldName: string,
     choiceValue: string,
     choiceLabel: string,
-    choiceIndex: number
+    choiceIndex: number,
   ): void;
   /**
    * Removes all informational and error messages from the top of the form.
@@ -259,7 +259,7 @@ declare class SNAPIGlideForm {
     fieldName: string,
     icon: string,
     title: string,
-    color: string
+    color: string,
   ): void;
   /**
    * Removes the specified option from the choice list.
@@ -375,7 +375,7 @@ declare class SNAPIGlideForm {
     field: string,
     message: string,
     type: string,
-    scrollForm: boolean
+    scrollForm: boolean,
   ): void;
   /**
    * Displays the specified related list on the form.

@@ -1,6 +1,6 @@
 {
   "name": "@nuvolo/servicenow-types",
-  "version": "0.0.6",
+  "version": "0.1.0-alpha.3",
   "description": "",
   "main": "index.js",
   "scripts": {
@@ -11,8 +11,6 @@
   "license": "MIT",
   "dependencies": {},
   "devDependencies": {
-    "@nuvolo/eslint-config": "0.0.11",
-    "@nuvolo/prettier-config": "0.0.11",
     "@types/dotenv": "^6.1.1",
     "@types/node": "^12.7.4",
     "@types/prettier": "^1.18.2",
