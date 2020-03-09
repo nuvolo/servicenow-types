@@ -5,7 +5,7 @@ declare class GlideAction {
    * @param target takes a GlideRecord object or string query
    * Examples from official ServiceNow documentation can be seen on 'Create a UI routing action' tutorial
    */
-  setRedirectURL(target: GlideRecord | string): void;
+  setRedirectURL(target: GlideRecord<any> | string): void;
 }
 
 export { GlideAction };

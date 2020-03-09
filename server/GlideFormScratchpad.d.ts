@@ -1,5 +1,3 @@
 import { SNAPIGlideFormScratchpad } from './SNAPIGlideFormScratchpad';
-declare class GlideFormScratchpad extends SNAPIGlideFormScratchpad {
-  [name: string]: any;
-}
+declare class GlideFormScratchpad extends SNAPIGlideFormScratchpad {}
 export { GlideFormScratchpad };
