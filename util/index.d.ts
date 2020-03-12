@@ -12,6 +12,8 @@ declare class TypedRESTAPIRequest<T> extends sn_ws.RESTAPIRequest {
   body: TypedRequestBody<T>;
 }
 
+type FieldType<T> = Extract<keyof T, string>;
+
 /**
  * Operators available for filters and queries.
  * https://docs.servicenow.com/bundle/newyork-platform-user-interface/page/use/common-ui-elements/reference/r_OpAvailableFiltersQueries.html
@@ -56,4 +58,4 @@ type QueryOperator =
   | 'CHANGESFROM'
   | 'CHANGESTO';
 
-export { ReferenceGlideElement, TypedRESTAPIRequest, QueryOperator };
+export { ReferenceGlideElement, TypedRESTAPIRequest, FieldType, QueryOperator };

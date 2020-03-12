@@ -5,7 +5,7 @@ declare class SNAPIGlideRecord {
   /**
    * Adds a filter to return active records.
    */
-  addActiveQuery(): GlideQueryCondition;
+  addActiveQuery(): GlideQueryCondition<any>;
   /**
    * Adds an encoded query to other queries that may have been set.
    * @param query An encoded query
@@ -27,27 +27,27 @@ declare class SNAPIGlideRecord {
   addJoinQuery(
     joinTable: string,
     primaryField?: any,
-    joinTableField?: any
-  ): GlideQueryCondition;
+    joinTableField?: any,
+  ): GlideQueryCondition<any>;
   /**
    * A filter that specifies records where the value of the field passed in the parameter is
    * not null.
    * @param fieldName Name of the field to check.
    */
-  addNotNullQuery(fieldName: string): GlideQueryCondition;
+  addNotNullQuery(fieldName: string): GlideQueryCondition<any>;
   /**
    * Adds a filter to return records where the value of the specified field is
    * null.
    * @param fieldName Name of the field to check.
    */
-  addNullQuery(fieldName: string): GlideQueryCondition;
+  addNullQuery(fieldName: string): GlideQueryCondition<any>;
   /**
    * Provides the ability to build a request, which when executed, returns the rows from the
    * specified table, that match the request.
    * @param name Table field name.
    * @param value Value on which to query (not case-sensitive).
    */
-  addQuery(name: string, value: any): GlideQueryCondition;
+  addQuery(name: string, value: any): GlideQueryCondition<any>;
   /**
    * Provides the ability to build a request, which when executed, returns the rows from the
    * specified table, that match the request.
@@ -91,12 +91,16 @@ declare class SNAPIGlideRecord {
    *
    * @param value Value on which to query (not case-sensitive).
    */
-  addQuery(name: string, operator: string, value: any): GlideQueryCondition;
+  addQuery(
+    name: string,
+    operator: string,
+    value: any,
+  ): GlideQueryCondition<any>;
   /**
    * Provides the ability to build a request, which when executed, returns the rows from the
    * specified table, that match the request.
    */
-  addQuery(): GlideQueryCondition;
+  addQuery(): GlideQueryCondition<any>;
   /**
    * Determines if the Access Control Rules, which include the user's roles, permit
    * inserting new records in this table.
