@@ -16,46 +16,21 @@ type FieldType<T> = Extract<keyof T, string>;
 
 /**
  * Operators available for filters and queries.
- * https://docs.servicenow.com/bundle/newyork-platform-user-interface/page/use/common-ui-elements/reference/r_OpAvailableFiltersQueries.html
+ * https://developer.servicenow.com/dev.do#!/reference/api/orlando/server/r_ScopedGlideRecordAddQuery_String_String_Object
  */
 type QueryOperator =
-  | 'STARTSWITH'
-  | 'ENDSWITH'
-  | '%'
-  | 'LIKE'
-  | '*'
-  | 'NOTLIKE'
-  | '!*'
   | '='
   | '!='
-  | 'ISEMPTY'
-  | 'ISNOTEMPTY'
-  | 'ANYTHING'
-  | 'EMPTYSTRING'
-  | '<='
-  | '<'
-  | '>='
   | '>'
-  | 'BETWEEN'
-  | 'SAMEAS'
-  | 'NSAMEAS'
-  | 'DYNAMIC'
-  | 'ONToday'
-  | 'NOTONToday'
-  | 'DATEPART'
-  | 'RELATIVEGE'
-  | 'RELATIVELE'
-  | 'RELATIVEGT'
-  | 'RELATIVELT'
-  | 'RELATIVEEE'
-  | 'MORETHAN'
-  | 'LESSTHAN'
-  | 'GT_FIELD'
-  | 'LT_FIELD'
-  | 'GT_OR_EQUALS_FIELD'
-  | 'LT_OR_EQUALS_FIELD'
-  | 'VALCHANGES'
-  | 'CHANGESFROM'
-  | 'CHANGESTO';
+  | '>='
+  | '<'
+  | '<='
+  | 'IN'
+  | 'NOT IN'
+  | 'STARTSWITCH'
+  | 'ENDSWITH'
+  | 'CONTAINS'
+  | 'DOES NOT CONTAIN'
+  | 'INSTANCEOF';
 
 export { ReferenceGlideElement, TypedRESTAPIRequest, FieldType, QueryOperator };
