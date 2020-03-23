@@ -16,6 +16,6 @@ declare class sn_sc_SNAPICatalogSearch {
     term: string,
     mobile: boolean,
     depthSearch: boolean
-  ): GlideRecord;
+  ): GlideRecord<any>;
 }
 export { sn_sc_SNAPICatalogSearch };

@@ -9,7 +9,7 @@ declare class SNAPIGlideScopedEvaluator {
    * available to the script during execution of this method.
    */
   evaluateScript(
-    grObj: GlideRecord,
+    grObj: GlideRecord<any>,
     scriptField?: string,
     variables?: any
   ): any;

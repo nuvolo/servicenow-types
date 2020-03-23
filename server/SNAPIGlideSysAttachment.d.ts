@@ -13,7 +13,7 @@ declare class SNAPIGlideSysAttachment {
     sourceTable: string,
     sourceID: string,
     targetTable: string,
-    targetID: string
+    targetID: string,
   ): string;
   /**
    * Deletes the specified attachment.
@@ -24,12 +24,12 @@ declare class SNAPIGlideSysAttachment {
    * Returns the attachment content as a string.
    * @param sysAttachment The attachment record.
    */
-  getContent(sysAttachment: GlideRecord): string;
+  getContent(sysAttachment: GlideRecord<any>): string;
   /**
    * Returns the attachment content as a string with base64 encoding.
    * @param sysAttachment The attachment record.
    */
-  getContentBase64(sysAttachment: GlideRecord): string;
+  getContentBase64(sysAttachment: GlideRecord<any>): string;
   /**
    * Returns a GlideScriptableInputStream object given the sysID of an
    * attachment.
@@ -44,10 +44,10 @@ declare class SNAPIGlideSysAttachment {
    * @param content The attachment content.
    */
   write(
-    record: GlideRecord,
+    record: GlideRecord<any>,
     fileName: string,
     contentType: string,
-    content: string
+    content: string,
   ): string;
   /**
    * Inserts an attachment for the specified record using base64 encoded
@@ -58,10 +58,10 @@ declare class SNAPIGlideSysAttachment {
    * @param content The attachment content in base64 format.
    */
   writeBase64(
-    gr: GlideRecord,
+    gr: GlideRecord<any>,
     fileName: string,
     contentType: string,
-    content: string
+    content: string,
   ): string;
   /**
    * Inserts an attachment using the input stream.
@@ -71,10 +71,10 @@ declare class SNAPIGlideSysAttachment {
    * @param content The attachment content.
    */
   writeContentStream(
-    gr: GlideRecord,
+    gr: GlideRecord<any>,
     fileName: string,
     contentType: string,
-    content: GlideScriptableInputStream
+    content: GlideScriptableInputStream,
   ): string;
 }
 export { SNAPIGlideSysAttachment };
