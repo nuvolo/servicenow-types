@@ -156,9 +156,10 @@ declare class SNAPIGlideRecord {
    */
   getClassDisplayValue(): string;
   /**
-   * Retrieves the display value for the current record.
+   * Returns the display value for the current record or specified field.
+   * @param fieldName  (Optional) Field name for which display value to return.
    */
-  getDisplayValue(): string;
+  getDisplayValue(fieldName?: string): string;
   /**
    * Returns the element's descriptor.
    */
