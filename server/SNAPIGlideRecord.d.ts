@@ -156,6 +156,10 @@ declare class SNAPIGlideRecord {
    */
   getClassDisplayValue(): string;
   /**
+   * Returns the table's display field.
+   */
+  getDisplayName(): string;
+  /**
    * Retrieves the display value for the current record.
    */
   getDisplayValue(): string;
