@@ -1,4 +1,5 @@
 import { GlideRecord } from './GlideRecord';
+import { GlideElementDescriptor } from './GlideElementDescriptor';
 declare class SNAPIGlideElement {
   /**
    * Determines if the user's role permits the creation of new records in this
@@ -71,7 +72,7 @@ declare class SNAPIGlideElement {
   /**
    * Returns the field's element descriptor.
    */
-  getED(): void;
+  getED(): GlideElementDescriptor;
   /**
    * Returns the phone number in international format.
    */
