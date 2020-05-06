@@ -1,4 +1,5 @@
 import { SNAPIGlideElement } from './SNAPIGlideElement';
+import { GlideElementDescriptor } from './GlideElementDescriptor';
 declare class GlideElement extends SNAPIGlideElement {
   // Methods to access currency fields
   // TODO:
@@ -108,5 +109,10 @@ declare class GlideElement extends SNAPIGlideElement {
    * Example: "USD"
    */
   getReferenceCurrencyCode(): string;
+
+  /**
+   * Returns the field's element descriptor.
+   */
+  getED(): GlideElementDescriptor;
 }
 export { GlideElement };
