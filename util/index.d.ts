@@ -27,7 +27,7 @@ type QueryOperator =
   | '<='
   | 'IN'
   | 'NOT IN'
-  | 'STARTSWITCH'
+  | 'STARTSWITH'
   | 'ENDSWITH'
   | 'CONTAINS'
   | 'DOES NOT CONTAIN'
