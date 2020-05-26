@@ -133,7 +133,8 @@ type GlideAggregateConstructor = {
 type GlideAggregate<
   T,
   TGroupBy extends FieldType<T> = never
-> = GlideAggregateBase<T, TGroupBy>;
+> = GlideAggregateBase<T, TGroupBy> & Pick<T, GroupByField<T, TGroupBy>>;
+
 declare const GlideAggregate: GlideAggregateConstructor;
 
 export { GlideAggregate, GroupByField, AggField };
