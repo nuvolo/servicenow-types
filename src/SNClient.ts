@@ -7,16 +7,17 @@ import {
   typeConversionMap,
   nonDependencyTypes,
   disallowedParamNames,
-  optionalParamExceptions
+  optionalParamExceptions,
+  staticMethods,
 } from './SNClientConfigObjs';
 let cookie = process.env.COOKIE;
 let userToken = process.env.USER_TOKEN;
 let client = axios.create({
   headers: {
     Cookie: cookie,
-    'X-UserToken': userToken
+    'X-UserToken': userToken,
   },
-  baseURL: 'https://developer.servicenow.com'
+  baseURL: 'https://developer.servicenow.com',
 });
 
 const CLIENT_API = 'client';
@@ -34,11 +35,11 @@ async function getRootConfig(opts: SNC.HierarchyOpts) {
             action: 'api.docs',
             data: {
               id: api,
-              release
-            }
-          })
-        }
-      }
+              release,
+            },
+          }),
+        },
+      },
     );
     return res.data.result.data;
   } catch (e) {
@@ -57,11 +58,11 @@ async function getClassInfo(classArgs: { release: string; id: string }) {
             action: 'api.docs',
             data: {
               id,
-              release
-            }
-          })
-        }
-      }
+              release,
+            },
+          }),
+        },
+      },
     );
     return res.data.result.data.class_data;
   } catch (e) {
@@ -91,13 +92,13 @@ export async function getAPIHierarchy(opts: SNC.HierarchyOpts) {
       let legacyNavbar = navbar as SNC.LegacyNavBar;
       hierarchy[NO_NAMESPACE] = await processLegacyNavbar({
         ...opts,
-        navbar: legacyNavbar
+        navbar: legacyNavbar,
       });
     } else {
       for (let namespace of navbar as SNC.NavbarItem[]) {
         namespacePromises[getNamespaceName(namespace)] = processNamespace({
           ...opts,
-          namespace
+          namespace,
         });
         await wait();
       }
@@ -126,12 +127,12 @@ async function processLegacyNavbar(opts: SNC.LegacyNavBarOpts) {
   let classPromises: Promise<SNC.ClassData>[] = [];
   for (let _class of navbar) {
     classPromises.push(
-      getClassInfo({ release, id: _class.dc_identifier || '' })
+      getClassInfo({ release, id: _class.dc_identifier || '' }),
     );
     await wait();
   }
   let classResults = await Promise.all(classPromises);
-  let classes = classResults.map(_class => {
+  let classes = classResults.map((_class) => {
     return processClass({
       ...opts,
       _class,
@@ -139,8 +140,8 @@ async function processLegacyNavbar(opts: SNC.LegacyNavBarOpts) {
         dc_identifier: '',
         items: [],
         name: NO_NAMESPACE,
-        type: 'Namespace'
-      }
+        type: 'Namespace',
+      },
     });
   });
   return { classes };
@@ -153,12 +154,12 @@ async function processClientNavBar(opts: SNC.ClientNavBarOpts) {
   let classPromises: Promise<SNC.ClassData>[] = [];
   for (let _class of clientSpace) {
     classPromises.push(
-      getClassInfo({ release, id: _class.dc_identifier || '' })
+      getClassInfo({ release, id: _class.dc_identifier || '' }),
     );
     await wait();
   }
   let classResults = await Promise.all(classPromises);
-  let classes = classResults.map(_class => {
+  let classes = classResults.map((_class) => {
     return processClass({
       ...opts,
       _class,
@@ -166,12 +167,12 @@ async function processClientNavBar(opts: SNC.ClientNavBarOpts) {
         dc_identifier: '',
         items: [],
         name: NO_NAMESPACE,
-        type: 'Namespace'
-      }
+        type: 'Namespace',
+      },
     });
   });
   hierarchy[NO_NAMESPACE] = {
-    classes
+    classes,
   };
 
   return hierarchy;
@@ -189,7 +190,7 @@ async function processNamespace(opts: SNC.NSOpts): Promise<SNC.SNApiNamespace> {
     classPromises.push(getClassInfo({ release, id: item.dc_identifier || '' }));
   }
   let classResults = await Promise.all(classPromises);
-  classes = classResults.map(_class => {
+  classes = classResults.map((_class) => {
     return processClass({ ...opts, _class });
   });
   return { classes };
@@ -204,7 +205,7 @@ function processClass(opts: SNC.ProcessClassOpts) {
     name: _class.name.split(' ')[0],
     methods,
     dependencies,
-    properties
+    properties,
   };
   return classObj;
 }
@@ -212,24 +213,30 @@ function processClass(opts: SNC.ProcessClassOpts) {
 function getMethods(opts: SNC.ProcessClassOpts) {
   let { _class } = opts;
   let methods: { [name: string]: SNC.SNClassMethod } = {};
+  let statics = staticMethods[_class.name];
   if (_class.children) {
     let methodList = _class.children.filter(
-      child => child.type === 'Method' || child.type === 'Constructor'
+      (child) => child.type === 'Method' || child.type === 'Constructor',
     );
     for (let curMethod of methodList) {
       let methodName = getMethodName(curMethod);
       if (methodName.indexOf('.') > -1) {
         continue;
       }
+      let isStatic = false;
+      if (statics && statics.indexOf(methodName) !== -1) {
+        isStatic = true;
+      }
       if (!methods.hasOwnProperty(methodName)) {
         let method: SNC.SNClassMethod = {
           description: striptags(curMethod.text) || '',
-          instances: []
+          static: isStatic,
+          instances: [],
         };
         methods[methodName] = method;
       }
       methods[methodName].instances.push(
-        processMethod({ ...opts, method: curMethod })
+        processMethod({ ...opts, method: curMethod }),
       );
     }
   }
@@ -239,11 +246,11 @@ function getMethods(opts: SNC.ProcessClassOpts) {
 function getProperties(c: SNC.ClassData): SNC.Property[] {
   if (c.children) {
     return c.children
-      .filter(child => child.type === 'Property')
-      .map(prop => {
+      .filter((child) => child.type === 'Property')
+      .map((prop) => {
         return {
           name: prop.name,
-          type: determinePropertyType(prop)
+          type: determinePropertyType(prop),
         };
       });
   }
@@ -253,7 +260,7 @@ function getProperties(c: SNC.ClassData): SNC.Property[] {
 function determinePropertyType(prop: SNC.ClassChild) {
   if (prop.children) {
     return parseType(
-      prop.children.filter(child => child.type === 'Parameter')[0].text
+      prop.children.filter((child) => child.type === 'Parameter')[0].text,
     );
   }
   return '';
@@ -278,14 +285,14 @@ function containsOptional(texts: string[]) {
 function isOptionalParam(
   opts: SNC.ProcessMethodOpts,
   param: SNC.MethodDescriptor,
-  textChecks: string[]
+  textChecks: string[],
 ) {
   let { api, method, _class } = opts;
   let curExceptions = optionalParamExceptions.get(api);
   if (curExceptions) {
     let methodName = getMethodName(method);
     let query = `${_class.name}->${methodName}->${sanitizeParamName(
-      param.name
+      param.name,
     )}`;
     if (curExceptions.has(query)) {
       return true;
@@ -309,13 +316,13 @@ function processMethod(opts: SNC.ProcessMethodOpts): SNC.SNMethodInstance {
         let strippedText2 = striptags(child.text2 || '');
         let optional = isOptionalParam(opts, child, [
           child.name,
-          strippedText2
+          strippedText2,
         ]);
         params.push({
           name: sanitizeParamName(child.name),
           type: parseType(child.text),
           description: strippedText2,
-          optional
+          optional,
         });
       }
       if (child.type === 'Return') {
@@ -326,7 +333,7 @@ function processMethod(opts: SNC.ProcessMethodOpts): SNC.SNMethodInstance {
   }
   return {
     params,
-    returns
+    returns,
   };
 }
 
@@ -354,7 +361,7 @@ function getDependencies(opts: SNC.GetDependenciesOpts) {
       depSet.add(prop.type);
     }
   }
-  depSet.forEach(cur => {
+  depSet.forEach((cur) => {
     dependencies.push({ name: cur });
   });
   return dependencies;
