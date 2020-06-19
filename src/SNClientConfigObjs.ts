@@ -1,3 +1,4 @@
+import fs from 'fs';
 //types that don't introduce dependencies
 const nonDependencyTypes = new Set<string>()
   .add('string')
@@ -32,7 +33,7 @@ const typeConversionMap: { [type: string]: RegExp } = {
   boolean: /^boolean$/i,
   any: /^object|map|mapstring|standardcredential|list|notifyaction|json|function|window|glidemenuitem|glidemodal|\s$/i,
   number: /^number|integer|int$/i,
-  'any[]': /^array|arraylist$/i
+  'any[]': /^array|arraylist$/i,
 };
 
 //disallowed param names for functions
@@ -44,16 +45,21 @@ const disallowedParamNames = new Set<string>()
 //exceptions to make function params optional when they aren't marked as such in the docs
 const optionalParamExceptions = new Map<string, Set<string>>();
 const server_exceptions = new Set<string>().add(
-  'GlideSystem->eventQueue->queue'
+  'GlideSystem->eventQueue->queue',
 );
 const client_exceptions = new Set<string>();
 optionalParamExceptions.set('server', server_exceptions);
 optionalParamExceptions.set('client', client_exceptions);
+
+const staticMethods = JSON.parse(
+  fs.readFileSync('../util/StaticMethods.json', 'utf8'),
+);
 
 export {
   incorrectTypesMap,
   typeConversionMap,
   disallowedParamNames,
   nonDependencyTypes,
-  optionalParamExceptions
+  optionalParamExceptions,
+  staticMethods,
 };

@@ -134,6 +134,7 @@ export module SNC {
 
   interface SNClassMethod {
     description: string;
+    static: boolean;
     instances: SNMethodInstance[];
   }
 

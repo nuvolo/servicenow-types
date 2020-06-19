@@ -12,7 +12,7 @@ const printer = ts.createPrinter();
 export function generateFiles(opts: TSG.Base) {
   let { hierarchy } = opts;
   let moduleMap = getModuleMap(hierarchy);
-  Object.keys(hierarchy).map(namespaceName => {
+  Object.keys(hierarchy).map((namespaceName) => {
     let namespace = hierarchy[namespaceName];
     return processNamespace({ ...opts, namespaceName, namespace, moduleMap });
   });
@@ -26,13 +26,13 @@ async function generateIndexFile(opts: TSG.GenIndexOpts) {
     '',
     ts.ScriptTarget.Latest,
     false,
-    ts.ScriptKind.TS
+    ts.ScriptKind.TS,
   );
   let importDecs = await createImportsForIndex(opts);
   let addonStatements = await processAddonsForIndex(opts);
   let exportDecs = await createExportsForIndex(opts);
   sourceFile.statements = ts.createNodeArray(
-    importDecs.concat(addonStatements, exportDecs)
+    importDecs.concat(addonStatements, exportDecs),
   );
   let filePath = path.join(getBasePath(opts), fileName);
   let parentDir = path.dirname(filePath);
@@ -71,7 +71,7 @@ async function generateNamespaceFile(opts: TSG.ProcessNSOpts) {
     '',
     ts.ScriptTarget.Latest,
     false,
-    ts.ScriptKind.TS
+    ts.ScriptKind.TS,
   );
   let exportDecs = generateExportsForNamespace(opts);
   sourceFile.statements = ts.createNodeArray(exportDecs);
@@ -95,7 +95,7 @@ async function generateAPIClass(opts: TSG.ProcessClassOpts) {
     '',
     ts.ScriptTarget.Latest,
     false,
-    ts.ScriptKind.TS
+    ts.ScriptKind.TS,
   );
 
   const declareKW = ts.createModifier(ts.SyntaxKind.DeclareKeyword);
@@ -108,7 +108,7 @@ async function generateAPIClass(opts: TSG.ProcessClassOpts) {
     prefixedClassName,
     _,
     _,
-    classMembers
+    classMembers,
   );
   let exportDec = generateExport(prefixedClassName);
   let statements = [...importDecs, classDec, exportDec];
@@ -127,15 +127,15 @@ async function generateExtendedClass(opts: TSG.ProcessClassOpts) {
     '',
     ts.ScriptTarget.Latest,
     false,
-    ts.ScriptKind.TS
+    ts.ScriptKind.TS,
   );
   let apiClass = getPrefixedClassName({ ...opts, apiClass: true });
   let importDec = generateNamedImport(apiClass, `./${apiClass}`);
   let className = getPrefixedClassName({ ...opts, apiClass: false });
   let heritageClauses = [
     ts.createHeritageClause(ts.SyntaxKind.ExtendsKeyword, [
-      ts.createExpressionWithTypeArguments(_, ts.createIdentifier(apiClass))
-    ])
+      ts.createExpressionWithTypeArguments(_, ts.createIdentifier(apiClass)),
+    ]),
   ];
   let classDec = ts.createClassDeclaration(
     _,
@@ -143,7 +143,7 @@ async function generateExtendedClass(opts: TSG.ProcessClassOpts) {
     className,
     _,
     heritageClauses,
-    []
+    [],
   );
   let exportDec = generateExport(className);
   let statements = [importDec, classDec, exportDec];
@@ -177,7 +177,7 @@ function ensurePathExists(ensurePath: string) {
 
 async function writePrettyFile(pth: string, text: string) {
   let config: prettier.Options = {
-    filepath: pth
+    filepath: pth,
   };
   let prettierConfig = await prettier.resolveConfig(process.cwd());
   if (prettierConfig) {
@@ -194,7 +194,7 @@ function getPrefixedClassName(opts: TSG.GenClassNameOpts) {
 function getPrefixedName(
   className: string,
   namespaceName: string,
-  apiClass: boolean
+  apiClass: boolean,
 ) {
   let prefix = namespaceName === NO_NAMESPACE ? '' : namespaceName + '_';
   if (apiClass) {
@@ -211,7 +211,7 @@ function generateFileName(opts: TSG.GenClassNameOpts) {
 function getImportsFromDeps(opts: TSG.GenClassNameOpts): ts.Statement[] {
   let { _class, namespaceName, apiClass, moduleMap } = opts;
   //TODO: Fix imports so they are namespace aware!!!
-  return _class.dependencies.map(dep => {
+  return _class.dependencies.map((dep) => {
     let prefixedName = getPrefixedName(dep.name, namespaceName, apiClass);
     if (moduleMap.has(dep.name)) {
       let resolvedModule = moduleMap.get(dep.name) as string;
@@ -263,17 +263,17 @@ function generateExportFrom(opts: TSG.GenExportArgs) {
 
 function generateExportsForNamespace(opts: TSG.ProcessNSOpts) {
   let { namespace, namespaceName } = opts;
-  return namespace.classes.map(_class => {
+  return namespace.classes.map((_class) => {
     let prefixedClassName = getPrefixedClassName({
       ...opts,
       _class,
-      apiClass: false
+      apiClass: false,
     });
     let expSpec = ts.createExportSpecifier(prefixedClassName, _class.name);
     let exportClause = ts.createNamedExports([expSpec]);
     let relativePath = path.relative(
       '.',
-      path.join(namespaceName, prefixedClassName)
+      path.join(namespaceName, prefixedClassName),
     );
     let relativeModulePath = `.${path.sep}${relativePath}`;
     let moduleSpecifier = ts.createStringLiteral(relativeModulePath);
@@ -284,8 +284,8 @@ function generateExportsForNamespace(opts: TSG.ProcessNSOpts) {
 async function createImportsForIndex(opts: TSG.GenIndexOpts) {
   const { hierarchy } = opts;
   return Object.keys(hierarchy)
-    .filter(ns => ns !== NO_NAMESPACE)
-    .map(namespaceName => {
+    .filter((ns) => ns !== NO_NAMESPACE)
+    .map((namespaceName) => {
       return generateStarImport(namespaceName, `./${namespaceName}`);
     }) as ts.Statement[];
 }
@@ -325,8 +325,8 @@ async function createExportsForIndex(opts: TSG.GenIndexOpts) {
         exportDecs.push(
           generateExportFrom({
             className: _class.name,
-            modulePath: _class.name
-          })
+            modulePath: _class.name,
+          }),
         );
       }
     } else {
@@ -354,26 +354,30 @@ function generateMethods(methods: SNC.SNMethodMap, _class: SNC.SNClass) {
     for (let inst of method.instances) {
       let methodId = ts.createIdentifier(methodName);
       let parameters = generateParameters(inst.params, _class);
+      let mods = [];
+      if (method.static)
+        mods.push(ts.createModifier(ts.SyntaxKind.StaticKeyword));
+
       if (methodName !== 'constructor') {
         let returnType = inst.returns
           ? generateType(inst.returns, _class)
           : ts.createKeywordTypeNode(ts.SyntaxKind.VoidKeyword);
         let genMethod = ts.createMethod(
           _,
-          _,
+          mods,
           _,
           methodId,
           _,
           _,
           parameters,
           returnType,
-          _
+          _,
         );
         ts.addSyntheticLeadingComment(
           genMethod,
           ts.SyntaxKind.MultiLineCommentTrivia,
           generateMethodComment(method, inst),
-          true
+          true,
         );
         tsMethods.push(genMethod);
       } else {
@@ -387,7 +391,7 @@ function generateMethods(methods: SNC.SNMethodMap, _class: SNC.SNClass) {
 
 function generateMethodComment(
   method: SNC.SNClassMethod,
-  instance: SNC.SNMethodInstance
+  instance: SNC.SNMethodInstance,
 ) {
   let c = comment();
   c.description(method.description);
@@ -398,7 +402,7 @@ function generateMethodComment(
 }
 
 function generateProperties(properties: SNC.Property[]) {
-  return properties.map(prop => {
+  return properties.map((prop) => {
     return ts.createProperty(_, _, prop.name, _, generateType(prop.type), _);
   });
 }
@@ -411,7 +415,7 @@ function generateParameters(params: SNC.SNMethodParam[], _class: SNC.SNClass) {
     if (param.optional && index < lastNonOptional) {
       paramType = ts.createUnionTypeNode([
         generateType(param.type),
-        generateType('undefined')
+        generateType('undefined'),
       ]);
       return ts.createParameter(_, _, _, param.name, _, paramType, _);
     } else if (param.optional && index > lastNonOptional) {
@@ -423,7 +427,7 @@ function generateParameters(params: SNC.SNMethodParam[], _class: SNC.SNClass) {
         param.name,
         questionMarkToken,
         paramType,
-        _
+        _,
       );
     } else {
       return ts.createParameter(_, _, _, param.name, _, paramType, _);
@@ -450,7 +454,7 @@ function generateType(typeName: string, _class?: SNC.SNClass): ts.TypeNode {
     .set('any', ts.createKeywordTypeNode(types.AnyKeyword))
     .set(
       'any[]',
-      ts.createArrayTypeNode(ts.createKeywordTypeNode(types.AnyKeyword))
+      ts.createArrayTypeNode(ts.createKeywordTypeNode(types.AnyKeyword)),
     )
     .set('boolean', ts.createKeywordTypeNode(types.BooleanKeyword))
     .set('undefined', ts.createKeywordTypeNode(types.UndefinedKeyword));
