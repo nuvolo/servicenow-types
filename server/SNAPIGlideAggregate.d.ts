@@ -32,7 +32,7 @@ declare class SNAPIGlideAggregate {
   addQuery(
     name: string,
     operator: string,
-    value: string,
+    value?: string,
   ): GlideQueryCondition<any>;
   /**
    * Adds a trend for a field.
