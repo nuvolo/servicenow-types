@@ -16,9 +16,9 @@ Currently there are three type packages available `server`,`client`,and `util`.
 
 This contains the server-side types for ServiceNow's backend such as `GlideRecord`, `GlideAggregate` and so on.
 
-#### GlideRecord as a generic type
+#### GlideRecord & GlideAggregate as a generic types
 
-GlideRecord has been converted to a generic type, that means that you can get some really rich type completions by creating types for your tables!
+`GlideRecord` & `GlideAggregate` have been converted to a generic types, that means that you can get some really rich type completions by creating types for your tables!
 
 ```typescript
 import { GlideRecord, GlideElement } from '@nuvolo/servicenow-types';
@@ -53,6 +53,37 @@ myTableGR.query();
 const tableTwoGR = myTableGR.field_two.getRefRecord();
 ```
 
+Additionally we can provide group by fields to `GlideAggregate`. This will provide validate that we are using the correct field names (e.g. we are not aggregating on group by field, or getting the field value of aggregation).
+
+```ts
+interface MyTable {
+  field_one: GlideElement;
+  field_two: GlideElement;
+}
+
+// Pass table type, and group by fields (in this case just 'field_one')
+const ga = new GlideAggregate<MyTable, 'field_one'>('my_table');
+
+/**
+ * 1. Suggest valid aggregation names;
+ * 2. Suggest valid field names;
+ * 3. Prevent using group by fields for aggregation;
+ * 4. Prevent using non-group by fields for grouping;
+ */
+ga.addAggregate('MAX', 'field_two');
+ga.addAggregate('COUNT');
+ga.groupBy('field_one');
+
+ga.query();
+ga.next();
+
+// Allow only group by fields to be accessible as properties of GlideAggregate
+ga.field_one.getDisplayValue();
+// Allow only non-group by fields to be aggregated
+ga.getAggregate('MAX', 'field_two');
+ga.getAggregate('COUNT');
+```
+
 ### Client
 
 This contains client-side types for ServiceNow such as `GlideAjax`.
@@ -66,8 +97,8 @@ This package is for convenience types.
 `ReferenceGlideElement` is a utility type for using `getRefRecord()`. It makes your table interfaces more powerful.
 
 ```typescript
-import { GlideRecord, GlideElement } from "@nuvolo/servicenow-types/server";
-import { TypedGR, ReferenceGlideElement } from "@nuvolo/servicenow-types/util";
+import { GlideRecord, GlideElement } from '@nuvolo/servicenow-types/server';
+import { TypedGR, ReferenceGlideElement } from '@nuvolo/servicenow-types/util';
 //interface for my_table.
 interface my_table {
   test: GlideElement;
@@ -77,7 +108,7 @@ interface my_table_two {
   test3: GlideElement;
 }
 //gr will now suggest test and test2 as properties
-let gr = new GlideRecord("my_table") as TypedGR<my_table>;
+let gr = new GlideRecord('my_table') as TypedGR<my_table>;
 //ref_gr will now suggest test3 as a property
 let ref_gr = gr.test2.getRefRecord();
 ```
@@ -87,17 +118,18 @@ let ref_gr = gr.test2.getRefRecord();
 Extended type for `sn_ws.RESTAPIRequest` that takes a type to use as the body data object.
 
 ```typescript
-import {sn_ws} from "@nuvolo/servicenow-types";
-import {TypedRESTAPIRequest} from "@nuvolo/servicenow-types/util";
-declare var request:TypedRESTAPIRequest<test>;
-declare var response:sn_ws.RESTAPIResponse;
-interface test{
-  prop1:string;
-  prop2:number;
+import { sn_ws } from '@nuvolo/servicenow-types';
+import { TypedRESTAPIRequest } from '@nuvolo/servicenow-types/util';
+declare var request: TypedRESTAPIRequest<test>;
+declare var response: sn_ws.RESTAPIResponse;
+interface test {
+  prop1: string;
+  prop2: number;
 }
-(function process(request:TypedRESTAPIRequest<test>,response:sn_ws.RESTAPIResponse) {
-
-})(request,response)
+(function process(
+  request: TypedRESTAPIRequest<test>,
+  response: sn_ws.RESTAPIResponse,
+) {})(request, response);
 ```
 
 ### How it works

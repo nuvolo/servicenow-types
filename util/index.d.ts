@@ -33,4 +33,12 @@ type QueryOperator =
   | 'DOES NOT CONTAIN'
   | 'INSTANCEOF';
 
-export { ReferenceGlideElement, TypedRESTAPIRequest, FieldType, QueryOperator };
+type Aggregation = 'COUNT' | 'SUM' | 'MIN' | 'MAX' | 'AVG';
+
+export {
+  ReferenceGlideElement,
+  TypedRESTAPIRequest,
+  FieldType,
+  QueryOperator,
+  Aggregation,
+};
