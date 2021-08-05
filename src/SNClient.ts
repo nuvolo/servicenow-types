@@ -63,7 +63,7 @@ async function getClassInfo(classArgs: { release: string; id: string }) {
         }
       }
     );
-    return res.data.result.data.class_data;
+    return res.data.result?.data?.class_data;
   } catch (e) {
     throw e;
   }
@@ -125,9 +125,10 @@ async function processLegacyNavbar(opts: SNC.LegacyNavBarOpts) {
   let { navbar, release } = opts;
   let classPromises: Promise<SNC.ClassData>[] = [];
   for (let _class of navbar) {
-    classPromises.push(
-      getClassInfo({ release, id: _class.dc_identifier || '' })
-    );
+    const classInfo = getClassInfo({ release, id: _class.dc_identifier || '' });
+    if (classInfo) {
+      classPromises.push(classInfo);
+    }
     await wait();
   }
   let classResults = await Promise.all(classPromises);
@@ -152,9 +153,12 @@ async function processClientNavBar(opts: SNC.ClientNavBarOpts) {
   let clientSpace = navbar.client as SNC.ClassData[];
   let classPromises: Promise<SNC.ClassData>[] = [];
   for (let _class of clientSpace) {
+    const classInfo = getClassInfo({ release, id: _class.dc_identifier || '' });
+    if (await classInfo) {
     classPromises.push(
       getClassInfo({ release, id: _class.dc_identifier || '' })
     );
+    }   
     await wait();
   }
   let classResults = await Promise.all(classPromises);
@@ -186,10 +190,14 @@ async function processNamespace(opts: SNC.NSOpts): Promise<SNC.SNApiNamespace> {
   let classes: SNC.SNClass[] = [];
   let classPromises = [];
   for (let item of namespace.items) {
-    classPromises.push(getClassInfo({ release, id: item.dc_identifier || '' }));
+    const classInfo = getClassInfo({ release, id: item.dc_identifier || '' });
+    if (classInfo) {
+      classPromises.push(classInfo);
+    }
   }
   let classResults = await Promise.all(classPromises);
-  classes = classResults.map(_class => {
+  const definedClasses = classResults.filter(_class => !!_class);
+  classes = definedClasses.map(_class => {
     return processClass({ ...opts, _class });
   });
   return { classes };

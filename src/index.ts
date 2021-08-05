@@ -5,7 +5,7 @@ dotenv.config({
 import { getAPIHierarchy } from './SNClient';
 import { generateFiles } from './TSGenerator';
 import { SNC } from './common';
-const release = 'madrid';
+const release = 'quebec';
 const configurations: SNC.HierarchyOpts[] = [
   { release, api: 'server', type: 'scoped' },
   { release, api: 'client', type: 'all' }
